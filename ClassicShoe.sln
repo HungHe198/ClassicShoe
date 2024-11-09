@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.10.35122.118
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClassicShoe.DATA", "ClassicShoe.DATA\ClassicShoe.DATA.csproj", "{3EA950D9-CFD7-41E4-9C85-EE9457DA63D4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ClassicShoe.DATA", "ClassicShoe.DATA\ClassicShoe.DATA.csproj", "{3EA950D9-CFD7-41E4-9C85-EE9457DA63D4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClassicShoe.APP", "ClassicShow.APP\ClassicShoe.APP.csproj", "{86A8566A-AF85-4265-A900-5A61AC182D94}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ClassicShoe.APP", "ClassicShow.APP\ClassicShoe.APP.csproj", "{86A8566A-AF85-4265-A900-5A61AC182D94}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
