@@ -13,7 +13,7 @@ namespace ClassicShow.APP
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
-            Application.Run(new DiscountManager());
+            Application.Run(new Login());
         }
     }
 }
