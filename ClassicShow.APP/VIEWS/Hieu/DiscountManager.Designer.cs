@@ -261,6 +261,7 @@
             Controls.Add(lbl_mavoucher);
             Name = "DiscountManager";
             Text = "DiscountManager";
+            Load += DiscountManager_Load;
             panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             ResumeLayout(false);

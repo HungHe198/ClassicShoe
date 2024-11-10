@@ -133,7 +133,7 @@
             // txt_mkh
             // 
             txt_mkh.Location = new Point(254, 112);
-            txt_mkh.Margin = new Padding(2, 2, 2, 2);
+            txt_mkh.Margin = new Padding(2);
             txt_mkh.Name = "txt_mkh";
             txt_mkh.Size = new Size(348, 27);
             txt_mkh.TabIndex = 7;
@@ -141,7 +141,7 @@
             // txt_ten
             // 
             txt_ten.Location = new Point(254, 176);
-            txt_ten.Margin = new Padding(2, 2, 2, 2);
+            txt_ten.Margin = new Padding(2);
             txt_ten.Name = "txt_ten";
             txt_ten.Size = new Size(348, 27);
             txt_ten.TabIndex = 8;
@@ -149,7 +149,7 @@
             // txt_email
             // 
             txt_email.Location = new Point(924, 112);
-            txt_email.Margin = new Padding(2, 2, 2, 2);
+            txt_email.Margin = new Padding(2);
             txt_email.Name = "txt_email";
             txt_email.Size = new Size(339, 27);
             txt_email.TabIndex = 9;
@@ -157,7 +157,7 @@
             // txt_sdt
             // 
             txt_sdt.Location = new Point(255, 377);
-            txt_sdt.Margin = new Padding(2, 2, 2, 2);
+            txt_sdt.Margin = new Padding(2);
             txt_sdt.Name = "txt_sdt";
             txt_sdt.Size = new Size(346, 27);
             txt_sdt.TabIndex = 10;
@@ -165,7 +165,7 @@
             // txt_dchi
             // 
             txt_dchi.Location = new Point(924, 176);
-            txt_dchi.Margin = new Padding(2, 2, 2, 2);
+            txt_dchi.Margin = new Padding(2);
             txt_dchi.Name = "txt_dchi";
             txt_dchi.Size = new Size(339, 27);
             txt_dchi.TabIndex = 11;
@@ -174,7 +174,7 @@
             // 
             rdb_nam.AutoSize = true;
             rdb_nam.Location = new Point(255, 244);
-            rdb_nam.Margin = new Padding(2, 2, 2, 2);
+            rdb_nam.Margin = new Padding(2);
             rdb_nam.Name = "rdb_nam";
             rdb_nam.Size = new Size(62, 24);
             rdb_nam.TabIndex = 12;
@@ -186,7 +186,7 @@
             // 
             rdb_nu.AutoSize = true;
             rdb_nu.Location = new Point(448, 246);
-            rdb_nu.Margin = new Padding(2, 2, 2, 2);
+            rdb_nu.Margin = new Padding(2);
             rdb_nu.Name = "rdb_nu";
             rdb_nu.Size = new Size(50, 24);
             rdb_nu.TabIndex = 13;
@@ -197,7 +197,7 @@
             // dtp_ngsinh
             // 
             dtp_ngsinh.Location = new Point(255, 309);
-            dtp_ngsinh.Margin = new Padding(2, 2, 2, 2);
+            dtp_ngsinh.Margin = new Padding(2);
             dtp_ngsinh.Name = "dtp_ngsinh";
             dtp_ngsinh.Size = new Size(348, 27);
             dtp_ngsinh.TabIndex = 14;
@@ -205,7 +205,7 @@
             // btn_them
             // 
             btn_them.Location = new Point(67, 463);
-            btn_them.Margin = new Padding(2, 2, 2, 2);
+            btn_them.Margin = new Padding(2);
             btn_them.Name = "btn_them";
             btn_them.Size = new Size(104, 45);
             btn_them.TabIndex = 15;
@@ -215,7 +215,7 @@
             // btn_sua
             // 
             btn_sua.Location = new Point(250, 463);
-            btn_sua.Margin = new Padding(2, 2, 2, 2);
+            btn_sua.Margin = new Padding(2);
             btn_sua.Name = "btn_sua";
             btn_sua.Size = new Size(104, 45);
             btn_sua.TabIndex = 16;
@@ -225,7 +225,7 @@
             // btn_xoa
             // 
             btn_xoa.Location = new Point(433, 463);
-            btn_xoa.Margin = new Padding(2, 2, 2, 2);
+            btn_xoa.Margin = new Padding(2);
             btn_xoa.Name = "btn_xoa";
             btn_xoa.Size = new Size(104, 45);
             btn_xoa.TabIndex = 17;
@@ -245,7 +245,7 @@
             // txt_diem
             // 
             txt_diem.Location = new Point(924, 309);
-            txt_diem.Margin = new Padding(2, 2, 2, 2);
+            txt_diem.Margin = new Padding(2);
             txt_diem.Name = "txt_diem";
             txt_diem.Size = new Size(339, 27);
             txt_diem.TabIndex = 19;
@@ -253,7 +253,7 @@
             // btn_hthi
             // 
             btn_hthi.Location = new Point(620, 463);
-            btn_hthi.Margin = new Padding(2, 2, 2, 2);
+            btn_hthi.Margin = new Padding(2);
             btn_hthi.Name = "btn_hthi";
             btn_hthi.Size = new Size(104, 45);
             btn_hthi.TabIndex = 20;
@@ -274,7 +274,7 @@
             // 
             cbx_loaikh.FormattingEnabled = true;
             cbx_loaikh.Location = new Point(924, 241);
-            cbx_loaikh.Margin = new Padding(2, 2, 2, 2);
+            cbx_loaikh.Margin = new Padding(2);
             cbx_loaikh.Name = "cbx_loaikh";
             cbx_loaikh.Size = new Size(339, 28);
             cbx_loaikh.TabIndex = 22;
@@ -292,7 +292,7 @@
             // txt_giamgia
             // 
             txt_giamgia.Location = new Point(924, 377);
-            txt_giamgia.Margin = new Padding(2, 2, 2, 2);
+            txt_giamgia.Margin = new Padding(2);
             txt_giamgia.Name = "txt_giamgia";
             txt_giamgia.Size = new Size(339, 27);
             txt_giamgia.TabIndex = 24;
@@ -301,7 +301,7 @@
             // 
             dataGridViewkh.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridViewkh.Location = new Point(11, 560);
-            dataGridViewkh.Margin = new Padding(2, 2, 2, 2);
+            dataGridViewkh.Margin = new Padding(2);
             dataGridViewkh.Name = "dataGridViewkh";
             dataGridViewkh.RowHeadersWidth = 62;
             dataGridViewkh.Size = new Size(1325, 282);
@@ -310,7 +310,7 @@
             // txt_tim
             // 
             txt_tim.Location = new Point(835, 473);
-            txt_tim.Margin = new Padding(2, 2, 2, 2);
+            txt_tim.Margin = new Padding(2);
             txt_tim.Name = "txt_tim";
             txt_tim.Size = new Size(346, 27);
             txt_tim.TabIndex = 26;
@@ -318,7 +318,7 @@
             // btn_timkiem
             // 
             btn_timkiem.Location = new Point(1213, 463);
-            btn_timkiem.Margin = new Padding(2, 2, 2, 2);
+            btn_timkiem.Margin = new Padding(2);
             btn_timkiem.Name = "btn_timkiem";
             btn_timkiem.Size = new Size(104, 45);
             btn_timkiem.TabIndex = 27;
@@ -371,6 +371,7 @@
             Controls.Add(label1);
             Name = "CustomerManager";
             Text = "CustomerManager";
+            Load += CustomerManager_Load;
             ((System.ComponentModel.ISupportInitialize)dataGridViewkh).EndInit();
             ResumeLayout(false);
             PerformLayout();

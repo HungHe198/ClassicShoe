@@ -309,6 +309,7 @@
             Controls.Add(groupBox1);
             Name = "Order";
             Text = " ";
+            Load += Order_Load;
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dgv_HoaDon).EndInit();
