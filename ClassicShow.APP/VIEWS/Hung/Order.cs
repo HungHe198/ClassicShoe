@@ -16,5 +16,7 @@ namespace ClassicShow.APP.VIEWS
         {
             InitializeComponent();
         }
+
+      
     }
 }
