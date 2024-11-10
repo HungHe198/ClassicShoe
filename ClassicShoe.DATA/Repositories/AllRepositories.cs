@@ -1,4 +1,5 @@
-﻿using ClassicShoe.DATA.Models;
+﻿using Azure.Messaging;
+using ClassicShoe.DATA.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -13,21 +14,38 @@ namespace ClassicShoe.DATA.Repositories
         ClassicShoeDbContext _db;
         DbSet<N> _dbSet;
 
-        public AllRepositories(ClassicShoeDbContext db, DbSet<N> dbSet)
+        public AllRepositories(ClassicShoeDbContext db)
         {
             _db = db;
-            _dbSet = dbSet;
+            _dbSet = _db.Set<N>();
         }
 
         public bool Create(N entity)
         {
-            try { return true; }
-            catch { return false; }
+            try
+            {
+                _dbSet.Add(entity);
+                _db.SaveChanges();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
         }
 
         public bool Delete(Guid id)
         {
-            try { return true; }
+            try
+            {
+                var findEntity = _dbSet.Find(id);
+                if (findEntity != null)
+                {
+                    _dbSet.Remove(findEntity);
+                    _db.SaveChanges();
+                }
+                return true;
+            }
             catch { return false; }
         }
 
@@ -38,12 +56,21 @@ namespace ClassicShoe.DATA.Repositories
 
         public N GetById(Guid id)
         {
-           return _dbSet.Find(id);
+            return _dbSet.Find(id);
         }
 
         public bool Update(Guid id, N entity)
         {
-            try { return true; }
+            try
+            {
+                var findEntity = _dbSet.Find(id);
+                if (findEntity != null)
+                {
+                    _dbSet.Update(entity);
+                    _db.SaveChanges();
+                }
+                return true;
+            }
             catch { return false; }
         }
     }

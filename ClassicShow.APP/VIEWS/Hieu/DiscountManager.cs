@@ -164,15 +164,20 @@ namespace ClassicShow.APP.VIEWS
                         string phanTramGiam = row.Cells["Phần Trăm Giảm"].Value.ToString();
                         if (phanTramGiam.Contains(searchValue))
                         {
-                            row.Visible = true;  
+                            row.Visible = true;
                         }
                         else
                         {
-                            row.Visible = false; 
+                            row.Visible = false;
                         }
                     }
                 }
             }
+        }
+
+        private void DiscountManager_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

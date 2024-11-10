@@ -41,9 +41,9 @@
             // 
             // pn_mainRender
             // 
-            pn_mainRender.Location = new Point(370, 141);
+            pn_mainRender.Location = new Point(370, 12);
             pn_mainRender.Name = "pn_mainRender";
-            pn_mainRender.Size = new Size(1400, 800);
+            pn_mainRender.Size = new Size(1400, 900);
             pn_mainRender.TabIndex = 0;
             // 
             // ptb_Logo

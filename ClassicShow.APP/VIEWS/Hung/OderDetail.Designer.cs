@@ -229,6 +229,7 @@
             Controls.Add(label1);
             Name = "OderDetail";
             Text = "OderDetail";
+            Load += OderDetail_Load;
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();

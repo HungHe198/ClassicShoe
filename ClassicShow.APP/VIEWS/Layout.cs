@@ -1,4 +1,6 @@
-﻿using ClassicShow.APP.VIEWS;
+﻿using ClassicShoe.DATA.Models;
+using ClassicShoe.DATA.Repositories;
+using ClassicShow.APP.VIEWS;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -17,10 +19,15 @@ namespace ClassicShoe.APP.VIEWS
         {
             InitializeComponent();
         }
+
+       
         // lưu lại giá trị Id nhân viên hoặc admin
         private void Layout_Load(object sender, EventArgs e)
         {
-            ShowFormInPanel(new ProductManager());
+            AllRepositories<Giay> repoG = new AllRepositories<Giay>(new ClassicShoeDbContext());
+            AllRepositories<GiayChiTiet> repoGCT = new AllRepositories<GiayChiTiet>(new ClassicShoeDbContext());
+            ProductManager newForm = new ProductManager(repoGCT, repoG);
+            ShowFormInPanel(newForm);
         }
         private void ShowFormInPanel(Form form)
         {
@@ -37,26 +44,46 @@ namespace ClassicShoe.APP.VIEWS
 
         private void btn_QLSanPham_Click(object sender, EventArgs e)
         {
-            ShowFormInPanel(new ProductManager());
+            AllRepositories<Giay> repoG = new AllRepositories<Giay>(new ClassicShoeDbContext());
+            AllRepositories<GiayChiTiet> repoGCT = new AllRepositories<GiayChiTiet>(new ClassicShoeDbContext());
+            ProductManager newForm = new ProductManager(repoGCT,repoG);
+            ShowFormInPanel(newForm);
+            
         }
 
         private void btn_QLNhanVien_Click(object sender, EventArgs e)
         {
-            ShowFormInPanel(new EmployeeManager());
+            
+            AllRepositories<NhanVien> repo = new AllRepositories<NhanVien>(new ClassicShoeDbContext());
+            EmployeeManager newForm = new EmployeeManager(repo);
+            ShowFormInPanel(newForm);
         }
 
         private void btn_QLHoaDon_Click(object sender, EventArgs e)
         {
-            ShowFormInPanel(new Order());
+            //HoaDonRepositories repo = new HoaDonRepositories(new ClassicShoeDbContext());
+            //Order orderForm = new Order(repo);
+            //ShowFormInPanel(orderForm);
+            AllRepositories<HoaDon> repo = new AllRepositories<HoaDon>(new ClassicShoeDbContext());
+            Order orderForm = new Order(repo);
+            ShowFormInPanel(orderForm);
+
         }
 
         private void btn_QLKhachHang_Click(object sender, EventArgs e)
         {
-            ShowFormInPanel(new CustomerManager());
+            
+            AllRepositories<KhachHang> repo = new AllRepositories<KhachHang>(new ClassicShoeDbContext());
+            CustomerManager newForm = new CustomerManager(repo);
+            ShowFormInPanel(newForm);
+            
         }
 
         private void btn_QLGiamGia_Click(object sender, EventArgs e)
         {
+            //AllRepositories<KhachHang> repo = new AllRepositories<KhachHang>(new ClassicShoeDbContext());
+            //CustomerManager newForm = new CustomerManager(repo);
+            //ShowFormInPanel(newForm);
             ShowFormInPanel(new DiscountManager());
         }
 
