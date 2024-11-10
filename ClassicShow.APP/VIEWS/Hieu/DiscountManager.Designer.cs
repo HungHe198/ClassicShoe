@@ -48,6 +48,7 @@
             btn_clear = new Button();
             txt_timkiem = new TextBox();
             btn_timkiem = new Button();
+            label11 = new Label();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
@@ -55,7 +56,7 @@
             // lbl_mavoucher
             // 
             lbl_mavoucher.AutoSize = true;
-            lbl_mavoucher.Location = new Point(50, 58);
+            lbl_mavoucher.Location = new Point(50, 171);
             lbl_mavoucher.Name = "lbl_mavoucher";
             lbl_mavoucher.Size = new Size(87, 20);
             lbl_mavoucher.TabIndex = 0;
@@ -64,7 +65,7 @@
             // lbl_tenma
             // 
             lbl_tenma.AutoSize = true;
-            lbl_tenma.Location = new Point(50, 101);
+            lbl_tenma.Location = new Point(50, 214);
             lbl_tenma.Name = "lbl_tenma";
             lbl_tenma.Size = new Size(57, 20);
             lbl_tenma.TabIndex = 1;
@@ -73,7 +74,7 @@
             // lbl_phantramgiam
             // 
             lbl_phantramgiam.AutoSize = true;
-            lbl_phantramgiam.Location = new Point(50, 154);
+            lbl_phantramgiam.Location = new Point(50, 267);
             lbl_phantramgiam.Name = "lbl_phantramgiam";
             lbl_phantramgiam.Size = new Size(114, 20);
             lbl_phantramgiam.TabIndex = 2;
@@ -82,7 +83,7 @@
             // lbl_ngaybatdau
             // 
             lbl_ngaybatdau.AutoSize = true;
-            lbl_ngaybatdau.Location = new Point(50, 211);
+            lbl_ngaybatdau.Location = new Point(50, 324);
             lbl_ngaybatdau.Name = "lbl_ngaybatdau";
             lbl_ngaybatdau.Size = new Size(99, 20);
             lbl_ngaybatdau.TabIndex = 3;
@@ -91,7 +92,7 @@
             // lbl_ngayketthuc
             // 
             lbl_ngayketthuc.AutoSize = true;
-            lbl_ngayketthuc.Location = new Point(50, 263);
+            lbl_ngayketthuc.Location = new Point(50, 376);
             lbl_ngayketthuc.Name = "lbl_ngayketthuc";
             lbl_ngayketthuc.Size = new Size(100, 20);
             lbl_ngayketthuc.TabIndex = 4;
@@ -99,35 +100,35 @@
             // 
             // txt_ma
             // 
-            txt_ma.Location = new Point(173, 51);
+            txt_ma.Location = new Point(173, 164);
             txt_ma.Name = "txt_ma";
             txt_ma.Size = new Size(786, 27);
             txt_ma.TabIndex = 5;
             // 
             // txt_ten
             // 
-            txt_ten.Location = new Point(173, 94);
+            txt_ten.Location = new Point(173, 207);
             txt_ten.Name = "txt_ten";
             txt_ten.Size = new Size(786, 27);
             txt_ten.TabIndex = 6;
             // 
             // txt_phantram
             // 
-            txt_phantram.Location = new Point(173, 147);
+            txt_phantram.Location = new Point(173, 260);
             txt_phantram.Name = "txt_phantram";
             txt_phantram.Size = new Size(786, 27);
             txt_phantram.TabIndex = 7;
             // 
             // dateTimePicker1
             // 
-            dateTimePicker1.Location = new Point(173, 206);
+            dateTimePicker1.Location = new Point(173, 319);
             dateTimePicker1.Name = "dateTimePicker1";
             dateTimePicker1.Size = new Size(786, 27);
             dateTimePicker1.TabIndex = 8;
             // 
             // dateTimePicker2
             // 
-            dateTimePicker2.Location = new Point(173, 256);
+            dateTimePicker2.Location = new Point(173, 369);
             dateTimePicker2.Name = "dateTimePicker2";
             dateTimePicker2.Size = new Size(786, 27);
             dateTimePicker2.TabIndex = 9;
@@ -135,24 +136,24 @@
             // panel1
             // 
             panel1.Controls.Add(dataGridView1);
-            panel1.Location = new Point(39, 398);
+            panel1.Location = new Point(12, 511);
             panel1.Name = "panel1";
-            panel1.Size = new Size(917, 235);
+            panel1.Size = new Size(1358, 330);
             panel1.TabIndex = 10;
             // 
             // dataGridView1
             // 
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Location = new Point(3, 3);
+            dataGridView1.Location = new Point(3, 21);
             dataGridView1.Name = "dataGridView1";
             dataGridView1.RowHeadersWidth = 51;
-            dataGridView1.Size = new Size(910, 229);
+            dataGridView1.Size = new Size(1325, 300);
             dataGridView1.TabIndex = 0;
             dataGridView1.CellClick += dataGridView1_CellClick;
             // 
             // textBox1
             // 
-            textBox1.Location = new Point(173, 313);
+            textBox1.Location = new Point(173, 426);
             textBox1.Name = "textBox1";
             textBox1.Size = new Size(786, 27);
             textBox1.TabIndex = 12;
@@ -160,7 +161,7 @@
             // lbl_mota
             // 
             lbl_mota.AutoSize = true;
-            lbl_mota.Location = new Point(50, 320);
+            lbl_mota.Location = new Point(50, 433);
             lbl_mota.Name = "lbl_mota";
             lbl_mota.Size = new Size(48, 20);
             lbl_mota.TabIndex = 11;
@@ -168,7 +169,7 @@
             // 
             // btn_them
             // 
-            btn_them.Location = new Point(112, 654);
+            btn_them.Location = new Point(987, 352);
             btn_them.Name = "btn_them";
             btn_them.Size = new Size(164, 44);
             btn_them.TabIndex = 13;
@@ -178,7 +179,7 @@
             // 
             // btn_sua
             // 
-            btn_sua.Location = new Point(323, 654);
+            btn_sua.Location = new Point(987, 409);
             btn_sua.Name = "btn_sua";
             btn_sua.Size = new Size(164, 44);
             btn_sua.TabIndex = 14;
@@ -188,7 +189,7 @@
             // 
             // btn_xoa
             // 
-            btn_xoa.Location = new Point(549, 654);
+            btn_xoa.Location = new Point(1157, 352);
             btn_xoa.Name = "btn_xoa";
             btn_xoa.Size = new Size(164, 44);
             btn_xoa.TabIndex = 15;
@@ -198,7 +199,7 @@
             // 
             // btn_clear
             // 
-            btn_clear.Location = new Point(769, 654);
+            btn_clear.Location = new Point(1157, 409);
             btn_clear.Name = "btn_clear";
             btn_clear.Size = new Size(164, 44);
             btn_clear.TabIndex = 16;
@@ -208,14 +209,14 @@
             // 
             // txt_timkiem
             // 
-            txt_timkiem.Location = new Point(598, 356);
+            txt_timkiem.Location = new Point(598, 469);
             txt_timkiem.Name = "txt_timkiem";
             txt_timkiem.Size = new Size(354, 27);
             txt_timkiem.TabIndex = 18;
             // 
             // btn_timkiem
             // 
-            btn_timkiem.Location = new Point(487, 356);
+            btn_timkiem.Location = new Point(487, 469);
             btn_timkiem.Name = "btn_timkiem";
             btn_timkiem.Size = new Size(94, 29);
             btn_timkiem.TabIndex = 19;
@@ -223,11 +224,22 @@
             btn_timkiem.UseVisualStyleBackColor = true;
             btn_timkiem.Click += btn_timkiem_Click;
             // 
+            // label11
+            // 
+            label11.AutoSize = true;
+            label11.Font = new Font("Arial", 24F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label11.Location = new Point(450, 28);
+            label11.Name = "label11";
+            label11.Size = new Size(324, 46);
+            label11.TabIndex = 29;
+            label11.Text = "Quản lí giảm giá";
+            // 
             // DiscountManager
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1382, 753);
+            ClientSize = new Size(1382, 853);
+            Controls.Add(label11);
             Controls.Add(btn_timkiem);
             Controls.Add(txt_timkiem);
             Controls.Add(btn_clear);
@@ -277,5 +289,6 @@
         private Button btn_clear;
         private TextBox txt_timkiem;
         private Button btn_timkiem;
+        private Label label11;
     }
 }

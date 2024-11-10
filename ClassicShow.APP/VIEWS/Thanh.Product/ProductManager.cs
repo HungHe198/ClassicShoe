@@ -16,5 +16,10 @@ namespace ClassicShow.APP.VIEWS
         {
             InitializeComponent();
         }
+
+        private void ProductManager_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

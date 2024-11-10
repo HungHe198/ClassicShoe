@@ -37,15 +37,15 @@
             label4 = new Label();
             txt_SoLuongMua = new TextBox();
             btn_addProduct = new Button();
-            label5 = new Label();
             groupBox1 = new GroupBox();
-            dataGridView1 = new DataGridView();
+            label6 = new Label();
             textBox4 = new TextBox();
+            dataGridView1 = new DataGridView();
             btn_DelSP = new Button();
             btn_EditOrder = new Button();
             btn_XacNhan = new Button();
             btn_DelOrder = new Button();
-            label6 = new Label();
+            label11 = new Label();
             groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
@@ -124,16 +124,6 @@
             btn_addProduct.Text = "Thêm vào hóa đơn";
             btn_addProduct.UseVisualStyleBackColor = true;
             // 
-            // label5
-            // 
-            label5.AutoSize = true;
-            label5.Font = new Font("Segoe UI", 48F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label5.Location = new Point(355, 9);
-            label5.Name = "label5";
-            label5.Size = new Size(698, 106);
-            label5.TabIndex = 4;
-            label5.Text = "Chi tiết đơn hàng";
-            // 
             // groupBox1
             // 
             groupBox1.Controls.Add(label6);
@@ -141,19 +131,19 @@
             groupBox1.Controls.Add(dataGridView1);
             groupBox1.Location = new Point(12, 386);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(1365, 355);
+            groupBox1.Size = new Size(1365, 455);
             groupBox1.TabIndex = 5;
             groupBox1.TabStop = false;
             groupBox1.Text = "Danh sách sản phẩm";
             // 
-            // dataGridView1
+            // label6
             // 
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Location = new Point(6, 93);
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.RowHeadersWidth = 51;
-            dataGridView1.Size = new Size(1352, 251);
-            dataGridView1.TabIndex = 0;
+            label6.AutoSize = true;
+            label6.Location = new Point(110, 54);
+            label6.Name = "label6";
+            label6.Size = new Size(70, 20);
+            label6.TabIndex = 2;
+            label6.Text = "Tìm kiếm";
             // 
             // textBox4
             // 
@@ -161,6 +151,15 @@
             textBox4.Name = "textBox4";
             textBox4.Size = new Size(822, 27);
             textBox4.TabIndex = 1;
+            // 
+            // dataGridView1
+            // 
+            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridView1.Location = new Point(6, 93);
+            dataGridView1.Name = "dataGridView1";
+            dataGridView1.RowHeadersWidth = 51;
+            dataGridView1.Size = new Size(1352, 356);
+            dataGridView1.TabIndex = 0;
             // 
             // btn_DelSP
             // 
@@ -198,22 +197,23 @@
             btn_DelOrder.Text = "Hủy đơn hàng";
             btn_DelOrder.UseVisualStyleBackColor = true;
             // 
-            // label6
+            // label11
             // 
-            label6.AutoSize = true;
-            label6.Location = new Point(110, 54);
-            label6.Name = "label6";
-            label6.Size = new Size(70, 20);
-            label6.TabIndex = 2;
-            label6.Text = "Tìm kiếm";
+            label11.AutoSize = true;
+            label11.Font = new Font("Arial", 24F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label11.Location = new Point(490, 31);
+            label11.Name = "label11";
+            label11.Size = new Size(342, 46);
+            label11.TabIndex = 29;
+            label11.Text = "Chi tiết đơn hàng";
             // 
             // OderDetail
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1382, 753);
+            ClientSize = new Size(1382, 853);
+            Controls.Add(label11);
             Controls.Add(groupBox1);
-            Controls.Add(label5);
             Controls.Add(btn_DelOrder);
             Controls.Add(btn_XacNhan);
             Controls.Add(btn_EditOrder);
@@ -247,7 +247,6 @@
         private Label label4;
         private TextBox txt_SoLuongMua;
         private Button btn_addProduct;
-        private Label label5;
         private GroupBox groupBox1;
         private DataGridView dataGridView1;
         private TextBox textBox4;
@@ -256,5 +255,6 @@
         private Button btn_XacNhan;
         private Button btn_DelOrder;
         private Label label6;
+        private Label label11;
     }
 }
