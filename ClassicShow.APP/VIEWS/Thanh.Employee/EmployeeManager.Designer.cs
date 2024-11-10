@@ -50,13 +50,14 @@
             button5 = new Button();
             dataGridView1 = new DataGridView();
             label8 = new Label();
+            label11 = new Label();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
             // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(26, 25);
+            label1.Location = new Point(26, 125);
             label1.Name = "label1";
             label1.Size = new Size(104, 20);
             label1.TabIndex = 0;
@@ -65,7 +66,7 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(26, 85);
+            label2.Location = new Point(26, 185);
             label2.Name = "label2";
             label2.Size = new Size(100, 20);
             label2.TabIndex = 1;
@@ -74,7 +75,7 @@
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(26, 147);
+            label3.Location = new Point(26, 247);
             label3.Name = "label3";
             label3.Size = new Size(72, 20);
             label3.TabIndex = 2;
@@ -83,7 +84,7 @@
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(26, 213);
+            label4.Location = new Point(26, 313);
             label4.Name = "label4";
             label4.Size = new Size(102, 20);
             label4.TabIndex = 3;
@@ -91,28 +92,28 @@
             // 
             // textBox1
             // 
-            textBox1.Location = new Point(153, 22);
+            textBox1.Location = new Point(153, 122);
             textBox1.Name = "textBox1";
             textBox1.Size = new Size(295, 27);
             textBox1.TabIndex = 4;
             // 
             // textBox2
             // 
-            textBox2.Location = new Point(153, 78);
+            textBox2.Location = new Point(153, 178);
             textBox2.Name = "textBox2";
             textBox2.Size = new Size(295, 27);
             textBox2.TabIndex = 5;
             // 
             // textBox3
             // 
-            textBox3.Location = new Point(153, 147);
+            textBox3.Location = new Point(153, 247);
             textBox3.Name = "textBox3";
             textBox3.Size = new Size(295, 27);
             textBox3.TabIndex = 6;
             // 
             // textBox4
             // 
-            textBox4.Location = new Point(153, 210);
+            textBox4.Location = new Point(153, 310);
             textBox4.Name = "textBox4";
             textBox4.Size = new Size(295, 27);
             textBox4.TabIndex = 7;
@@ -120,7 +121,7 @@
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new Point(858, 33);
+            label5.Location = new Point(858, 133);
             label5.Name = "label5";
             label5.Size = new Size(46, 20);
             label5.TabIndex = 8;
@@ -129,7 +130,7 @@
             // label6
             // 
             label6.AutoSize = true;
-            label6.Location = new Point(858, 85);
+            label6.Location = new Point(858, 185);
             label6.Name = "label6";
             label6.Size = new Size(76, 20);
             label6.TabIndex = 9;
@@ -138,7 +139,7 @@
             // label7
             // 
             label7.AutoSize = true;
-            label7.Location = new Point(858, 150);
+            label7.Location = new Point(858, 250);
             label7.Name = "label7";
             label7.Size = new Size(57, 20);
             label7.TabIndex = 10;
@@ -146,14 +147,14 @@
             // 
             // textBox5
             // 
-            textBox5.Location = new Point(974, 30);
+            textBox5.Location = new Point(974, 130);
             textBox5.Name = "textBox5";
             textBox5.Size = new Size(340, 27);
             textBox5.TabIndex = 11;
             // 
             // textBox6
             // 
-            textBox6.Location = new Point(974, 144);
+            textBox6.Location = new Point(974, 244);
             textBox6.Name = "textBox6";
             textBox6.Size = new Size(340, 27);
             textBox6.TabIndex = 12;
@@ -161,14 +162,14 @@
             // dateTimePicker1
             // 
             dateTimePicker1.Format = DateTimePickerFormat.Custom;
-            dateTimePicker1.Location = new Point(974, 85);
+            dateTimePicker1.Location = new Point(974, 185);
             dateTimePicker1.Name = "dateTimePicker1";
             dateTimePicker1.Size = new Size(340, 27);
             dateTimePicker1.TabIndex = 13;
             // 
             // button1
             // 
-            button1.Location = new Point(26, 293);
+            button1.Location = new Point(26, 393);
             button1.Name = "button1";
             button1.Size = new Size(144, 40);
             button1.TabIndex = 14;
@@ -177,7 +178,7 @@
             // 
             // button2
             // 
-            button2.Location = new Point(225, 292);
+            button2.Location = new Point(225, 392);
             button2.Name = "button2";
             button2.Size = new Size(149, 40);
             button2.TabIndex = 15;
@@ -186,7 +187,7 @@
             // 
             // button3
             // 
-            button3.Location = new Point(432, 293);
+            button3.Location = new Point(432, 393);
             button3.Name = "button3";
             button3.Size = new Size(149, 40);
             button3.TabIndex = 16;
@@ -195,7 +196,7 @@
             // 
             // button4
             // 
-            button4.Location = new Point(638, 292);
+            button4.Location = new Point(638, 392);
             button4.Name = "button4";
             button4.Size = new Size(156, 40);
             button4.TabIndex = 17;
@@ -204,7 +205,7 @@
             // 
             // textBox7
             // 
-            textBox7.Location = new Point(947, 292);
+            textBox7.Location = new Point(947, 392);
             textBox7.Multiline = true;
             textBox7.Name = "textBox7";
             textBox7.Size = new Size(261, 40);
@@ -212,7 +213,7 @@
             // 
             // button5
             // 
-            button5.Location = new Point(1227, 292);
+            button5.Location = new Point(1227, 392);
             button5.Name = "button5";
             button5.Size = new Size(143, 41);
             button5.TabIndex = 19;
@@ -222,26 +223,37 @@
             // dataGridView1
             // 
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Location = new Point(0, 392);
+            dataGridView1.Location = new Point(12, 492);
             dataGridView1.Name = "dataGridView1";
             dataGridView1.RowHeadersWidth = 51;
-            dataGridView1.Size = new Size(1382, 362);
+            dataGridView1.Size = new Size(1358, 349);
             dataGridView1.TabIndex = 20;
             // 
             // label8
             // 
             label8.AutoSize = true;
-            label8.Location = new Point(0, 369);
+            label8.Location = new Point(0, 469);
             label8.Name = "label8";
             label8.Size = new Size(151, 20);
             label8.TabIndex = 21;
             label8.Text = "Danh Sách Nhân Viên";
             // 
+            // label11
+            // 
+            label11.AutoSize = true;
+            label11.Font = new Font("Arial", 24F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label11.Location = new Point(476, 9);
+            label11.Name = "label11";
+            label11.Size = new Size(342, 46);
+            label11.TabIndex = 29;
+            label11.Text = "Quản lí nhân viên";
+            // 
             // EmployeeManager
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1382, 753);
+            ClientSize = new Size(1382, 853);
+            Controls.Add(label11);
             Controls.Add(label8);
             Controls.Add(dataGridView1);
             Controls.Add(button5);
@@ -295,5 +307,6 @@
         private Button button5;
         private DataGridView dataGridView1;
         private Label label8;
+        private Label label11;
     }
 }

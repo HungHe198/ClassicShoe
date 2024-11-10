@@ -53,7 +53,7 @@
             dtp_NgayTao = new DateTimePicker();
             txt_TrangThai = new TextBox();
             label9 = new Label();
-            label10 = new Label();
+            label11 = new Label();
             groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgv_HoaDon).BeginInit();
             groupBox2.SuspendLayout();
@@ -66,7 +66,7 @@
             groupBox1.Controls.Add(dgv_HoaDon);
             groupBox1.Location = new Point(12, 337);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(1358, 404);
+            groupBox1.Size = new Size(1358, 511);
             groupBox1.TabIndex = 0;
             groupBox1.TabStop = false;
             groupBox1.Text = "Danh sách hóa đơn";
@@ -94,7 +94,7 @@
             dgv_HoaDon.Location = new Point(6, 82);
             dgv_HoaDon.Name = "dgv_HoaDon";
             dgv_HoaDon.RowHeadersWidth = 51;
-            dgv_HoaDon.Size = new Size(1346, 315);
+            dgv_HoaDon.Size = new Size(1346, 422);
             dgv_HoaDon.TabIndex = 0;
             // 
             // txt_TenNhanVien
@@ -273,22 +273,22 @@
             label9.TabIndex = 2;
             label9.Text = "Trạng thái";
             // 
-            // label10
+            // label11
             // 
-            label10.AutoSize = true;
-            label10.Font = new Font("Segoe UI", 48F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label10.Location = new Point(322, 4);
-            label10.Name = "label10";
-            label10.Size = new Size(428, 106);
-            label10.TabIndex = 5;
-            label10.Text = "HÓA ĐƠN";
+            label11.AutoSize = true;
+            label11.Font = new Font("Arial", 24F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label11.Location = new Point(391, 25);
+            label11.Name = "label11";
+            label11.Size = new Size(318, 46);
+            label11.TabIndex = 29;
+            label11.Text = "Quản lí hóa đơn";
             // 
             // Order
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1382, 753);
-            Controls.Add(label10);
+            ClientSize = new Size(1382, 853);
+            Controls.Add(label11);
             Controls.Add(dtp_NgayTao);
             Controls.Add(groupBox2);
             Controls.Add(label5);
@@ -344,6 +344,6 @@
         private DateTimePicker dtp_NgayTao;
         private TextBox txt_TrangThai;
         private Label label9;
-        private Label label10;
+        private Label label11;
     }
 }
