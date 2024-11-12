@@ -44,7 +44,6 @@
             textBox3 = new TextBox();
             textBox4 = new TextBox();
             dateTimePicker1 = new DateTimePicker();
-            comboBox1 = new ComboBox();
             comboBox2 = new ComboBox();
             comboBox3 = new ComboBox();
             comboBox4 = new ComboBox();
@@ -64,6 +63,7 @@
             btn_addThanGiay = new Button();
             btn_addLoaiGiay = new Button();
             btn_addHang = new Button();
+            textBox6 = new TextBox();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
             // 
@@ -201,14 +201,6 @@
             dateTimePicker1.Name = "dateTimePicker1";
             dateTimePicker1.Size = new Size(291, 27);
             dateTimePicker1.TabIndex = 15;
-            // 
-            // comboBox1
-            // 
-            comboBox1.FormattingEnabled = true;
-            comboBox1.Location = new Point(191, 418);
-            comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(291, 28);
-            comboBox1.TabIndex = 16;
             // 
             // comboBox2
             // 
@@ -376,11 +368,19 @@
             btn_addHang.Text = "Thêm";
             btn_addHang.UseVisualStyleBackColor = true;
             // 
+            // textBox6
+            // 
+            textBox6.Location = new Point(191, 423);
+            textBox6.Name = "textBox6";
+            textBox6.Size = new Size(291, 27);
+            textBox6.TabIndex = 32;
+            // 
             // ProductManager
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1382, 853);
+            Controls.Add(textBox6);
             Controls.Add(btn_addHang);
             Controls.Add(btn_addLoaiGiay);
             Controls.Add(btn_addThanGiay);
@@ -400,7 +400,6 @@
             Controls.Add(comboBox4);
             Controls.Add(comboBox3);
             Controls.Add(comboBox2);
-            Controls.Add(comboBox1);
             Controls.Add(dateTimePicker1);
             Controls.Add(textBox4);
             Controls.Add(textBox3);
@@ -443,7 +442,6 @@
         private TextBox textBox3;
         private TextBox textBox4;
         private DateTimePicker dateTimePicker1;
-        private ComboBox comboBox1;
         private ComboBox comboBox2;
         private ComboBox comboBox3;
         private ComboBox comboBox4;
@@ -463,5 +461,6 @@
         private Button btn_addThanGiay;
         private Button btn_addLoaiGiay;
         private Button btn_addHang;
+        private TextBox textBox6;
     }
 }
