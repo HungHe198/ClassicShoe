@@ -39,18 +39,18 @@
             label9 = new Label();
             label10 = new Label();
             label11 = new Label();
-            textBox1 = new TextBox();
-            textBox2 = new TextBox();
-            textBox3 = new TextBox();
-            textBox4 = new TextBox();
-            dateTimePicker1 = new DateTimePicker();
-            comboBox2 = new ComboBox();
-            comboBox3 = new ComboBox();
-            comboBox4 = new ComboBox();
-            comboBox5 = new ComboBox();
-            comboBox6 = new ComboBox();
-            button1 = new Button();
-            button2 = new Button();
+            txtTenHang = new TextBox();
+            txtGia = new TextBox();
+            txtSoLuong = new TextBox();
+            txtBaoHanh = new TextBox();
+            dtpNgayNhapKho = new DateTimePicker();
+            cboMauSac = new ComboBox();
+            cboDeGiay = new ComboBox();
+            cboThanGiay = new ComboBox();
+            cboLoaiGiay = new ComboBox();
+            cboHangSanXuat = new ComboBox();
+            btnThemSanPham = new Button();
+            btnSuaSanPham = new Button();
             button3 = new Button();
             button4 = new Button();
             textBox5 = new TextBox();
@@ -63,7 +63,7 @@
             btn_addThanGiay = new Button();
             btn_addLoaiGiay = new Button();
             btn_addHang = new Button();
-            textBox6 = new TextBox();
+            txtTrangThai = new TextBox();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
             // 
@@ -166,99 +166,100 @@
             label11.TabIndex = 10;
             label11.Text = "Hãng Sản Xuất";
             // 
-            // textBox1
+            // txtTenHang
             // 
-            textBox1.Location = new Point(191, 119);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(291, 27);
-            textBox1.TabIndex = 11;
+            txtTenHang.Location = new Point(191, 119);
+            txtTenHang.Name = "txtTenHang";
+            txtTenHang.Size = new Size(291, 27);
+            txtTenHang.TabIndex = 11;
             // 
-            // textBox2
+            // txtGia
             // 
-            textBox2.Location = new Point(191, 170);
-            textBox2.Name = "textBox2";
-            textBox2.Size = new Size(291, 27);
-            textBox2.TabIndex = 12;
+            txtGia.Location = new Point(191, 170);
+            txtGia.Name = "txtGia";
+            txtGia.Size = new Size(291, 27);
+            txtGia.TabIndex = 12;
             // 
-            // textBox3
+            // txtSoLuong
             // 
-            textBox3.Location = new Point(191, 235);
-            textBox3.Name = "textBox3";
-            textBox3.Size = new Size(291, 27);
-            textBox3.TabIndex = 13;
+            txtSoLuong.Location = new Point(191, 235);
+            txtSoLuong.Name = "txtSoLuong";
+            txtSoLuong.Size = new Size(291, 27);
+            txtSoLuong.TabIndex = 13;
             // 
-            // textBox4
+            // txtBaoHanh
             // 
-            textBox4.Location = new Point(191, 357);
-            textBox4.Name = "textBox4";
-            textBox4.Size = new Size(291, 27);
-            textBox4.TabIndex = 14;
+            txtBaoHanh.Location = new Point(191, 357);
+            txtBaoHanh.Name = "txtBaoHanh";
+            txtBaoHanh.Size = new Size(291, 27);
+            txtBaoHanh.TabIndex = 14;
             // 
-            // dateTimePicker1
+            // dtpNgayNhapKho
             // 
-            dateTimePicker1.Format = DateTimePickerFormat.Custom;
-            dateTimePicker1.Location = new Point(191, 297);
-            dateTimePicker1.Name = "dateTimePicker1";
-            dateTimePicker1.Size = new Size(291, 27);
-            dateTimePicker1.TabIndex = 15;
+            dtpNgayNhapKho.Format = DateTimePickerFormat.Custom;
+            dtpNgayNhapKho.Location = new Point(191, 297);
+            dtpNgayNhapKho.Name = "dtpNgayNhapKho";
+            dtpNgayNhapKho.Size = new Size(291, 27);
+            dtpNgayNhapKho.TabIndex = 15;
             // 
-            // comboBox2
+            // cboMauSac
             // 
-            comboBox2.FormattingEnabled = true;
-            comboBox2.Location = new Point(924, 109);
-            comboBox2.Name = "comboBox2";
-            comboBox2.Size = new Size(318, 28);
-            comboBox2.TabIndex = 17;
+            cboMauSac.FormattingEnabled = true;
+            cboMauSac.Location = new Point(924, 109);
+            cboMauSac.Name = "cboMauSac";
+            cboMauSac.Size = new Size(318, 28);
+            cboMauSac.TabIndex = 17;
             // 
-            // comboBox3
+            // cboDeGiay
             // 
-            comboBox3.FormattingEnabled = true;
-            comboBox3.Location = new Point(924, 165);
-            comboBox3.Name = "comboBox3";
-            comboBox3.Size = new Size(318, 28);
-            comboBox3.TabIndex = 18;
+            cboDeGiay.FormattingEnabled = true;
+            cboDeGiay.Location = new Point(924, 165);
+            cboDeGiay.Name = "cboDeGiay";
+            cboDeGiay.Size = new Size(318, 28);
+            cboDeGiay.TabIndex = 18;
             // 
-            // comboBox4
+            // cboThanGiay
             // 
-            comboBox4.FormattingEnabled = true;
-            comboBox4.Location = new Point(924, 221);
-            comboBox4.Name = "comboBox4";
-            comboBox4.Size = new Size(318, 28);
-            comboBox4.TabIndex = 19;
+            cboThanGiay.FormattingEnabled = true;
+            cboThanGiay.Location = new Point(924, 221);
+            cboThanGiay.Name = "cboThanGiay";
+            cboThanGiay.Size = new Size(318, 28);
+            cboThanGiay.TabIndex = 19;
             // 
-            // comboBox5
+            // cboLoaiGiay
             // 
-            comboBox5.FormattingEnabled = true;
-            comboBox5.Location = new Point(924, 277);
-            comboBox5.Name = "comboBox5";
-            comboBox5.Size = new Size(318, 28);
-            comboBox5.TabIndex = 20;
+            cboLoaiGiay.FormattingEnabled = true;
+            cboLoaiGiay.Location = new Point(924, 277);
+            cboLoaiGiay.Name = "cboLoaiGiay";
+            cboLoaiGiay.Size = new Size(318, 28);
+            cboLoaiGiay.TabIndex = 20;
             // 
-            // comboBox6
+            // cboHangSanXuat
             // 
-            comboBox6.FormattingEnabled = true;
-            comboBox6.Location = new Point(924, 333);
-            comboBox6.Name = "comboBox6";
-            comboBox6.Size = new Size(318, 28);
-            comboBox6.TabIndex = 21;
+            cboHangSanXuat.FormattingEnabled = true;
+            cboHangSanXuat.Location = new Point(924, 333);
+            cboHangSanXuat.Name = "cboHangSanXuat";
+            cboHangSanXuat.Size = new Size(318, 28);
+            cboHangSanXuat.TabIndex = 21;
             // 
-            // button1
+            // btnThemSanPham
             // 
-            button1.Location = new Point(56, 492);
-            button1.Name = "button1";
-            button1.Size = new Size(129, 38);
-            button1.TabIndex = 22;
-            button1.Text = "Thêm Sản Phẩm";
-            button1.UseVisualStyleBackColor = true;
+            btnThemSanPham.Location = new Point(56, 492);
+            btnThemSanPham.Name = "btnThemSanPham";
+            btnThemSanPham.Size = new Size(129, 38);
+            btnThemSanPham.TabIndex = 22;
+            btnThemSanPham.Text = "Thêm Sản Phẩm";
+            btnThemSanPham.UseVisualStyleBackColor = true;
+            btnThemSanPham.Click += btnThemSanPham_Click;
             // 
-            // button2
+            // btnSuaSanPham
             // 
-            button2.Location = new Point(235, 492);
-            button2.Name = "button2";
-            button2.Size = new Size(122, 38);
-            button2.TabIndex = 23;
-            button2.Text = "Sửa Sản Phẩm";
-            button2.UseVisualStyleBackColor = true;
+            btnSuaSanPham.Location = new Point(235, 492);
+            btnSuaSanPham.Name = "btnSuaSanPham";
+            btnSuaSanPham.Size = new Size(122, 38);
+            btnSuaSanPham.TabIndex = 23;
+            btnSuaSanPham.Text = "Sửa Sản Phẩm";
+            btnSuaSanPham.UseVisualStyleBackColor = true;
             // 
             // button3
             // 
@@ -368,19 +369,19 @@
             btn_addHang.Text = "Thêm";
             btn_addHang.UseVisualStyleBackColor = true;
             // 
-            // textBox6
+            // txtTrangThai
             // 
-            textBox6.Location = new Point(191, 423);
-            textBox6.Name = "textBox6";
-            textBox6.Size = new Size(291, 27);
-            textBox6.TabIndex = 32;
+            txtTrangThai.Location = new Point(191, 423);
+            txtTrangThai.Name = "txtTrangThai";
+            txtTrangThai.Size = new Size(291, 27);
+            txtTrangThai.TabIndex = 32;
             // 
             // ProductManager
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1382, 853);
-            Controls.Add(textBox6);
+            Controls.Add(txtTrangThai);
             Controls.Add(btn_addHang);
             Controls.Add(btn_addLoaiGiay);
             Controls.Add(btn_addThanGiay);
@@ -393,18 +394,18 @@
             Controls.Add(textBox5);
             Controls.Add(button4);
             Controls.Add(button3);
-            Controls.Add(button2);
-            Controls.Add(button1);
-            Controls.Add(comboBox6);
-            Controls.Add(comboBox5);
-            Controls.Add(comboBox4);
-            Controls.Add(comboBox3);
-            Controls.Add(comboBox2);
-            Controls.Add(dateTimePicker1);
-            Controls.Add(textBox4);
-            Controls.Add(textBox3);
-            Controls.Add(textBox2);
-            Controls.Add(textBox1);
+            Controls.Add(btnSuaSanPham);
+            Controls.Add(btnThemSanPham);
+            Controls.Add(cboHangSanXuat);
+            Controls.Add(cboLoaiGiay);
+            Controls.Add(cboThanGiay);
+            Controls.Add(cboDeGiay);
+            Controls.Add(cboMauSac);
+            Controls.Add(dtpNgayNhapKho);
+            Controls.Add(txtBaoHanh);
+            Controls.Add(txtSoLuong);
+            Controls.Add(txtGia);
+            Controls.Add(txtTenHang);
             Controls.Add(label11);
             Controls.Add(label10);
             Controls.Add(label9);
@@ -437,18 +438,18 @@
         private Label label9;
         private Label label10;
         private Label label11;
-        private TextBox textBox1;
-        private TextBox textBox2;
-        private TextBox textBox3;
-        private TextBox textBox4;
-        private DateTimePicker dateTimePicker1;
-        private ComboBox comboBox2;
-        private ComboBox comboBox3;
-        private ComboBox comboBox4;
-        private ComboBox comboBox5;
-        private ComboBox comboBox6;
-        private Button button1;
-        private Button button2;
+        private TextBox txtTenHang;
+        private TextBox txtGia;
+        private TextBox txtSoLuong;
+        private TextBox txtBaoHanh;
+        private DateTimePicker dtpNgayNhapKho;
+        private ComboBox cboMauSac;
+        private ComboBox cboDeGiay;
+        private ComboBox cboThanGiay;
+        private ComboBox cboLoaiGiay;
+        private ComboBox cboHangSanXuat;
+        private Button btnThemSanPham;
+        private Button btnSuaSanPham;
         private Button button3;
         private Button button4;
         private TextBox textBox5;
@@ -461,6 +462,6 @@
         private Button btn_addThanGiay;
         private Button btn_addLoaiGiay;
         private Button btn_addHang;
-        private TextBox textBox6;
+        private TextBox txtTrangThai;
     }
 }

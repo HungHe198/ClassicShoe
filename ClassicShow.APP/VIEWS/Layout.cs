@@ -26,7 +26,12 @@ namespace ClassicShoe.APP.VIEWS
         {
             AllRepositories<Giay> repoG = new AllRepositories<Giay>(new ClassicShoeDbContext());
             AllRepositories<GiayChiTiet> repoGCT = new AllRepositories<GiayChiTiet>(new ClassicShoeDbContext());
-            ProductManager newForm = new ProductManager(repoGCT, repoG);
+            AllRepositories<DeGiay> repoDG = new AllRepositories<DeGiay>(new ClassicShoeDbContext());
+            AllRepositories<ThanGiay> repoTG = new AllRepositories<ThanGiay>(new ClassicShoeDbContext());
+            AllRepositories<LoaiGiay> repoLG = new AllRepositories<LoaiGiay>(new ClassicShoeDbContext());
+            AllRepositories<MauSac> repoMS = new AllRepositories<MauSac>(new ClassicShoeDbContext());
+            AllRepositories<HangSanXuat> repoHSX = new AllRepositories<HangSanXuat>(new ClassicShoeDbContext());
+            ProductManager newForm = new ProductManager(repoGCT, repoG, repoDG, repoTG, repoLG, repoMS, repoHSX);
             ShowFormInPanel(newForm);
         }
         private void ShowFormInPanel(Form form)
@@ -46,7 +51,12 @@ namespace ClassicShoe.APP.VIEWS
         {
             AllRepositories<Giay> repoG = new AllRepositories<Giay>(new ClassicShoeDbContext());
             AllRepositories<GiayChiTiet> repoGCT = new AllRepositories<GiayChiTiet>(new ClassicShoeDbContext());
-            ProductManager newForm = new ProductManager(repoGCT,repoG);
+            AllRepositories<DeGiay> repoDG = new AllRepositories<DeGiay>(new ClassicShoeDbContext());
+            AllRepositories<ThanGiay> repoTG = new AllRepositories<ThanGiay>(new ClassicShoeDbContext());
+            AllRepositories<LoaiGiay> repoLG = new AllRepositories<LoaiGiay>(new ClassicShoeDbContext());
+            AllRepositories<MauSac> repoMS = new AllRepositories<MauSac>(new ClassicShoeDbContext());
+            AllRepositories<HangSanXuat> repoHSX = new AllRepositories<HangSanXuat>(new ClassicShoeDbContext());
+            ProductManager newForm = new ProductManager(repoGCT,repoG,repoDG, repoTG, repoLG, repoMS, repoHSX);
             ShowFormInPanel(newForm);
             
         }
