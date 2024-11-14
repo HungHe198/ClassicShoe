@@ -51,11 +51,11 @@
             cboHangSanXuat = new ComboBox();
             btnThemSanPham = new Button();
             btnSuaSanPham = new Button();
-            button3 = new Button();
-            button4 = new Button();
-            textBox5 = new TextBox();
-            button5 = new Button();
-            dataGridView1 = new DataGridView();
+            btnClear = new Button();
+            btnVoHieu = new Button();
+            txtTimKiemSanPham = new TextBox();
+            btnTimKiemSanPham = new Button();
+            dgvSanPham = new DataGridView();
             label12 = new Label();
             label13 = new Label();
             btn_addMau = new Button();
@@ -64,7 +64,7 @@
             btn_addLoaiGiay = new Button();
             btn_addHang = new Button();
             txtTrangThai = new TextBox();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dgvSanPham).BeginInit();
             SuspendLayout();
             // 
             // label1
@@ -260,50 +260,55 @@
             btnSuaSanPham.TabIndex = 23;
             btnSuaSanPham.Text = "Sửa Sản Phẩm";
             btnSuaSanPham.UseVisualStyleBackColor = true;
+            btnSuaSanPham.Click += btnSuaSanPham_Click;
             // 
-            // button3
+            // btnClear
             // 
-            button3.Location = new Point(408, 492);
-            button3.Name = "button3";
-            button3.Size = new Size(120, 38);
-            button3.TabIndex = 24;
-            button3.Text = "Xem Sản Phẩm";
-            button3.UseVisualStyleBackColor = true;
+            btnClear.Location = new Point(596, 492);
+            btnClear.Name = "btnClear";
+            btnClear.Size = new Size(120, 38);
+            btnClear.TabIndex = 24;
+            btnClear.Text = "Clear";
+            btnClear.UseVisualStyleBackColor = true;
+            btnClear.Click += btnClear_Click;
             // 
-            // button4
+            // btnVoHieu
             // 
-            button4.Location = new Point(604, 492);
-            button4.Name = "button4";
-            button4.Size = new Size(117, 38);
-            button4.TabIndex = 25;
-            button4.Text = "Vô Hiệu";
-            button4.UseVisualStyleBackColor = true;
+            btnVoHieu.Location = new Point(411, 492);
+            btnVoHieu.Name = "btnVoHieu";
+            btnVoHieu.Size = new Size(117, 38);
+            btnVoHieu.TabIndex = 25;
+            btnVoHieu.Text = "Vô Hiệu";
+            btnVoHieu.UseVisualStyleBackColor = true;
+            btnVoHieu.Click += btnVoHieu_Click;
             // 
-            // textBox5
+            // txtTimKiemSanPham
             // 
-            textBox5.Location = new Point(924, 492);
-            textBox5.Multiline = true;
-            textBox5.Name = "textBox5";
-            textBox5.Size = new Size(293, 36);
-            textBox5.TabIndex = 26;
+            txtTimKiemSanPham.Location = new Point(924, 492);
+            txtTimKiemSanPham.Multiline = true;
+            txtTimKiemSanPham.Name = "txtTimKiemSanPham";
+            txtTimKiemSanPham.Size = new Size(293, 36);
+            txtTimKiemSanPham.TabIndex = 26;
             // 
-            // button5
+            // btnTimKiemSanPham
             // 
-            button5.Location = new Point(1237, 492);
-            button5.Name = "button5";
-            button5.Size = new Size(131, 37);
-            button5.TabIndex = 27;
-            button5.Text = "Tìm Kiếm";
-            button5.UseVisualStyleBackColor = true;
+            btnTimKiemSanPham.Location = new Point(1237, 492);
+            btnTimKiemSanPham.Name = "btnTimKiemSanPham";
+            btnTimKiemSanPham.Size = new Size(131, 37);
+            btnTimKiemSanPham.TabIndex = 27;
+            btnTimKiemSanPham.Text = "Tìm Kiếm";
+            btnTimKiemSanPham.UseVisualStyleBackColor = true;
+            btnTimKiemSanPham.Click += btnTimKiemSanPham_Click;
             // 
-            // dataGridView1
+            // dgvSanPham
             // 
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Location = new Point(12, 578);
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.RowHeadersWidth = 51;
-            dataGridView1.Size = new Size(1358, 263);
-            dataGridView1.TabIndex = 28;
+            dgvSanPham.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvSanPham.Location = new Point(12, 578);
+            dgvSanPham.Name = "dgvSanPham";
+            dgvSanPham.RowHeadersWidth = 51;
+            dgvSanPham.Size = new Size(1358, 263);
+            dgvSanPham.TabIndex = 28;
+            dgvSanPham.CellContentClick += dgvSanPham_CellContentClick;
             // 
             // label12
             // 
@@ -389,11 +394,11 @@
             Controls.Add(btn_addMau);
             Controls.Add(label13);
             Controls.Add(label12);
-            Controls.Add(dataGridView1);
-            Controls.Add(button5);
-            Controls.Add(textBox5);
-            Controls.Add(button4);
-            Controls.Add(button3);
+            Controls.Add(dgvSanPham);
+            Controls.Add(btnTimKiemSanPham);
+            Controls.Add(txtTimKiemSanPham);
+            Controls.Add(btnVoHieu);
+            Controls.Add(btnClear);
             Controls.Add(btnSuaSanPham);
             Controls.Add(btnThemSanPham);
             Controls.Add(cboHangSanXuat);
@@ -420,7 +425,7 @@
             Name = "ProductManager";
             Text = "ProductManager";
             Load += ProductManager_Load;
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dgvSanPham).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -450,11 +455,11 @@
         private ComboBox cboHangSanXuat;
         private Button btnThemSanPham;
         private Button btnSuaSanPham;
-        private Button button3;
-        private Button button4;
-        private TextBox textBox5;
-        private Button button5;
-        private DataGridView dataGridView1;
+        private Button btnClear;
+        private Button btnVoHieu;
+        private TextBox txtTimKiemSanPham;
+        private Button btnTimKiemSanPham;
+        private DataGridView dgvSanPham;
         private Label label12;
         private Label label13;
         private Button btn_addMau;
