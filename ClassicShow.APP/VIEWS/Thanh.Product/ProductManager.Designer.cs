@@ -63,7 +63,8 @@
             btn_addThanGiay = new Button();
             btn_addLoaiGiay = new Button();
             btn_addHang = new Button();
-            txtTrangThai = new TextBox();
+            cboTrangThai = new ComboBox();
+            locSanPham = new Button();
             ((System.ComponentModel.ISupportInitialize)dgvSanPham).BeginInit();
             SuspendLayout();
             // 
@@ -99,9 +100,9 @@
             label4.AutoSize = true;
             label4.Location = new Point(71, 302);
             label4.Name = "label4";
-            label4.Size = new Size(114, 20);
+            label4.Size = new Size(73, 20);
             label4.TabIndex = 3;
-            label4.Text = "Ngày Nhập Kho";
+            label4.Text = "Ngày Tạo";
             // 
             // label5
             // 
@@ -374,19 +375,32 @@
             btn_addHang.Text = "Thêm";
             btn_addHang.UseVisualStyleBackColor = true;
             // 
-            // txtTrangThai
+            // cboTrangThai
             // 
-            txtTrangThai.Location = new Point(191, 423);
-            txtTrangThai.Name = "txtTrangThai";
-            txtTrangThai.Size = new Size(291, 27);
-            txtTrangThai.TabIndex = 32;
+            cboTrangThai.FormattingEnabled = true;
+            cboTrangThai.Items.AddRange(new object[] { "1", "0" });
+            cboTrangThai.Location = new Point(191, 423);
+            cboTrangThai.Name = "cboTrangThai";
+            cboTrangThai.Size = new Size(291, 28);
+            cboTrangThai.TabIndex = 32;
+            // 
+            // locSanPham
+            // 
+            locSanPham.Location = new Point(781, 492);
+            locSanPham.Name = "locSanPham";
+            locSanPham.Size = new Size(111, 36);
+            locSanPham.TabIndex = 33;
+            locSanPham.Text = "Filter";
+            locSanPham.UseVisualStyleBackColor = true;
+            locSanPham.Click += locSanPham_Click;
             // 
             // ProductManager
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1382, 853);
-            Controls.Add(txtTrangThai);
+            Controls.Add(locSanPham);
+            Controls.Add(cboTrangThai);
             Controls.Add(btn_addHang);
             Controls.Add(btn_addLoaiGiay);
             Controls.Add(btn_addThanGiay);
@@ -467,6 +481,7 @@
         private Button btn_addThanGiay;
         private Button btn_addLoaiGiay;
         private Button btn_addHang;
-        private TextBox txtTrangThai;
+        private ComboBox cboTrangThai;
+        private Button locSanPham;
     }
 }
