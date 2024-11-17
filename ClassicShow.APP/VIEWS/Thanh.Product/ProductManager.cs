@@ -1,4 +1,5 @@
-﻿using ClassicShoe.DATA.Models;
+﻿using ClassicShoe.DATA.Migrations;
+using ClassicShoe.DATA.Models;
 using ClassicShoe.DATA.Repositories;
 using System;
 using System.Collections.Generic;
@@ -41,10 +42,10 @@ namespace ClassicShow.APP.VIEWS
         {
             LoadDGV();
             LoadComboBoxes();
-
+            dgvSanPham.Columns["Gia"].DefaultCellStyle.Format = "N0";
             dgvSanPham.CellClick += dgvSanPham_CellContentClick;
         }
-        public void LoadDGV(string searchName = "")
+        public void LoadDGV(string searchName = "", int? trangThai = null)
         {
             if (_repoG != null && _repoGCT != null)
             {
@@ -55,21 +56,22 @@ namespace ClassicShow.APP.VIEWS
                 var loaiGiayList = _repoLoaiGiay.GetAll();
                 var mauSacList = _repoMauSac.GetAll();
                 var hangSanXuatList = _repoHangSanXuat.GetAll();
-                // Perform the join using LINQ
+
                 var result = (from gct in giayChiTietList
-                              join g in giayList on gct.GiayId equals g.Id // Adjust 'GiayId' and 'Id' as per actual field names                       
+                              join g in giayList on gct.GiayId equals g.Id
                               join de in deGiayList on gct.DeGiayId equals de.Id
                               join than in thanGiayList on gct.ThanGiayId equals than.Id
                               join loai in loaiGiayList on g.LoaiGiayId equals loai.Id
                               join mau in mauSacList on gct.MauSacId equals mau.Id
                               join hang in hangSanXuatList on g.HangSanXuatId equals hang.Id
-                              where gct.TrangThai == 1
-                               && (string.IsNullOrEmpty(searchName) || gct.TenHang.Contains(searchName))
+                              where (string.IsNullOrEmpty(searchName) || gct.TenHang.Contains(searchName)) &&
+                              (!trangThai.HasValue || gct.TrangThai == trangThai.Value)  
+                              orderby gct.NgayNhanKho descending
                               select new
                               {
                                   GiayChiTietId = gct.Id,
                                   TenHang = gct.TenHang,
-                                  Gia = gct.Gia,
+                                  Gia = gct.Gia.ToString("N0", new System.Globalization.CultureInfo("vi-VN")), 
                                   SoLuong = gct.SoLuong,
                                   NgayNhanKho = gct.NgayNhanKho,
                                   BaoHang = gct.BaoHang,
@@ -78,8 +80,15 @@ namespace ClassicShow.APP.VIEWS
                                   DeGiay = de.TenDe,
                                   ThanGiay = than.Ten,
                                   LoaiGiay = loai.TenLoai,
-                                  HangSanXuat = hang.TenHang
+                                  HangSanXuat = hang.TenHang,
+                                 
                               }).ToList();
+                if (!trangThai.HasValue)
+                {
+                    result = result.Where(r => r.TrangThai == "Còn bán").ToList();
+                }
+               
+
                 dgvSanPham.DataSource = result;
             }
             else
@@ -90,41 +99,51 @@ namespace ClassicShow.APP.VIEWS
         }
         private void LoadComboBoxes()
         {
-            // Load dữ liệu cho ComboBox Đế Giày
+
             var deGiayList = _repoDeGiay.GetAll();
-            deGiayList.Insert(0, new DeGiay { Id = Guid.Empty });  // Sử dụng Guid.Empty
+            deGiayList.Insert(0, new DeGiay { Id = Guid.Empty });
             cboDeGiay.DataSource = deGiayList;
             cboDeGiay.DisplayMember = "TenDe";
             cboDeGiay.ValueMember = "Id";
 
-            // Load dữ liệu cho ComboBox Thân Giày
+
             var thanGiayList = _repoThanGiay.GetAll();
-            thanGiayList.Insert(0, new ThanGiay { Id = Guid.Empty });  // Sử dụng Guid.Empty
+            thanGiayList.Insert(0, new ThanGiay { Id = Guid.Empty });
             cboThanGiay.DataSource = thanGiayList;
             cboThanGiay.DisplayMember = "Ten";
             cboThanGiay.ValueMember = "Id";
 
-            // Load dữ liệu cho ComboBox Loại Giày
+
             var loaiGiayList = _repoLoaiGiay.GetAll();
-            loaiGiayList.Insert(0, new LoaiGiay { Id = Guid.Empty });  // Sử dụng Guid.Empty
+            loaiGiayList.Insert(0, new LoaiGiay { Id = Guid.Empty });
             cboLoaiGiay.DataSource = loaiGiayList;
             cboLoaiGiay.DisplayMember = "TenLoai";
             cboLoaiGiay.ValueMember = "Id";
 
-            // Load dữ liệu cho ComboBox Màu Sắc
+
             var mauSacList = _repoMauSac.GetAll();
-            mauSacList.Insert(0, new MauSac { Id = Guid.Empty });  // Sử dụng Guid.Empty
+            mauSacList.Insert(0, new MauSac { Id = Guid.Empty });
             cboMauSac.DataSource = mauSacList;
             cboMauSac.DisplayMember = "TenMau";
             cboMauSac.ValueMember = "Id";
 
-            // Load dữ liệu cho ComboBox Hãng Sản Xuất
+
             var hangSanXuatList = _repoHangSanXuat.GetAll();
-            hangSanXuatList.Insert(0, new HangSanXuat { Id = Guid.Empty });  // Sử dụng Guid.Empty
+            hangSanXuatList.Insert(0, new HangSanXuat { Id = Guid.Empty });
             cboHangSanXuat.DataSource = hangSanXuatList;
             cboHangSanXuat.DisplayMember = "TenHang";
             cboHangSanXuat.ValueMember = "Id";
 
+            var trangThaiItems = new List<KeyValuePair<int, string>>
+            {
+            new KeyValuePair<int, string>(1, "1"),
+             new KeyValuePair<int, string>(0, "0")
+            };
+         
+            cboTrangThai.DataSource = trangThaiItems;
+            cboTrangThai.DisplayMember = "Value"; 
+            cboTrangThai.ValueMember = "Key";
+            cboTrangThai.SelectedIndex = -1;
         }
 
 
@@ -132,22 +151,67 @@ namespace ClassicShow.APP.VIEWS
         {
             try
             {
+               
+                if (string.IsNullOrEmpty(txtTenHang.Text) ||
+                    string.IsNullOrEmpty(txtGia.Text) ||
+                    string.IsNullOrEmpty(txtSoLuong.Text) ||
+                    string.IsNullOrEmpty(txtBaoHanh.Text))
+                {
+                    MessageBox.Show("Vui lòng điền đầy đủ thông tin.");
+                    return;
+                }
+                
+                if (!decimal.TryParse(txtGia.Text, out decimal gia))
+                {
+                    MessageBox.Show("Giá phải là số");
+                    return;
+                }
+                if (gia <= 0)
+                {
+                    MessageBox.Show("Giá phải lớn hơn 0.");
+                    return;
+                }
+                
+                if (!int.TryParse(txtSoLuong.Text, out int soLuong))
+                {
+                    MessageBox.Show("Số lượng phải là số.");
+                    return;
+                }
+                if (soLuong <= 0)
+                {
+                    MessageBox.Show("Số lượng phải lớn hơn 0.");
+                    return;
+                }
 
+              
+                if (cboLoaiGiay.SelectedItem == null || cboHangSanXuat.SelectedItem == null ||
+                    cboDeGiay.SelectedItem == null || cboThanGiay.SelectedItem == null || cboMauSac.SelectedItem == null ||
+                    cboTrangThai.SelectedItem == null)
+                {
+                    MessageBox.Show("Vui lòng chọn đầy đủ thông tin.");
+                    return;
+                }
+              
+                int trangThai = ((KeyValuePair<int, string>)cboTrangThai.SelectedItem).Key;
+                decimal Gia = decimal.Parse(txtGia.Text);
+                int SoLuong = int.Parse(txtSoLuong.Text);
+                
                 var newGiay = new Giay
                 {
                     Id = Guid.NewGuid(),
                     LoaiGiayId = (Guid)cboLoaiGiay.SelectedValue,
                     HangSanXuatId = (Guid)cboHangSanXuat.SelectedValue,
-                    TrangThai = int.Parse(txtTrangThai.Text)
+                    TrangThai = trangThai 
                 };
 
                 bool giayAdded = _repoG.Create(newGiay);
                 if (!giayAdded)
                 {
-                    MessageBox.Show("Lỗi khi thêm sản phẩm.");
+                    MessageBox.Show("Thêm sản phẩm không thành công.");
                     return;
                 }
 
+                
                 var newGiayChiTiet = new GiayChiTiet
                 {
                     Id = Guid.NewGuid(),
@@ -160,19 +224,19 @@ namespace ClassicShow.APP.VIEWS
                     NgayNhanKho = dtpNgayNhapKho.Value,
                     Gia = decimal.Parse(txtGia.Text),
                     SoLuong = int.Parse(txtSoLuong.Text),
-                    TrangThai = int.Parse(txtTrangThai.Text)
+                    TrangThai = trangThai
                 };
-
 
                 bool giayChiTietAdded = _repoGCT.Create(newGiayChiTiet);
                 if (!giayChiTietAdded)
                 {
-                    MessageBox.Show("Lỗi khi thêm chi tiết sản phẩm.");
+                    MessageBox.Show("Thêm chi tiết sản phẩm không thành công.");
                     return;
                 }
 
                 MessageBox.Show("Thêm sản phẩm thành công.");
 
+               
                 LoadDGV();
             }
             catch (Exception ex)
@@ -183,32 +247,35 @@ namespace ClassicShow.APP.VIEWS
 
         private void dgvSanPham_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
+
             if (e.RowIndex >= 0)
             {
                 var selectedRow = dgvSanPham.Rows[e.RowIndex];
 
-                // Lấy thông tin từ dòng đã chọn và điền vào các trường nhập liệu
+
                 txtTenHang.Text = selectedRow.Cells["TenHang"].Value.ToString();
                 txtGia.Text = selectedRow.Cells["Gia"].Value.ToString();
+
                 txtSoLuong.Text = selectedRow.Cells["SoLuong"].Value.ToString();
                 txtBaoHanh.Text = selectedRow.Cells["BaoHang"].Value.ToString();
                 dtpNgayNhapKho.Value = DateTime.Parse(selectedRow.Cells["NgayNhanKho"].Value.ToString());
-                string trangThai = selectedRow.Cells["TrangThai"].Value.ToString();
-                txtTrangThai.Text = trangThai == "Còn bán" ? "1" : "0"; // Gán số vào ô nhập
-                txtTrangThai.ReadOnly = true;
-                // Tìm item trong ComboBox dựa vào TenDe
+                int trangThai = selectedRow.Cells["TrangThai"].Value.ToString() == "Còn bán" ? 1 : 0;
+                cboTrangThai.SelectedValue = trangThai; 
+
+
+
                 string tenDe = selectedRow.Cells["DeGiay"].Value.ToString();
 
                 foreach (var item in cboDeGiay.Items)
                 {
-                    // Giả sử item là đối tượng với các thuộc tính `Id` và `TenDe`
+
                     if ((item as DeGiay)?.TenDe == tenDe)
                     {
                         cboDeGiay.SelectedItem = item;
                         break;
                     }
                 }
-                // Thiết lập giá trị cho ComboBox cboThanGiay dựa trên tên
+
                 string tenThanGiay = selectedRow.Cells["ThanGiay"].Value.ToString();
                 foreach (var item in cboThanGiay.Items)
                 {
@@ -219,7 +286,7 @@ namespace ClassicShow.APP.VIEWS
                     }
                 }
 
-                // Thiết lập giá trị cho ComboBox cboLoaiGiay dựa trên tên
+
                 string tenLoaiGiay = selectedRow.Cells["LoaiGiay"].Value.ToString();
                 foreach (var item in cboLoaiGiay.Items)
                 {
@@ -230,7 +297,7 @@ namespace ClassicShow.APP.VIEWS
                     }
                 }
 
-                // Thiết lập giá trị cho ComboBox cboMauSac dựa trên tên
+
                 string tenMauSac = selectedRow.Cells["MauSac"].Value.ToString();
                 foreach (var item in cboMauSac.Items)
                 {
@@ -241,7 +308,7 @@ namespace ClassicShow.APP.VIEWS
                     }
                 }
 
-                // Thiết lập giá trị cho ComboBox cboHangSanXuat dựa trên tên
+
                 string tenHangSanXuat = selectedRow.Cells["HangSanXuat"].Value.ToString();
                 foreach (var item in cboHangSanXuat.Items)
                 {
@@ -258,7 +325,6 @@ namespace ClassicShow.APP.VIEWS
         {
             try
             {
-
                 if (dgvSanPham.SelectedRows.Count == 0)
                 {
                     MessageBox.Show("Vui lòng chọn sản phẩm cần sửa.");
@@ -267,31 +333,72 @@ namespace ClassicShow.APP.VIEWS
 
                 var selectedRow = dgvSanPham.SelectedRows[0];
 
-
                 var giayChiTietIdValue = selectedRow.Cells["GiayChiTietId"].Value;
 
                 if (giayChiTietIdValue == null || string.IsNullOrEmpty(giayChiTietIdValue.ToString()))
                 {
-                    MessageBox.Show("Giá trị 'GiayChiTietId' không hợp lệ.");
+                    MessageBox.Show("Không thể xác định sản phẩm cần sửa.");
                     return;
                 }
 
                 if (Guid.TryParse(giayChiTietIdValue.ToString(), out Guid giayChiTietId))
                 {
-
-                    var giayChiTiet = _repoGCT.GetById(giayChiTietId);
-                    if (giayChiTiet == null)
+                    
+                    if (string.IsNullOrEmpty(txtTenHang.Text) ||
+                        string.IsNullOrEmpty(txtGia.Text) ||
+                        string.IsNullOrEmpty(txtSoLuong.Text) ||
+                        string.IsNullOrEmpty(txtBaoHanh.Text))
                     {
-                        MessageBox.Show("Không tìm thấy sản phẩm cần sửa.");
+                        MessageBox.Show("Vui lòng điền đầy đủ thông tin.");
                         return;
                     }
 
+                    
+                    if (!decimal.TryParse(txtGia.Text, out decimal gia))
+                    {
+                        MessageBox.Show("Giá phải là số.");
+                        return;
+                    }
+                    if (gia <= 0)
+                    {
+                        MessageBox.Show("Giá phải lớn hơn 0.");
+                        return;
+                    }
+
+                    
+                    if (!int.TryParse(txtSoLuong.Text, out int soLuong))
+                    {
+                        MessageBox.Show("Số lượng phải là số");
+                        return;
+                    }
+                    if (soLuong <= 0)
+                    {
+                        MessageBox.Show("Giá phải lớn hơn 0.");
+                        return;
+                    }
+                    
+                    if (cboLoaiGiay.SelectedItem == null || cboHangSanXuat.SelectedItem == null ||
+                        cboDeGiay.SelectedItem == null || cboThanGiay.SelectedItem == null || cboMauSac.SelectedItem == null ||
+                        cboTrangThai.SelectedItem == null)
+                    {
+                        MessageBox.Show("Vui lòng chọn đầy đủ thông tin.");
+                        return;
+                    }
+                  
+                    var giayChiTiet = _repoGCT.GetById(giayChiTietId);
+                    if (giayChiTiet == null)
+                    {
+                        MessageBox.Show("Sản phẩm chi tiết không tồn tại.");
+                        return;
+                    }
+
+                  
                     giayChiTiet.TenHang = txtTenHang.Text;
                     giayChiTiet.Gia = decimal.Parse(txtGia.Text);
                     giayChiTiet.SoLuong = int.Parse(txtSoLuong.Text);
                     giayChiTiet.BaoHang = txtBaoHanh.Text;
                     giayChiTiet.NgayNhanKho = dtpNgayNhapKho.Value;
-                    giayChiTiet.TrangThai = int.Parse(txtTrangThai.Text);
+                    giayChiTiet.TrangThai = cboTrangThai.SelectedItem.ToString() == "Còn bán" ? 1 : 0;
 
                     giayChiTiet.DeGiayId = (Guid)cboDeGiay.SelectedValue;
                     giayChiTiet.ThanGiayId = (Guid)cboThanGiay.SelectedValue;
@@ -301,34 +408,32 @@ namespace ClassicShow.APP.VIEWS
                     bool giayChiTietUpdated = _repoGCT.Update(giayChiTietId, giayChiTiet);
                     if (!giayChiTietUpdated)
                     {
-                        MessageBox.Show("Lỗi khi sửa chi tiết sản phẩm.");
+                        MessageBox.Show("Cập nhật sản phẩm chi tiết không thành công.");
                         return;
                     }
 
-
+              
                     var giay = _repoG.GetById(giayChiTiet.GiayId);
                     if (giay != null)
                     {
                         giay.LoaiGiayId = (Guid)cboLoaiGiay.SelectedValue;
                         giay.HangSanXuatId = (Guid)cboHangSanXuat.SelectedValue;
-                        giay.TrangThai = int.Parse(txtTrangThai.Text);
-
+                        giay.TrangThai = cboTrangThai.SelectedItem.ToString() == "Còn bán" ? 1 : 0;
 
                         bool giayUpdated = _repoG.Update(giay.Id, giay);
                         if (!giayUpdated)
                         {
-                            MessageBox.Show("Lỗi khi cập nhật sản phẩm chính.");
+                            MessageBox.Show("Cập nhật sản phẩm không thành công.");
                             return;
                         }
                     }
-
 
                     MessageBox.Show("Sửa sản phẩm thành công.");
                     LoadDGV();
                 }
                 else
                 {
-
+                    MessageBox.Show("Dữ liệu sản phẩm không hợp lệ.");
                 }
             }
             catch (Exception ex)
@@ -342,57 +447,62 @@ namespace ClassicShow.APP.VIEWS
 
             try
             {
-                // Kiểm tra nếu không có sản phẩm nào được chọn
+
                 if (dgvSanPham.SelectedRows.Count == 0)
                 {
                     MessageBox.Show("Vui lòng chọn sản phẩm cần vô hiệu.");
                     return;
                 }
 
-                // Lấy dòng dữ liệu của sản phẩm đã chọn
+
                 var selectedRow = dgvSanPham.SelectedRows[0];
 
-                // Lấy giá trị GiayChiTietId từ dòng đã chọn
+
                 var giayChiTietIdValue = selectedRow.Cells["GiayChiTietId"].Value;
 
-                // Kiểm tra giá trị GiayChiTietId có hợp lệ không
+
                 if (giayChiTietIdValue == null || string.IsNullOrEmpty(giayChiTietIdValue.ToString()))
                 {
-                    MessageBox.Show("Giá trị 'GiayChiTietId' không hợp lệ.");
+                    MessageBox.Show("");
                     return;
                 }
 
-                // Kiểm tra nếu GiayChiTietId có thể chuyển đổi thành Guid
+
                 if (Guid.TryParse(giayChiTietIdValue.ToString(), out Guid giayChiTietId))
                 {
-                    // Lấy chi tiết sản phẩm từ repository
+
                     var giayChiTiet = _repoGCT.GetById(giayChiTietId);
                     if (giayChiTiet == null)
                     {
-                        MessageBox.Show("Không tìm thấy sản phẩm cần vô hiệu.");
+                        MessageBox.Show("");
                         return;
                     }
 
-                    // Cập nhật trạng thái của sản phẩm (Ngừng bán)
-                    giayChiTiet.TrangThai = 0;
 
-                    // Cập nhật sản phẩm trong repository
+                   
+                    int currentStatus = giayChiTiet.TrangThai;
+
+                    
+                    giayChiTiet.TrangThai = (currentStatus == 1) ? 0 : 1;
+
+
                     bool giayChiTietUpdated = _repoGCT.Update(giayChiTietId, giayChiTiet);
                     if (!giayChiTietUpdated)
                     {
-                        MessageBox.Show("Lỗi khi vô hiệu sản phẩm.");
+                        MessageBox.Show("");
                         return;
                     }
 
-                    // Thông báo thành công và tải lại DataGridView
-                    MessageBox.Show("Trạng thái sản phẩm đã được cập nhật thành: Ngừng bán");
 
-                    // Tải lại DataGridView, nhưng ẩn sản phẩm đã vô hiệu
+               
+                    string newStatus = giayChiTiet.TrangThai == 1 ? "Còn bán" : "Ngừng bán";
+                    MessageBox.Show($"Trạng thái sản phẩm đã được cập nhật thành: {newStatus}");
+
                     LoadDGV();
                 }
                 else
                 {
-                    MessageBox.Show("ID sản phẩm không hợp lệ.");
+                    MessageBox.Show("");
                 }
             }
             catch (Exception ex)
@@ -403,36 +513,70 @@ namespace ClassicShow.APP.VIEWS
 
         private void btnTimKiemSanPham_Click(object sender, EventArgs e)
         {
-            string searchName = txtTimKiemSanPham.Text.Trim(); // Lấy giá trị tìm kiếm từ TextBox
-            LoadDGV(searchName);  // Gọi lại phương thức LoadDGV với tên tìm kiếm
+            string searchName = txtTimKiemSanPham.Text.Trim();
+         
+            if (string.IsNullOrEmpty(searchName))
+            {
+              
+                MessageBox.Show("Vui lòng nhập tên sản phẩm cần tìm.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return; 
+            }
+            LoadDGV(searchName);
+          
+            if (dgvSanPham.Rows.Count == 0)
+            {
+                MessageBox.Show("Không tìm thấy sản phẩm với tên đã nhập!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                LoadDGV();
+            }
         }
         private void ClearForm()
         {
-            // Xóa dữ liệu trong các TextBox
+
             txtTenHang.Clear();
             txtGia.Clear();
             txtSoLuong.Clear();
             txtBaoHanh.Clear();
-            txtTrangThai.Clear();
+            cboTrangThai.SelectedIndex = -1;
+
             txtTimKiemSanPham.Clear();
-            // Đặt lại giá trị ComboBox về giá trị mặc định hoặc không chọn
-            cboDeGiay.SelectedIndex = -1; // -1 là giá trị "Không có lựa chọn"
+
+            cboDeGiay.SelectedIndex = -1;
             cboThanGiay.SelectedIndex = -1;
             cboLoaiGiay.SelectedIndex = -1;
             cboMauSac.SelectedIndex = -1;
             cboHangSanXuat.SelectedIndex = -1;
-            
-            // Đặt lại giá trị cho DateTimePicker về ngày hiện tại
+
+
             dtpNgayNhapKho.Value = DateTime.Now;
 
-            // Nếu bạn muốn làm mới lại các CheckBox, RadioButton, hoặc các trường nhập liệu khác, cũng có thể làm như sau:
-            // chkOption.Checked = false; // Ví dụ cho CheckBox
-            // rbtnOption.Checked = false; // Ví dụ cho RadioButton
+
             LoadDGV();
         }
         private void btnClear_Click(object sender, EventArgs e)
         {
             ClearForm();
+        }
+
+        private void locSanPham_Click(object sender, EventArgs e)
+        {
+
+          
+            int? trangThai = null;
+
+           
+            if (cboTrangThai.SelectedItem != null)
+            {
+                var selectedItem = (KeyValuePair<int, string>)cboTrangThai.SelectedItem;
+                trangThai = selectedItem.Key;  
+            }
+            else
+            {
+               
+                MessageBox.Show("Vui lòng chọn trạng thái để lọc sản phẩm.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return; 
+            }
+           
+            LoadDGV("", trangThai);
         }
     }
 }
