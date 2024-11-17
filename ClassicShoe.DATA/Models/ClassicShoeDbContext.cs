@@ -36,6 +36,8 @@ namespace ClassicShoe.DATA.Models
             base.OnModelCreating(modelBuilder);
 
             var adminRoleId = Guid.NewGuid();
+            var nhanVienRoleId = Guid.NewGuid();
+
             var loaiGiayId = Guid.NewGuid();
             var hangSanXuatId = Guid.NewGuid();
             var giayId = Guid.NewGuid();
@@ -55,7 +57,7 @@ namespace ClassicShoe.DATA.Models
                             },
                             new VaiTro
                             {
-                                Id = Guid.NewGuid(),          // Unique identifier for NhanVien role
+                                Id = nhanVienRoleId,     // Unique identifier for NhanVien role
                                 TenVaiTro = "NhanVien",       // Role name
                                 MaVaiTro = "NV"               // Role code
                             });
@@ -74,6 +76,32 @@ namespace ClassicShoe.DATA.Models
                                 TaiKhoan = "admin2",
                                 MatKhau = "password2"           // Replace with secure hash in production
                             });
+            modelBuilder.Entity<NhanVien>().HasData(
+                            new NhanVien
+                            {
+                                Id = Guid.NewGuid(),
+                                VaiTroId = nhanVienRoleId,
+                                TenNhanVien = "Nguyen Van A",
+                                TenTaiKhoan = "nguyenvana",
+                                MatKhau = "123456", // Lưu ý: Không lưu mật khẩu dạng plain-text trong thực tế
+                                NgaySinh = new DateTime(1990, 1, 1),
+                                DiaChi = "123 ABC Street",
+                                Email = "nguyenvana@example.com",
+                                SoDienThoai = "0901234567"
+                            },
+                            new NhanVien
+                            {
+                                Id = Guid.NewGuid(),
+                                VaiTroId = nhanVienRoleId,
+                                TenNhanVien = "Le Thi B",
+                                TenTaiKhoan = "lethib",
+                                MatKhau = "abcdef",
+                                NgaySinh = new DateTime(1992, 2, 2),
+                                DiaChi = "456 XYZ Street",
+                                Email = "lethib@example.com",
+                                SoDienThoai = "0907654321"
+                            });
+
             modelBuilder.Entity<MauSac>().HasData(
                             new MauSac
                             {
@@ -176,8 +204,23 @@ namespace ClassicShoe.DATA.Models
                                SoLuong = 15,
                                TrangThai = 1 // 1: còn bán
                            });
+            modelBuilder.Entity<KhachHang>().HasData(
+                           new KhachHang
+                           {
+                                Id = Guid.NewGuid(),
+                                TenKhachHang = "Tran Thi C",
+                                DiemTichLuy = 200,
+                                TongChiTieu = 3000000m,
+                                SoDienThoai = "0912345678",
+                                Email = "tranthic@example.com",
+                                NgaySinh = new DateTime(1985, 10, 15),
+                                DiaChi = "789 XYZ Street"
+                           });
+
+
 
         }
+
         public DbSet<Admin> Admins { get; set; }
         public DbSet<DeGiay> DeGiays { get; set; }
         public DbSet<Giay> Giays { get; set; }

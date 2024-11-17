@@ -36,6 +36,7 @@
             btn_QLKhachHang = new Button();
             btn_DangXuat = new Button();
             btn_QLGiamGia = new Button();
+            btn_Sales = new Button();
             ((System.ComponentModel.ISupportInitialize)ptb_Logo).BeginInit();
             SuspendLayout();
             // 
@@ -124,12 +125,24 @@
             btn_QLGiamGia.UseVisualStyleBackColor = true;
             btn_QLGiamGia.Click += btn_QLGiamGia_Click;
             // 
+            // btn_Sales
+            // 
+            btn_Sales.Font = new Font("Arial", 12F);
+            btn_Sales.Location = new Point(12, 464);
+            btn_Sales.Name = "btn_Sales";
+            btn_Sales.Size = new Size(328, 51);
+            btn_Sales.TabIndex = 2;
+            btn_Sales.Text = "Quản lí bán hàng";
+            btn_Sales.UseVisualStyleBackColor = true;
+            btn_Sales.Click += btn_Sales_Click;
+            // 
             // Layout
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1782, 953);
             Controls.Add(btn_DangXuat);
+            Controls.Add(btn_Sales);
             Controls.Add(btn_QLGiamGia);
             Controls.Add(btn_QLKhachHang);
             Controls.Add(btn_QLHoaDon);
@@ -154,5 +167,6 @@
         private Button btn_QLKhachHang;
         private Button btn_DangXuat;
         private Button btn_QLGiamGia;
+        private Button btn_Sales;
     }
 }

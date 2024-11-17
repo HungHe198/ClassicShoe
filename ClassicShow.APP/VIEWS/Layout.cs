@@ -1,4 +1,5 @@
-﻿using ClassicShoe.DATA.Models;
+﻿using ClassicShoe.APP.VIEWS.Hung;
+using ClassicShoe.DATA.Models;
 using ClassicShoe.DATA.Repositories;
 using ClassicShow.APP.VIEWS;
 using System;
@@ -20,7 +21,7 @@ namespace ClassicShoe.APP.VIEWS
             InitializeComponent();
         }
 
-       
+
         // lưu lại giá trị Id nhân viên hoặc admin
         private void Layout_Load(object sender, EventArgs e)
         {
@@ -56,14 +57,14 @@ namespace ClassicShoe.APP.VIEWS
             AllRepositories<LoaiGiay> repoLG = new AllRepositories<LoaiGiay>(new ClassicShoeDbContext());
             AllRepositories<MauSac> repoMS = new AllRepositories<MauSac>(new ClassicShoeDbContext());
             AllRepositories<HangSanXuat> repoHSX = new AllRepositories<HangSanXuat>(new ClassicShoeDbContext());
-            ProductManager newForm = new ProductManager(repoGCT,repoG,repoDG, repoTG, repoLG, repoMS, repoHSX);
+            ProductManager newForm = new ProductManager(repoGCT, repoG, repoDG, repoTG, repoLG, repoMS, repoHSX);
             ShowFormInPanel(newForm);
-            
+
         }
 
         private void btn_QLNhanVien_Click(object sender, EventArgs e)
         {
-            
+
             AllRepositories<NhanVien> repo = new AllRepositories<NhanVien>(new ClassicShoeDbContext());
             EmployeeManager newForm = new EmployeeManager(repo);
             ShowFormInPanel(newForm);
@@ -82,11 +83,11 @@ namespace ClassicShoe.APP.VIEWS
 
         private void btn_QLKhachHang_Click(object sender, EventArgs e)
         {
-            
+
             AllRepositories<KhachHang> repo = new AllRepositories<KhachHang>(new ClassicShoeDbContext());
             CustomerManager newForm = new CustomerManager(repo);
             ShowFormInPanel(newForm);
-            
+
         }
 
         private void btn_QLGiamGia_Click(object sender, EventArgs e)
@@ -99,7 +100,14 @@ namespace ClassicShoe.APP.VIEWS
 
         private void btn_DangXuat_Click(object sender, EventArgs e)
         {
+
+        }
+
+        private void btn_Sales_Click(object sender, EventArgs e)
+        {
             
+            SalesForm newForm = new SalesForm();
+            ShowFormInPanel(newForm);
         }
     }
 }
