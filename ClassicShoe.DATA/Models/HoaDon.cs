@@ -9,6 +9,7 @@ namespace ClassicShoe.DATA.Models
     public class HoaDon
     {
         public Guid Id { get; set; }
+        public string InvoiceCode { get; set; }
         public ICollection<HoaDonChiTiet>? HoaDonChiTiets { get; set; }
         public Guid NhanVienId { get; set; }
         public NhanVien? NhanVien { get; set; }

@@ -338,6 +338,7 @@
             btn_addMau.TabIndex = 31;
             btn_addMau.Text = "Thêm";
             btn_addMau.UseVisualStyleBackColor = true;
+            btn_addMau.Click += btn_addMau_Click;
             // 
             // btn_addDeGiay
             // 
