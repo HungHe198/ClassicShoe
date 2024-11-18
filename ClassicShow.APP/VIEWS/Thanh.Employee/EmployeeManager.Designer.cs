@@ -51,6 +51,8 @@
             dataGridView1 = new DataGridView();
             label8 = new Label();
             label11 = new Label();
+            cbo_CVNhanVien = new ComboBox();
+            label9 = new Label();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
             // 
@@ -175,6 +177,7 @@
             button1.TabIndex = 14;
             button1.Text = "Thêm Nhân Viên";
             button1.UseVisualStyleBackColor = true;
+            button1.Click += button1_Click;
             // 
             // button2
             // 
@@ -248,11 +251,30 @@
             label11.TabIndex = 29;
             label11.Text = "Quản lí nhân viên";
             // 
+            // cbo_CVNhanVien
+            // 
+            cbo_CVNhanVien.FormattingEnabled = true;
+            cbo_CVNhanVien.Location = new Point(974, 289);
+            cbo_CVNhanVien.Name = "cbo_CVNhanVien";
+            cbo_CVNhanVien.Size = new Size(340, 28);
+            cbo_CVNhanVien.TabIndex = 30;
+            // 
+            // label9
+            // 
+            label9.AutoSize = true;
+            label9.Location = new Point(865, 292);
+            label9.Name = "label9";
+            label9.Size = new Size(61, 20);
+            label9.TabIndex = 31;
+            label9.Text = "Chức vụ";
+            // 
             // EmployeeManager
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1382, 853);
+            Controls.Add(label9);
+            Controls.Add(cbo_CVNhanVien);
             Controls.Add(label11);
             Controls.Add(label8);
             Controls.Add(dataGridView1);
@@ -309,5 +331,7 @@
         private DataGridView dataGridView1;
         private Label label8;
         private Label label11;
+        private ComboBox cbo_CVNhanVien;
+        private Label label9;
     }
 }
