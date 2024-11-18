@@ -277,9 +277,9 @@
             // 
             btnVoHieu.Location = new Point(411, 492);
             btnVoHieu.Name = "btnVoHieu";
-            btnVoHieu.Size = new Size(117, 38);
+            btnVoHieu.Size = new Size(146, 38);
             btnVoHieu.TabIndex = 25;
-            btnVoHieu.Text = "Vô Hiệu";
+            btnVoHieu.Text = "Chuyển Trạng Thái";
             btnVoHieu.UseVisualStyleBackColor = true;
             btnVoHieu.Click += btnVoHieu_Click;
             // 
@@ -384,6 +384,7 @@
             cboTrangThai.Name = "cboTrangThai";
             cboTrangThai.Size = new Size(291, 28);
             cboTrangThai.TabIndex = 32;
+            cboTrangThai.SelectedIndexChanged += cboTrangThai_SelectedIndexChanged;
             // 
             // locSanPham
             // 

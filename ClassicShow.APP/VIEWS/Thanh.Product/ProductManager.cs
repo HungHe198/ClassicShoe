@@ -44,6 +44,7 @@ namespace ClassicShow.APP.VIEWS
             LoadComboBoxes();
             dgvSanPham.Columns["Gia"].DefaultCellStyle.Format = "N0";
             dgvSanPham.CellClick += dgvSanPham_CellContentClick;
+            dtpNgayNhapKho.Enabled = false;
         }
         public void LoadDGV(string searchName = "", int? trangThai = null)
         {
@@ -398,37 +399,49 @@ namespace ClassicShow.APP.VIEWS
                     giayChiTiet.SoLuong = int.Parse(txtSoLuong.Text);
                     giayChiTiet.BaoHang = txtBaoHanh.Text;
                     giayChiTiet.NgayNhanKho = dtpNgayNhapKho.Value;
-                    giayChiTiet.TrangThai = cboTrangThai.SelectedItem.ToString() == "Còn bán" ? 1 : 0;
-
-                    giayChiTiet.DeGiayId = (Guid)cboDeGiay.SelectedValue;
-                    giayChiTiet.ThanGiayId = (Guid)cboThanGiay.SelectedValue;
-                    giayChiTiet.MauSacId = (Guid)cboMauSac.SelectedValue;
-
-
-                    bool giayChiTietUpdated = _repoGCT.Update(giayChiTietId, giayChiTiet);
-                    if (!giayChiTietUpdated)
+                    if (cboTrangThai.SelectedItem.ToString() != giayChiTiet.TrangThai.ToString() || cboTrangThai.SelectedIndex != 1)
                     {
-                        MessageBox.Show("Cập nhật sản phẩm chi tiết không thành công.");
-                        return;
+                        giayChiTiet.TrangThai = cboTrangThai.SelectedItem.ToString() == "Còn bán" ? 1 : 1;
+                        MessageBox.Show("không thể thay đổi trạng thái");
+                        ClearForm();
+
                     }
-
-
-                    var giay = _repoG.GetById(giayChiTiet.GiayId);
-                    if (giay != null)
+                    else
                     {
-                        giay.LoaiGiayId = (Guid)cboLoaiGiay.SelectedValue;
-                        giay.HangSanXuatId = (Guid)cboHangSanXuat.SelectedValue;
-                        giay.TrangThai = cboTrangThai.SelectedItem.ToString() == "Còn bán" ? 1 : 0;
+                        giayChiTiet.DeGiayId = (Guid)cboDeGiay.SelectedValue;
+                        giayChiTiet.ThanGiayId = (Guid)cboThanGiay.SelectedValue;
+                        giayChiTiet.MauSacId = (Guid)cboMauSac.SelectedValue;
 
-                        bool giayUpdated = _repoG.Update(giay.Id, giay);
-                        if (!giayUpdated)
+
+                        bool giayChiTietUpdated = _repoGCT.Update(giayChiTietId, giayChiTiet);
+                        if (!giayChiTietUpdated)
                         {
-                            MessageBox.Show("Cập nhật sản phẩm không thành công.");
+                            MessageBox.Show("Cập nhật sản phẩm chi tiết không thành công.");
                             return;
                         }
-                    }
 
-                    MessageBox.Show("Sửa sản phẩm thành công.");
+
+                        var giay = _repoG.GetById(giayChiTiet.GiayId);
+                        if (giay != null)
+                        {
+                            giay.LoaiGiayId = (Guid)cboLoaiGiay.SelectedValue;
+                            giay.HangSanXuatId = (Guid)cboHangSanXuat.SelectedValue;
+                            if (cboTrangThai.SelectedItem.ToString() != giayChiTiet.TrangThai.ToString())
+                            {
+                                giayChiTiet.TrangThai = cboTrangThai.SelectedItem.ToString() == "Còn bán" ? 1 : 1;
+
+                            }
+
+                            bool giayUpdated = _repoG.Update(giay.Id, giay);
+                            if (!giayUpdated)
+                            {
+                                MessageBox.Show("Cập nhật sản phẩm không thành công.");
+                                return;
+                            }
+                        }
+
+                        MessageBox.Show("Sửa sản phẩm thành công.");
+                    }    
                     LoadDGV();
                 }
                 else
@@ -582,6 +595,11 @@ namespace ClassicShow.APP.VIEWS
         private void btn_addMau_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void cboTrangThai_SelectedIndexChanged(object sender, EventArgs e)
+        {
+           
         }
     }
 }
