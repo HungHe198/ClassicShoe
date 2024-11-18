@@ -66,7 +66,8 @@ namespace ClassicShoe.APP.VIEWS
         {
 
             AllRepositories<NhanVien> repo = new AllRepositories<NhanVien>(new ClassicShoeDbContext());
-            EmployeeManager newForm = new EmployeeManager(repo);
+            AllRepositories<VaiTro> repocv = new AllRepositories<VaiTro>(new ClassicShoeDbContext());
+            EmployeeManager newForm = new EmployeeManager(repo,repocv);
             ShowFormInPanel(newForm);
         }
 
