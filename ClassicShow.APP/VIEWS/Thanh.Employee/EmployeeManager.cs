@@ -57,8 +57,7 @@ namespace ClassicShow.APP.VIEWS
 
         private void button1_Click(object sender, EventArgs e)
         {
-            NhanVien nhanVien = new NhanVien();
-            _services.ThemNV(nhanVien);
+            
         }
     }
 }
