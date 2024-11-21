@@ -29,7 +29,10 @@ namespace ClassicShoe.APP.SERVICES
                 {
                     return "Tạo hóa đơn trống thành công";
                 }
-                return "Tạo hóa đơn trống thất bại";
+                else
+                {
+                    return "Tạo hóa đơn trống thất bại";
+                }
             }
             catch (Exception ex)
             {
@@ -72,7 +75,6 @@ namespace ClassicShoe.APP.SERVICES
         public void loadCBO_HD(ComboBox cbo_HoaDon)
         {
             var lstHD = _repoHD.GetAll();
-            cbo_HoaDon.Items.Clear();
             cbo_HoaDon.DataSource = lstHD;
             cbo_HoaDon.DisplayMember = "InvoiceCode";
             cbo_HoaDon.ValueMember = "Id";

@@ -37,6 +37,8 @@
             btn_DangXuat = new Button();
             btn_QLGiamGia = new Button();
             btn_Sales = new Button();
+            lb_ID = new Label();
+            lb_TenNhanVien = new Label();
             ((System.ComponentModel.ISupportInitialize)ptb_Logo).BeginInit();
             SuspendLayout();
             // 
@@ -71,7 +73,7 @@
             // btn_QLNhanVien
             // 
             btn_QLNhanVien.Font = new Font("Arial", 12F);
-            btn_QLNhanVien.Location = new Point(12, 236);
+            btn_QLNhanVien.Location = new Point(12, 464);
             btn_QLNhanVien.Name = "btn_QLNhanVien";
             btn_QLNhanVien.Size = new Size(328, 51);
             btn_QLNhanVien.TabIndex = 2;
@@ -82,7 +84,7 @@
             // btn_QLHoaDon
             // 
             btn_QLHoaDon.Font = new Font("Arial", 12F);
-            btn_QLHoaDon.Location = new Point(12, 293);
+            btn_QLHoaDon.Location = new Point(12, 236);
             btn_QLHoaDon.Name = "btn_QLHoaDon";
             btn_QLHoaDon.Size = new Size(328, 51);
             btn_QLHoaDon.TabIndex = 2;
@@ -93,7 +95,7 @@
             // btn_QLKhachHang
             // 
             btn_QLKhachHang.Font = new Font("Arial", 12F);
-            btn_QLKhachHang.Location = new Point(12, 350);
+            btn_QLKhachHang.Location = new Point(12, 293);
             btn_QLKhachHang.Name = "btn_QLKhachHang";
             btn_QLKhachHang.Size = new Size(328, 51);
             btn_QLKhachHang.TabIndex = 2;
@@ -117,7 +119,7 @@
             // btn_QLGiamGia
             // 
             btn_QLGiamGia.Font = new Font("Arial", 12F);
-            btn_QLGiamGia.Location = new Point(12, 407);
+            btn_QLGiamGia.Location = new Point(12, 350);
             btn_QLGiamGia.Name = "btn_QLGiamGia";
             btn_QLGiamGia.Size = new Size(328, 51);
             btn_QLGiamGia.TabIndex = 2;
@@ -128,7 +130,7 @@
             // btn_Sales
             // 
             btn_Sales.Font = new Font("Arial", 12F);
-            btn_Sales.Location = new Point(12, 464);
+            btn_Sales.Location = new Point(12, 407);
             btn_Sales.Name = "btn_Sales";
             btn_Sales.Size = new Size(328, 51);
             btn_Sales.TabIndex = 2;
@@ -136,11 +138,31 @@
             btn_Sales.UseVisualStyleBackColor = true;
             btn_Sales.Click += btn_Sales_Click;
             // 
+            // lb_ID
+            // 
+            lb_ID.AutoSize = true;
+            lb_ID.Location = new Point(12, 639);
+            lb_ID.Name = "lb_ID";
+            lb_ID.Size = new Size(24, 20);
+            lb_ID.TabIndex = 3;
+            lb_ID.Text = "ID";
+            // 
+            // lb_TenNhanVien
+            // 
+            lb_TenNhanVien.AutoSize = true;
+            lb_TenNhanVien.Location = new Point(12, 683);
+            lb_TenNhanVien.Name = "lb_TenNhanVien";
+            lb_TenNhanVien.Size = new Size(32, 20);
+            lb_TenNhanVien.TabIndex = 4;
+            lb_TenNhanVien.Text = "Tên";
+            // 
             // Layout
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1782, 953);
+            Controls.Add(lb_TenNhanVien);
+            Controls.Add(lb_ID);
             Controls.Add(btn_DangXuat);
             Controls.Add(btn_Sales);
             Controls.Add(btn_QLGiamGia);
@@ -155,6 +177,7 @@
             Load += Layout_Load;
             ((System.ComponentModel.ISupportInitialize)ptb_Logo).EndInit();
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -168,5 +191,7 @@
         private Button btn_DangXuat;
         private Button btn_QLGiamGia;
         private Button btn_Sales;
+        private Label lb_ID;
+        private Label lb_TenNhanVien;
     }
 }

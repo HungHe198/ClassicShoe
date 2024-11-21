@@ -1,5 +1,6 @@
 ﻿using ClassicShoe.APP.SERVICES;
 using ClassicShoe.DATA.Models;
+using ClassicShoe.DATA.Repositories;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -21,33 +22,166 @@ namespace ClassicShoe.APP.VIEWS.Hung
         HoaDonServices _sv = new HoaDonServices();
 
 
-        Guid _nvGuid = Guid.Parse("42F79FCD-7FD6-4B24-B498-09337BDB4A3F"); // để tạm thôi đấy
+        // để tạm thôi đấy
                                                                            // sau sẽ lưu id vào một file và lấy dữ liệu chung tại đó
 
         // sau sẽ lưu id vào một file và lấy dữ liệu chung tại đó
-
+        AllRepositories<HoaDon> _repoHD = new AllRepositories<HoaDon>(new ClassicShoeDbContext());
+        AllRepositories<HoaDonChiTiet> _repoHDCT = new AllRepositories<HoaDonChiTiet>(new ClassicShoeDbContext());
+        AllRepositories<GiayChiTiet> _repoGCT = new AllRepositories<GiayChiTiet>(new ClassicShoeDbContext());
+        AllRepositories<Giay> _repoG = new AllRepositories<Giay>(new ClassicShoeDbContext());
+        AllRepositories<DeGiay> _repoDeGiay = new AllRepositories<DeGiay>(new ClassicShoeDbContext());
+        AllRepositories<ThanGiay> _repoThanGiay = new AllRepositories<ThanGiay>(new ClassicShoeDbContext());
+        AllRepositories<LoaiGiay> _repoLoaiGiay = new AllRepositories<LoaiGiay>(new ClassicShoeDbContext());
+        AllRepositories<MauSac> _repoMauSac = new AllRepositories<MauSac>(new ClassicShoeDbContext());
+        AllRepositories<HangSanXuat> _repoHangSanXuat = new AllRepositories<HangSanXuat>(new ClassicShoeDbContext());
+        AllRepositories<KhachHang> _repoKH = new AllRepositories<KhachHang>(new ClassicShoeDbContext());
 
         private void SalesForm_Load(object sender, EventArgs e)
         {
-            _sv.loadCBO_HD(cbo_HoaDon);
+            txt_tienKhachDua.Text = "";
+            loadCBO_HD(1);
+            LoadHDCT(GlobalVariable.IdHD);
+            LoadSanPham();
+
+        }
+        public void loadCBO_HD(int status)
+        {
+            LoadHDCT(GlobalVariable.IdHD);
+            var lstHD = _repoHD.GetAll().Where(x => x.Status == status);
+            cbo_HoaDon.DataSource = lstHD.ToList();
+            cbo_HoaDon.DisplayMember = "InvoiceCode";
+            cbo_HoaDon.ValueMember = "Id";
+            cbo_HoaDon.DropDownStyle = ComboBoxStyle.DropDownList;
+
+            // tính tiền của tổng hóa đơn
+
+
+        }
+        public void LoadSanPham(string searchName = "", int? trangThai = null)
+        {
+            if (_repoG != null && _repoGCT != null)
+            {
+                var giayChiTietList = _repoGCT.GetAll();
+                var giayList = _repoG.GetAll();
+                var deGiayList = _repoDeGiay.GetAll();
+                var thanGiayList = _repoThanGiay.GetAll();
+                var loaiGiayList = _repoLoaiGiay.GetAll();
+                var mauSacList = _repoMauSac.GetAll();
+                var hangSanXuatList = _repoHangSanXuat.GetAll();
+
+                var result = (from gct in giayChiTietList
+                              join g in giayList on gct.GiayId equals g.Id
+                              join de in deGiayList on gct.DeGiayId equals de.Id
+                              join than in thanGiayList on gct.ThanGiayId equals than.Id
+                              join loai in loaiGiayList on g.LoaiGiayId equals loai.Id
+                              join mau in mauSacList on gct.MauSacId equals mau.Id
+                              join hang in hangSanXuatList on g.HangSanXuatId equals hang.Id
+                              where (string.IsNullOrEmpty(searchName) || gct.TenHang.Contains(searchName)) &&
+                              (!trangThai.HasValue || gct.TrangThai == trangThai.Value)
+                              orderby gct.NgayNhanKho descending
+                              select new
+                              {
+                                  GiayChiTietId = gct.Id,
+                                  TenHang = gct.TenHang,
+                                  Gia = gct.Gia.ToString(), // "N0", new System.Globalization.CultureInfo("vi-VN")
+                                  SoLuong = gct.SoLuong,
+                                  NgayNhanKho = gct.NgayNhanKho,
+                                  BaoHang = gct.BaoHang,
+                                  TrangThai = gct.TrangThai == 1 ? "Còn bán" : "Ngừng bán",
+                                  MauSac = mau.TenMau,
+                                  DeGiay = de.TenDe,
+                                  ThanGiay = than.Ten,
+                                  LoaiGiay = loai.TenLoai,
+                                  HangSanXuat = hang.TenHang,
+
+                              }).ToList();
+                if (!trangThai.HasValue)
+                {
+                    result = result.Where(r => r.TrangThai == "Còn bán").ToList();
+                }
+
+
+                dgv_SanPham.DataSource = result;
+            }
+            else
+            {
+                MessageBox.Show("Repository chưa được khởi tạo.");
+            }
+
         }
 
+        public void LoadHDCT(Guid? idHD)
+        {
+            var result = from h in _repoHD.GetAll()
+                         join hct in _repoHDCT.GetAll() on h.Id equals hct.HoaDonId
+                         join gct in _repoGCT.GetAll() on hct.GiayChiTietId equals gct.Id
+                         where h.Id == idHD && h.Status == 1
+                         select new
+                         {
+                             HoaDonId = h.Id,
+                             InvoiceCode = h.InvoiceCode,
+                             NgayTaoHoaDon = h.NgayTaoHoaDon,
+                             TenSanPham = gct.TenHang,
+                             SoLuong = hct.SoLuong,
+                             DonGia = hct.DonGia,
+                             ThanhTien = hct.DonGia * hct.SoLuong
+                         };
+            dgv_HDCT.DataSource = result.ToList();
+            decimal tongHD = 0;
+          
+
+            foreach (var h in result)
+            {
+                tongHD += h.SoLuong * h.DonGia;
+
+            }
+            decimal giamGia = 0;
+            decimal thanhTien = tongHD - giamGia;
+            decimal khachDua = 0;
+            if (!string.IsNullOrEmpty(txt_tienKhachDua.Text))
+            {
+                decimal number;
+                if (decimal.TryParse(txt_tienKhachDua.Text, out number))
+                {
+                   khachDua = Convert.ToDecimal(txt_tienKhachDua.Text);
+                }
+                else
+                {
+                }
+            }
+            else
+            {
+                Console.WriteLine("Chuỗi đầu vào trống hoặc null.");
+            }
+            decimal traKhach = khachDua - thanhTien;
+
+            lb_TongHoaDon.Text = tongHD.ToString();
+            lb_TienDuocGiam.Text = giamGia.ToString();
+            lb_ThanhTien.Text = thanhTien.ToString();
+            lb_traKhach.Text = traKhach.ToString();
+            txt_tienKhachDua.Text = khachDua.ToString();
+
+        }
         private void btn_addOrder_Click(object sender, EventArgs e)
         { // tạo hóa đơn trống và có thể sử dụng
-
+            var defaultGuid = new Guid("11111111-1111-1111-1111-111111111111");
             HoaDon hoaDon = new HoaDon()
             {
                 Id = Guid.NewGuid(),
-                InvoiceCode = DateTime.Now.ToString(),
-                KhachHangId = Guid.Parse(_sv.FindCustomerByPhone(txt_PhoneNumber.ToString())), // đã kiểm tra có khách rồi mới thêm ở đây chưa có thì tạo mới đi
-                MaGiamGiaId = Guid.Parse(txt_TKGiamGia.ToString()),
+                InvoiceCode = $"INV-{DateTime.Now:yyyyMMddHHmmss}",
+                KhachHangId = GlobalVariable.CustomerId,
+                MaGiamGiaId = defaultGuid,
                 NgayTaoHoaDon = DateTime.Now,
-                NhanVienId = _nvGuid,
+                NhanVienId = GlobalVariable.UserId,
                 PhuongThucThanhToan = "Tại quầy",
                 Status = 1,
                 ThanhTien = 0,
             };
-            _sv.CreateOrder(hoaDon);
+            GlobalVariable.IdHD = hoaDon.Id;
+            MessageBox.Show(_sv.CreateOrder(hoaDon));
+            loadCBO_HD(1);
+
 
         }
 
@@ -56,47 +190,153 @@ namespace ClassicShoe.APP.VIEWS.Hung
             //try
             //{
 
-                // Lấy giá trị từ TextBox
-                string input = txt_PhoneNumber.Text;
+            // Lấy giá trị từ TextBox
+            string input = txt_PhoneNumber.Text;
 
-                // Kiểm tra nếu đủ 10 ký tự và tất cả đều là số
-                if (input.Length == 10 && input.All(char.IsDigit))
+            // Kiểm tra nếu đủ 10 ký tự và tất cả đều là số
+            if (input.Length == 10 && input.All(char.IsDigit))
+            {
+                // Gọi phương thức tìm kiếm từ _repo
+                string customerId = _sv.FindCustomerByPhone(input);
+
+                if (customerId != null && customerId != "false")
                 {
-                    // Gọi phương thức tìm kiếm từ _repo
-                    string customerId = _sv.FindCustomerByPhone(input);
-
-                    if (customerId != null && customerId != "false")
-                    {
-                        // có tồn tại thì cho hiển thị tên và tạo hóa đơn
-                        txt_NameCustomer.Text = _sv.FindCustomerById(Guid.Parse(customerId)).TenKhachHang.ToString();
-                    }
-                    else 
-                    {
-                        {
-
-                            MessageBox.Show("Không tồn tại khách hàng này!\nBạn có muốn tạo mới", "Lỗi", MessageBoxButtons.YesNoCancel);
-
-                            // có thì tạo mới không thì thôi
-                            //if ()
-                            //{
-
-                            //}
-                        }
-                    }
-
+                    // có tồn tại thì cho hiển thị tên và tạo hóa đơn
+                    txt_NameCustomer.Text = _sv.FindCustomerById(Guid.Parse(customerId)).TenKhachHang.ToString();
+                    GlobalVariable.CustomerId = Guid.Parse(customerId);
 
                 }
-                else if (input.Length > 10 || !(input.All(char.IsDigit)))
+                else
                 {
+                    {
 
-                    MessageBox.Show("Làm gì có má ơi", "Lỗi", MessageBoxButtons.OKCancel);
-                    txt_NameCustomer.Text = "";
-                    txt_PhoneNumber.Text = "";
+                        MessageBox.Show("Không tồn tại khách hàng này!\nBạn có muốn tạo mới", "Lỗi", MessageBoxButtons.YesNoCancel);
+
+                        // có thì tạo mới không thì thôi
+                        //if ()
+                        //{
+
+                        //}
+                    }
                 }
+
+
+            }
+            else if (input.Length > 10 || !(input.All(char.IsDigit)))
+            {
+
+                MessageBox.Show("Làm gì có má ơi", "Lỗi", MessageBoxButtons.OKCancel);
+                txt_NameCustomer.Text = "";
+                txt_PhoneNumber.Text = "";
+            }
             //} 
             //catch (Exception ex) {
             //    MessageBox.Show(ex.ToString());
             //}
+        }
+
+        private void dgv_SanPham_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void dgv_SanPham_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex < 0 || dgv_SanPham.Rows[e.RowIndex].DataBoundItem == null)
+            {
+                MessageBox.Show("Không có dữ liệu để thêm.");
+                return;
+            }
+            var selectedRow = dgv_SanPham.Rows[e.RowIndex].DataBoundItem;
+            var Id_GCT = dgv_SanPham.Rows[e.RowIndex].Cells["GiayChiTietId"].Value;
+
+            var giayCT = _repoGCT.GetById(Guid.Parse(Id_GCT.ToString()));
+
+
+            var DonGia = dgv_SanPham.Rows[e.RowIndex].Cells["Gia"].Value;
+            // Ép kiểu về kiểu dữ liệu phù hợp
+
+            // tạo mới hdct
+            // kiểm tra xem hóa đơn chi tiết có chưa
+            // kiểm tra xem ô chứa số lượng đã tồn tại dữ liệu chưa và trừ số lượng nếu có
+            if (string.IsNullOrEmpty(txt_SLMua.Text) ||
+                txt_SLMua.Text == "0" ||
+                !int.TryParse(txt_SLMua.Text, out int soLuong) ||
+                soLuong <= 0)
+            {
+                // Xử lý nếu điều kiện không hợp lệ
+                MessageBox.Show("Số lượng mua không hợp lệ. Vui lòng nhập một số nguyên dương.");
+            }
+            else
+            {
+                HoaDonChiTiet hoaDonChiTiet = new HoaDonChiTiet()
+                {
+                    Id = Guid.NewGuid(),
+                    HoaDonId = GlobalVariable.IdHD,
+                    GiayChiTietId = Guid.Parse(Id_GCT.ToString()),
+                    DonGia = Convert.ToDecimal(DonGia),
+                    SoLuong = Convert.ToInt32(txt_SLMua.Text),
+                };
+
+                MessageBox.Show(_repoHDCT.Create(hoaDonChiTiet).ToString());
+                // tru so luong
+                giayCT.SoLuong = giayCT.SoLuong - Convert.ToInt32(txt_SLMua.Text);
+                _repoGCT.Update(giayCT.Id, giayCT);
+            }
+
+
+            loadCBO_HD(1);
+            LoadHDCT(GlobalVariable.IdHD);
+            LoadSanPham();
+        }
+
+        private void cbo_HoaDon_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cbo_HoaDon.SelectedValue != null && Guid.TryParse(cbo_HoaDon.SelectedValue.ToString(), out Guid idHD))
+            {
+                GlobalVariable.IdHD = idHD;
+                LoadHDCT(GlobalVariable.IdHD); // Gọi hàm để load danh sách hóa đơn chi tiết
+
+                HoaDon hoaDonFind = _repoHD.GetById(idHD);
+                if (hoaDonFind.KhachHangId != null)
+                {
+
+                    GlobalVariable.khachHangNow = _repoKH.GetById(hoaDonFind.KhachHangId.Value);
+                    txt_NameCustomer.Text = GlobalVariable.khachHangNow.TenKhachHang.ToString();
+                    txt_PhoneNumber.Text = GlobalVariable.khachHangNow.SoDienThoai.ToString();
+                }
+
+            }
+
+
+        }
+        public void TinhTien()
+        {
+
+        }
+        private void btn_ThanhToan_Click(object sender, EventArgs e)
+        {
+            if (cbo_HoaDon.SelectedValue != null && Guid.TryParse(cbo_HoaDon.SelectedValue.ToString(), out Guid idHD))
+            {
+                GlobalVariable.IdHD = idHD;
+                LoadHDCT(GlobalVariable.IdHD); // Gọi hàm để load danh sách hóa đơn chi tiết
+
+                HoaDon hoaDonFind = _repoHD.GetById(idHD);
+                if (hoaDonFind.KhachHangId != null)
+                {
+                    hoaDonFind.Status = 0;
+                    _repoHD.Update(hoaDonFind.Id, hoaDonFind);
+                    loadCBO_HD(1);
+                    LoadHDCT(GlobalVariable.IdHD);
+                    LoadSanPham();
+                }
+
+            }
+        }
+
+        private void txt_tienKhachDua_TextChanged(object sender, EventArgs e)
+        {
+            LoadHDCT(GlobalVariable.IdHD);
         }
     }
 }

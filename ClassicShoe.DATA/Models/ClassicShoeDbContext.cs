@@ -207,18 +207,29 @@ namespace ClassicShoe.DATA.Models
             modelBuilder.Entity<KhachHang>().HasData(
                            new KhachHang
                            {
-                                Id = Guid.NewGuid(),
-                                TenKhachHang = "Tran Thi C",
-                                DiemTichLuy = 200,
-                                TongChiTieu = 3000000m,
-                                SoDienThoai = "0912345678",
-                                Email = "tranthic@example.com",
-                                NgaySinh = new DateTime(1985, 10, 15),
-                                DiaChi = "789 XYZ Street"
+                               Id = Guid.NewGuid(),
+                               TenKhachHang = "Tran Thi C",
+                               DiemTichLuy = 200,
+                               TongChiTieu = 3000000m,
+                               SoDienThoai = "0912345678",
+                               Email = "tranthic@example.com",
+                               NgaySinh = new DateTime(1985, 10, 15),
+                               DiaChi = "789 XYZ Street"
                            });
+            var defaultGuid = new Guid("11111111-1111-1111-1111-111111111111");
 
-
-
+            modelBuilder.Entity<MaGiamGia>().HasData(
+                           new MaGiamGia
+                           {
+                               Id = defaultGuid, // GUID đặc biệt
+                               TenMaGiamGia = "NO_DISCOUNT", // Tên mã giảm giá
+                               PhanTramGiam = 0, // Không giảm giá
+                               NgayBatDau = DateTime.Now, // Ngày bắt đầu là hiện tại
+                               NgayKetThuc = DateTime.Now.AddYears(100), // Hiệu lực rất dài
+                               GT_HoaDonToiThieu = 0, // Không yêu cầu giá trị tối thiểu
+                               GT_ToiDaGiam = 0, // Không giới hạn giảm
+                               MoTa = "Mã giảm giá đặc biệt không áp dụng ưu đãi."
+                           });
         }
 
         public DbSet<Admin> Admins { get; set; }

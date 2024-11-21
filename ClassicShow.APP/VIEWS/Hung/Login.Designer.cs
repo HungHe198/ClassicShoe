@@ -45,7 +45,6 @@
             txt_TaiKhoan.Name = "txt_TaiKhoan";
             txt_TaiKhoan.Size = new Size(612, 61);
             txt_TaiKhoan.TabIndex = 0;
-            txt_TaiKhoan.TextChanged += txt_TaiKhoan_TextChanged;
             // 
             // txt_MatKhau
             // 
@@ -110,6 +109,7 @@
             cbo_VaiTro.Name = "cbo_VaiTro";
             cbo_VaiTro.Size = new Size(612, 62);
             cbo_VaiTro.TabIndex = 4;
+            cbo_VaiTro.SelectedIndexChanged += cbo_VaiTro_SelectedIndexChanged;
             // 
             // Login
             // 
