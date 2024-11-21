@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ClassicShoe.APP.SERVICES;
+using ClassicShoe.DATA.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,10 +14,11 @@ namespace ClassicShow.APP.VIEWS
 {
     public partial class DiscountManager : Form
     {
+        DiscountManagerSer _ser;
         public DiscountManager()
         {
             InitializeComponent();
-
+            _ser = new DiscountManagerSer(new ClassicShoeDbContext());
             LoadView();
         }
         private void LoadView()
@@ -29,6 +32,12 @@ namespace ClassicShow.APP.VIEWS
             dataGridView1.Columns[5].Name = "Ngày Kết Thúc";
             dataGridView1.Columns[6].Name = "Mô tả";
             dataGridView1.Rows.Clear();
+            int STT = 1;
+            foreach (var a in _ser.GetAllMaGiamGia())
+            {
+                dataGridView1.Rows.Add(STT, a.Id, a.TenMaGiamGia, a.PhanTramGiam, a.NgayBatDau, a.NgayKetThuc, a.MoTa);
+                STT++;
+            }
         }
         private void btn_them_Click(object sender, EventArgs e)
         {
@@ -38,28 +47,45 @@ namespace ClassicShow.APP.VIEWS
             DateTime ngayBatDau = dateTimePicker1.Value;
             DateTime ngayKetThuc = dateTimePicker2.Value;
             string moTa = textBox1.Text.Trim();
+
             if (string.IsNullOrEmpty(maVoucher) || string.IsNullOrEmpty(tenMa) || string.IsNullOrEmpty(phanTramGiam))
             {
                 MessageBox.Show("Vui lòng điền đầy đủ thông tin!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-            int stt = dataGridView1.Rows.Count + 1;
-            dataGridView1.Rows.Add(
-                stt,
-                maVoucher,
-                tenMa,
-                phanTramGiam,
-                ngayBatDau.ToString("dd/MM/yyyy"),
-                ngayKetThuc.ToString("dd/MM/yyyy"),
-                moTa
-            );
-            MessageBox.Show("Thêm thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            txt_ma.Clear();
-            txt_ten.Clear();
-            txt_phantram.Clear();
-            textBox1.Clear();
-            dateTimePicker1.Value = DateTime.Now;
-            dateTimePicker2.Value = DateTime.Now;
+
+            if (!int.TryParse(phanTramGiam, out int phanTram))
+            {
+                MessageBox.Show("Phần trăm giảm phải là một số hợp lệ!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            MaGiamGia maGiamGia = new MaGiamGia
+            {
+                Id = Guid.NewGuid(),
+                TenMaGiamGia = tenMa,
+                PhanTramGiam = phanTram,
+                NgayBatDau = ngayBatDau,
+                NgayKetThuc = ngayKetThuc,
+                MoTa = moTa,
+            };
+
+            if (_ser.CreateMaGiamGia(maGiamGia))
+            {
+                MessageBox.Show("Thêm mã giảm giá thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                LoadView();
+
+                txt_ma.Clear();
+                txt_ten.Clear();
+                txt_phantram.Clear();
+                textBox1.Clear();
+                dateTimePicker1.Value = DateTime.Now;
+                dateTimePicker2.Value = DateTime.Now;
+            }
+            else
+            {
+                MessageBox.Show("Thêm mã giảm giá thất bại!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -83,32 +109,48 @@ namespace ClassicShow.APP.VIEWS
                 MessageBox.Show("Vui lòng chọn một hàng để sửa!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
+
             string maVoucher = txt_ma.Text.Trim();
             string tenMa = txt_ten.Text.Trim();
             string phanTramGiam = txt_phantram.Text.Trim();
             DateTime ngayBatDau = dateTimePicker1.Value;
             DateTime ngayKetThuc = dateTimePicker2.Value;
             string moTa = textBox1.Text.Trim();
+
             if (string.IsNullOrEmpty(maVoucher) || string.IsNullOrEmpty(tenMa) || string.IsNullOrEmpty(phanTramGiam))
             {
                 MessageBox.Show("Vui lòng điền đầy đủ thông tin!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-            DataGridViewRow currentRow = dataGridView1.CurrentRow;
-            currentRow.Cells[1].Value = maVoucher;
-            currentRow.Cells[2].Value = tenMa;
-            currentRow.Cells[3].Value = phanTramGiam;
-            currentRow.Cells[4].Value = ngayBatDau.ToString("dd/MM/yyyy");
-            currentRow.Cells[5].Value = ngayKetThuc.ToString("dd/MM/yyyy");
-            currentRow.Cells[6].Value = moTa;
-            MessageBox.Show("Sửa thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-            txt_ma.Clear();
-            txt_ten.Clear();
-            txt_phantram.Clear();
-            textBox1.Clear();
-            dateTimePicker1.Value = DateTime.Now;
-            dateTimePicker2.Value = DateTime.Now;
+            if (!int.TryParse(phanTramGiam, out int phanTram))
+            {
+                MessageBox.Show("Phần trăm giảm phải là một số hợp lệ!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            Guid maGiamGiaId = Guid.Parse(dataGridView1.CurrentRow.Cells[1].Value.ToString());
+
+            MaGiamGia updatedMaGiamGia = new MaGiamGia
+            {
+                Id = maGiamGiaId,
+                TenMaGiamGia = maVoucher,
+                PhanTramGiam = phanTram,
+                NgayBatDau = ngayBatDau,
+                NgayKetThuc = ngayKetThuc,
+                MoTa = moTa,
+                GT_HoaDonToiThieu = 0,
+                GT_ToiDaGiam = 0
+            };
+            bool result = _ser.UpdateMaGiamGia(maGiamGiaId, updatedMaGiamGia);
+
+            if (!result)
+            {
+                MessageBox.Show("Không thể cập nhật mã giảm giá. Vui lòng kiểm tra dữ liệu hoặc thử lại.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            MessageBox.Show("Cập nhật thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            LoadView();
         }
 
         private void btn_xoa_Click(object sender, EventArgs e)
@@ -118,6 +160,7 @@ namespace ClassicShow.APP.VIEWS
                 MessageBox.Show("Vui lòng chọn một hàng để xóa!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
+
             DialogResult confirm = MessageBox.Show(
                 "Bạn có chắc chắn muốn xóa hàng này?",
                 "Xác nhận",
@@ -126,24 +169,40 @@ namespace ClassicShow.APP.VIEWS
 
             if (confirm == DialogResult.Yes)
             {
-                int selectedIndex = dataGridView1.CurrentRow.Index;
-                dataGridView1.Rows.RemoveAt(selectedIndex);
-                MessageBox.Show("Xóa thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                Guid maGiamGiaId = Guid.Parse(dataGridView1.CurrentRow.Cells[1].Value.ToString());
+                bool result = _ser.DeleteMaGiamGia(maGiamGiaId);
+
+                if (result)
+                {
+                    int selectedIndex = dataGridView1.CurrentRow.Index;
+                    dataGridView1.Rows.RemoveAt(selectedIndex);
+                    UpdateRowNumbers();
+
+                    MessageBox.Show("Xóa thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    MessageBox.Show("Không thể xóa mã giảm giá này. Vui lòng thử lại.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+        private void UpdateRowNumbers()
+        {
+            for (int i = 0; i < dataGridView1.Rows.Count; i++)
+            {
+                dataGridView1.Rows[i].Cells[0].Value = i + 1;
             }
         }
 
         private void btn_clear_Click(object sender, EventArgs e)
         {
-            txt_ma.Clear();
-            txt_ten.Clear();
-            txt_phantram.Clear();
-            textBox1.Clear();
+            txt_ma.Text = string.Empty;
+            txt_ten.Text = string.Empty;
+            txt_phantram.Text = string.Empty;
+            textBox1.Text = string.Empty;
             dateTimePicker1.Value = DateTime.Now;
             dateTimePicker2.Value = DateTime.Now;
-            if (dataGridView1.CurrentRow != null)
-            {
-                dataGridView1.ClearSelection();
-            }
+            MessageBox.Show("Đã xóa toàn bộ dữ liệu!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void btn_timkiem_Click(object sender, EventArgs e)
