@@ -1,4 +1,5 @@
-﻿using ClassicShoe.APP.VIEWS.Hung;
+﻿using ClassicShoe.APP.SERVICES;
+using ClassicShoe.APP.VIEWS.Hung;
 using ClassicShoe.DATA.Models;
 using ClassicShoe.DATA.Repositories;
 using ClassicShow.APP.VIEWS;
@@ -20,7 +21,8 @@ namespace ClassicShoe.APP.VIEWS
         {
             InitializeComponent();
         }
-
+        AllRepositories<NhanVien> _repoNV = new AllRepositories<NhanVien>(new ClassicShoeDbContext());
+        AllRepositories<Admin> _repoAD = new AllRepositories<Admin>(new ClassicShoeDbContext());
 
         // lưu lại giá trị Id nhân viên hoặc admin
         private void Layout_Load(object sender, EventArgs e)
@@ -34,6 +36,26 @@ namespace ClassicShoe.APP.VIEWS
             AllRepositories<HangSanXuat> repoHSX = new AllRepositories<HangSanXuat>(new ClassicShoeDbContext());
             ProductManager newForm = new ProductManager(repoGCT, repoG, repoDG, repoTG, repoLG, repoMS, repoHSX);
             ShowFormInPanel(newForm);
+
+            if (GlobalVariable.MaVaiTro == "ADMIN" )
+            {
+                var guid = GlobalVariable.UserId.ToString();
+                btn_Sales.Visible = false;
+                var user = _repoAD.GetAll().FirstOrDefault(x=>x.Id == GlobalVariable.UserId);
+                lb_ID.Text = user.Id.ToString();
+                lb_TenNhanVien.Text = user.TaiKhoan.ToString();
+
+            }
+            else
+            {
+                btn_QLNhanVien.Visible = false;
+                var guid = GlobalVariable.UserId.ToString();
+                var user = _repoNV.GetAll().FirstOrDefault(x=>x.Id == GlobalVariable.UserId);
+                lb_ID.Text = user.Id.ToString();
+                lb_TenNhanVien.Text = user.TenNhanVien.ToString();
+            } 
+                
+            
         }
         private void ShowFormInPanel(Form form)
         {

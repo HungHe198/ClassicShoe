@@ -3,6 +3,8 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
 namespace ClassicShoe.DATA.Migrations
 {
     /// <inheritdoc />
@@ -252,13 +254,14 @@ namespace ClassicShoe.DATA.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    NhanVienId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    KhachHangId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    MaGiamGiaId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    NgayTaoHoaDon = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    ThanhTien = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    PhuongThucThanhToan = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Status = table.Column<int>(type: "int", nullable: false)
+                    InvoiceCode = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    NhanVienId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    KhachHangId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    MaGiamGiaId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    NgayTaoHoaDon = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    ThanhTien = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
+                    PhuongThucThanhToan = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Status = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -267,20 +270,17 @@ namespace ClassicShoe.DATA.Migrations
                         name: "FK_HoaDons_KhachHangs_KhachHangId",
                         column: x => x.KhachHangId,
                         principalTable: "KhachHangs",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_HoaDons_MaGiamGias_MaGiamGiaId",
                         column: x => x.MaGiamGiaId,
                         principalTable: "MaGiamGias",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_HoaDons_NhanViens_NhanVienId",
                         column: x => x.NhanVienId,
                         principalTable: "NhanViens",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -308,6 +308,89 @@ namespace ClassicShoe.DATA.Migrations
                         principalTable: "HoaDons",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.InsertData(
+                table: "DeGiays",
+                columns: new[] { "Id", "ChatLieu", "CongNghe", "Mota", "TenDe" },
+                values: new object[,]
+                {
+                    { new Guid("62310fc2-7afd-4c71-a138-fcfe152bf0e1"), "Cao su", "Chống trượt", "Đế cao su bền chắc, khả năng chống trượt tốt", "Đế Cao Su" },
+                    { new Guid("c175ef73-c43a-4955-af0b-7e59b7a10715"), "Nhựa", "Chống mài mòn", "Đế nhựa nhẹ, chịu được mài mòn cao", "Đế Nhựa" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "HangSanXuats",
+                columns: new[] { "Id", "DiaChi", "DieuKhoan", "Email", "Logo", "TenHang" },
+                values: new object[] { new Guid("047a7dc2-b30e-4d15-949f-f20f0d79d80a"), "Beaverton, Oregon, USA", "https://example.com/terms-nike.pdf", "support@nike.com", "https://example.com/logo-nike.png", "Nike" });
+
+            migrationBuilder.InsertData(
+                table: "KhachHangs",
+                columns: new[] { "Id", "DiaChi", "DiemTichLuy", "Email", "NgaySinh", "SoDienThoai", "TenKhachHang", "TongChiTieu" },
+                values: new object[] { new Guid("41bbfb15-d6b0-4cc3-ac9c-b68ae4e4fdbe"), "789 XYZ Street", 200, "tranthic@example.com", new DateTime(1985, 10, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), "0912345678", "Tran Thi C", 3000000m });
+
+            migrationBuilder.InsertData(
+                table: "LoaiGiays",
+                columns: new[] { "Id", "MoTa", "PhongCach", "TenLoai" },
+                values: new object[] { new Guid("3ffe5adc-baba-4cb0-89be-35ac7e922958"), "Giày thể thao, phù hợp với nhiều hoạt động", "Thể thao", "Sneaker" });
+
+            migrationBuilder.InsertData(
+                table: "MauSacs",
+                columns: new[] { "Id", "TenMau" },
+                values: new object[,]
+                {
+                    { new Guid("2f50ee69-3310-4880-a4b6-68d0e563c280"), "Đỏ" },
+                    { new Guid("3a9b4b42-24f6-4964-a19a-49e1e3adb18b"), "Xanh" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "ThanGiays",
+                columns: new[] { "Id", "ChatLieu", "MoTa", "Ten", "ThietKe" },
+                values: new object[,]
+                {
+                    { new Guid("8495904c-61de-4622-a0f0-b158a647cc5d"), "Da thật", "Thân giày làm từ da thật, thiết kế thanh lịch, độ bền cao", "Thân Giày Da", "Thời trang cổ điển" },
+                    { new Guid("8713b41f-cf41-4f51-bcf4-4455b953a846"), "Vải canvas", "Thân giày làm từ vải canvas thoáng khí, phù hợp với phong cách năng động", "Thân Giày Vải", "Phong cách trẻ trung" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "VaiTros",
+                columns: new[] { "Id", "MaVaiTro", "TenVaiTro" },
+                values: new object[,]
+                {
+                    { new Guid("7d95e027-1380-4027-88fb-6eaa401feef4"), "NV", "NhanVien" },
+                    { new Guid("c59da32a-6288-42be-a828-7897c6428601"), "ADMIN", "Admin" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Admins",
+                columns: new[] { "Id", "MatKhau", "TaiKhoan", "VaiTroId" },
+                values: new object[,]
+                {
+                    { new Guid("7cc318f4-7211-4c9d-a996-aba24c244a92"), "password2", "admin2", new Guid("c59da32a-6288-42be-a828-7897c6428601") },
+                    { new Guid("dbc32078-1b24-41d4-833a-da3ccc5e6ea9"), "password1", "admin1", new Guid("c59da32a-6288-42be-a828-7897c6428601") }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Giays",
+                columns: new[] { "Id", "HangSanXuatId", "LoaiGiayId", "TrangThai" },
+                values: new object[] { new Guid("4aa79c6b-0fe5-4851-9d5a-626d711925b2"), new Guid("047a7dc2-b30e-4d15-949f-f20f0d79d80a"), new Guid("3ffe5adc-baba-4cb0-89be-35ac7e922958"), 1 });
+
+            migrationBuilder.InsertData(
+                table: "NhanViens",
+                columns: new[] { "Id", "DiaChi", "Email", "MatKhau", "NgaySinh", "SoDienThoai", "TenNhanVien", "TenTaiKhoan", "VaiTroId" },
+                values: new object[,]
+                {
+                    { new Guid("2ecaf93f-6f8a-49ab-b612-477be516bb3d"), "456 XYZ Street", "lethib@example.com", "abcdef", new DateTime(1992, 2, 2, 0, 0, 0, 0, DateTimeKind.Unspecified), "0907654321", "Le Thi B", "lethib", new Guid("7d95e027-1380-4027-88fb-6eaa401feef4") },
+                    { new Guid("ac615456-6904-4dda-81cf-54896445eb47"), "123 ABC Street", "nguyenvana@example.com", "123456", new DateTime(1990, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "0901234567", "Nguyen Van A", "nguyenvana", new Guid("7d95e027-1380-4027-88fb-6eaa401feef4") }
+                });
+
+            migrationBuilder.InsertData(
+                table: "GiayChiTiets",
+                columns: new[] { "Id", "BaoHang", "DeGiayId", "Gia", "GiayId", "MauSacId", "NgayNhanKho", "SoLuong", "TenHang", "ThanGiayId", "TrangThai" },
+                values: new object[,]
+                {
+                    { new Guid("37657f79-5afd-49e5-9f2c-62bbf264b4b0"), "Bảo hành 1 năm", new Guid("62310fc2-7afd-4c71-a138-fcfe152bf0e1"), 1500000m, new Guid("4aa79c6b-0fe5-4851-9d5a-626d711925b2"), new Guid("2f50ee69-3310-4880-a4b6-68d0e563c280"), new DateTime(2024, 11, 22, 3, 16, 48, 236, DateTimeKind.Local).AddTicks(7373), 10, "Nike Air Max", new Guid("8495904c-61de-4622-a0f0-b158a647cc5d"), 1 },
+                    { new Guid("c3f532d7-a731-4407-ac38-e4a4ab9eb98a"), "Bảo hành 6 tháng", new Guid("c175ef73-c43a-4955-af0b-7e59b7a10715"), 1200000m, new Guid("4aa79c6b-0fe5-4851-9d5a-626d711925b2"), new Guid("3a9b4b42-24f6-4964-a19a-49e1e3adb18b"), new DateTime(2024, 11, 22, 3, 16, 48, 236, DateTimeKind.Local).AddTicks(7392), 15, "Nike Revolution", new Guid("8713b41f-cf41-4f51-bcf4-4455b953a846"), 1 }
                 });
 
             migrationBuilder.CreateIndex(

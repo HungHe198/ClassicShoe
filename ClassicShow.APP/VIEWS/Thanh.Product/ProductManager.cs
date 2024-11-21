@@ -1,5 +1,4 @@
-﻿using ClassicShoe.DATA.Migrations;
-using ClassicShoe.DATA.Models;
+﻿using ClassicShoe.DATA.Models;
 using ClassicShoe.DATA.Repositories;
 using System;
 using System.Collections.Generic;

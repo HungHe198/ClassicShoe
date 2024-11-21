@@ -17,6 +17,7 @@ namespace ClassicShoe.DATA.Models
         public DateTime NgayKetThuc { get; set; }
         public decimal GT_HoaDonToiThieu { get; set; } // giá trị tối thiểu hóa đơn cần đạt được
         public decimal GT_ToiDaGiam { get; set; } // giá trị tối đa hóa đơn sẽ được giảm
+        public ICollection<HoaDon>? HoaDons { get; set; }
         public string? MoTa { get; set; }
 
     }

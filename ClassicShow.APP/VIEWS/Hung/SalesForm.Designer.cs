@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             groupBox1 = new GroupBox();
+            lb_ID = new Label();
             btn_addOrder = new Button();
             txt_NameCustomer = new TextBox();
             label2 = new Label();
@@ -39,8 +40,10 @@
             cbo_HoaDon = new ComboBox();
             label3 = new Label();
             groupBox3 = new GroupBox();
+            txt_SLMua = new TextBox();
             txt_TKSanPham = new TextBox();
             dgv_SanPham = new DataGridView();
+            label4 = new Label();
             textBox5 = new TextBox();
             label7 = new Label();
             groupBox4 = new GroupBox();
@@ -73,6 +76,7 @@
             // 
             // groupBox1
             // 
+            groupBox1.Controls.Add(lb_ID);
             groupBox1.Controls.Add(btn_addOrder);
             groupBox1.Controls.Add(txt_NameCustomer);
             groupBox1.Controls.Add(label2);
@@ -84,6 +88,14 @@
             groupBox1.TabIndex = 0;
             groupBox1.TabStop = false;
             groupBox1.Text = "Thông tin khách hàng";
+            // 
+            // lb_ID
+            // 
+            lb_ID.AutoSize = true;
+            lb_ID.Location = new Point(11, 34);
+            lb_ID.Name = "lb_ID";
+            lb_ID.Size = new Size(0, 20);
+            lb_ID.TabIndex = 3;
             // 
             // btn_addOrder
             // 
@@ -143,10 +155,10 @@
             // dgv_HDCT
             // 
             dgv_HDCT.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgv_HDCT.Location = new Point(6, 78);
+            dgv_HDCT.Location = new Point(6, 110);
             dgv_HDCT.Name = "dgv_HDCT";
             dgv_HDCT.RowHeadersWidth = 51;
-            dgv_HDCT.Size = new Size(510, 745);
+            dgv_HDCT.Size = new Size(510, 713);
             dgv_HDCT.TabIndex = 1;
             // 
             // cbo_HoaDon
@@ -156,6 +168,7 @@
             cbo_HoaDon.Name = "cbo_HoaDon";
             cbo_HoaDon.Size = new Size(253, 28);
             cbo_HoaDon.TabIndex = 0;
+            cbo_HoaDon.SelectedIndexChanged += cbo_HoaDon_SelectedIndexChanged;
             // 
             // label3
             // 
@@ -168,8 +181,10 @@
             // 
             // groupBox3
             // 
+            groupBox3.Controls.Add(txt_SLMua);
             groupBox3.Controls.Add(txt_TKSanPham);
             groupBox3.Controls.Add(dgv_SanPham);
+            groupBox3.Controls.Add(label4);
             groupBox3.Controls.Add(textBox5);
             groupBox3.Controls.Add(label7);
             groupBox3.Location = new Point(856, 12);
@@ -178,6 +193,13 @@
             groupBox3.TabIndex = 2;
             groupBox3.TabStop = false;
             groupBox3.Text = "Danh sách sản phẩm";
+            // 
+            // txt_SLMua
+            // 
+            txt_SLMua.Location = new Point(130, 60);
+            txt_SLMua.Name = "txt_SLMua";
+            txt_SLMua.Size = new Size(359, 27);
+            txt_SLMua.TabIndex = 11;
             // 
             // txt_TKSanPham
             // 
@@ -189,11 +211,22 @@
             // dgv_SanPham
             // 
             dgv_SanPham.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgv_SanPham.Location = new Point(6, 78);
+            dgv_SanPham.Location = new Point(6, 110);
             dgv_SanPham.Name = "dgv_SanPham";
             dgv_SanPham.RowHeadersWidth = 51;
-            dgv_SanPham.Size = new Size(502, 745);
+            dgv_SanPham.Size = new Size(502, 713);
             dgv_SanPham.TabIndex = 10;
+            dgv_SanPham.CellClick += dgv_SanPham_CellClick;
+            dgv_SanPham.CellDoubleClick += dgv_SanPham_CellDoubleClick;
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Location = new Point(24, 67);
+            label4.Name = "label4";
+            label4.Size = new Size(102, 20);
+            label4.TabIndex = 0;
+            label4.Text = "Số lượng mua";
             // 
             // textBox5
             // 
@@ -243,9 +276,9 @@
             lb_traKhach.Font = new Font("Segoe UI Semibold", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lb_traKhach.Location = new Point(112, 433);
             lb_traKhach.Name = "lb_traKhach";
-            lb_traKhach.Size = new Size(187, 38);
+            lb_traKhach.Size = new Size(50, 38);
             lb_traKhach.TabIndex = 9;
-            lb_traKhach.Text = "100.000.000đ";
+            lb_traKhach.Text = "0đ";
             // 
             // lb_TienDuocGiam
             // 
@@ -253,9 +286,9 @@
             lb_TienDuocGiam.Font = new Font("Segoe UI Semibold", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lb_TienDuocGiam.Location = new Point(113, 317);
             lb_TienDuocGiam.Name = "lb_TienDuocGiam";
-            lb_TienDuocGiam.Size = new Size(187, 38);
+            lb_TienDuocGiam.Size = new Size(50, 38);
             lb_TienDuocGiam.TabIndex = 9;
-            lb_TienDuocGiam.Text = "100.000.000đ";
+            lb_TienDuocGiam.Text = "0đ";
             // 
             // lb_ThanhTien
             // 
@@ -263,9 +296,9 @@
             lb_ThanhTien.Font = new Font("Segoe UI Semibold", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lb_ThanhTien.Location = new Point(113, 358);
             lb_ThanhTien.Name = "lb_ThanhTien";
-            lb_ThanhTien.Size = new Size(187, 38);
+            lb_ThanhTien.Size = new Size(50, 38);
             lb_ThanhTien.TabIndex = 9;
-            lb_ThanhTien.Text = "100.000.000đ";
+            lb_ThanhTien.Text = "0đ";
             // 
             // label11
             // 
@@ -282,6 +315,7 @@
             txt_tienKhachDua.Name = "txt_tienKhachDua";
             txt_tienKhachDua.Size = new Size(184, 27);
             txt_tienKhachDua.TabIndex = 1;
+            txt_tienKhachDua.TextChanged += txt_tienKhachDua_TextChanged;
             // 
             // txt_PhanTramGiam
             // 
@@ -305,9 +339,9 @@
             lb_TongHoaDon.Font = new Font("Segoe UI Semibold", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lb_TongHoaDon.Location = new Point(112, 276);
             lb_TongHoaDon.Name = "lb_TongHoaDon";
-            lb_TongHoaDon.Size = new Size(187, 38);
+            lb_TongHoaDon.Size = new Size(50, 38);
             lb_TongHoaDon.TabIndex = 5;
-            lb_TongHoaDon.Text = "100.000.000đ";
+            lb_TongHoaDon.Text = "0đ";
             // 
             // label13
             // 
@@ -353,6 +387,7 @@
             btn_ThanhToan.TabIndex = 3;
             btn_ThanhToan.Text = "Thanh toán";
             btn_ThanhToan.UseVisualStyleBackColor = true;
+            btn_ThanhToan.Click += btn_ThanhToan_Click;
             // 
             // label5
             // 
@@ -455,5 +490,8 @@
         private Label lb_TienDuocGiam;
         private Label lb_ThanhTien;
         private TextBox txt_tienKhachDua;
+        private Label lb_ID;
+        private TextBox txt_SLMua;
+        private Label label4;
     }
 }

@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ClassicShoe.DATA.Migrations
 {
     [DbContext(typeof(ClassicShoeDbContext))]
-    [Migration("20241112235923_thanh")]
-    partial class thanh
+    [Migration("20241121201648_lan1")]
+    partial class lan1
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -51,17 +51,17 @@ namespace ClassicShoe.DATA.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("10c899eb-26ac-42a3-b939-0e878ecd9963"),
+                            Id = new Guid("dbc32078-1b24-41d4-833a-da3ccc5e6ea9"),
                             MatKhau = "password1",
                             TaiKhoan = "admin1",
-                            VaiTroId = new Guid("c249bbb2-d1d7-4672-ab49-725c54f1a66d")
+                            VaiTroId = new Guid("c59da32a-6288-42be-a828-7897c6428601")
                         },
                         new
                         {
-                            Id = new Guid("3b6cc382-a072-4472-b1dd-4af02bb2a52d"),
+                            Id = new Guid("7cc318f4-7211-4c9d-a996-aba24c244a92"),
                             MatKhau = "password2",
                             TaiKhoan = "admin2",
-                            VaiTroId = new Guid("c249bbb2-d1d7-4672-ab49-725c54f1a66d")
+                            VaiTroId = new Guid("c59da32a-6288-42be-a828-7897c6428601")
                         });
                 });
 
@@ -91,7 +91,7 @@ namespace ClassicShoe.DATA.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("30b0c30e-2e1c-4e74-abb4-f0a384b10d63"),
+                            Id = new Guid("62310fc2-7afd-4c71-a138-fcfe152bf0e1"),
                             ChatLieu = "Cao su",
                             CongNghe = "Chống trượt",
                             Mota = "Đế cao su bền chắc, khả năng chống trượt tốt",
@@ -99,7 +99,7 @@ namespace ClassicShoe.DATA.Migrations
                         },
                         new
                         {
-                            Id = new Guid("4bd1144f-9b26-4edb-b1d4-ab56744dd3d6"),
+                            Id = new Guid("c175ef73-c43a-4955-af0b-7e59b7a10715"),
                             ChatLieu = "Nhựa",
                             CongNghe = "Chống mài mòn",
                             Mota = "Đế nhựa nhẹ, chịu được mài mòn cao",
@@ -133,9 +133,9 @@ namespace ClassicShoe.DATA.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("0fd1ff27-d052-4b00-ba9b-6d8f94765345"),
-                            HangSanXuatId = new Guid("b419a7ab-2c29-48a6-b9bb-f2a19791bb6d"),
-                            LoaiGiayId = new Guid("034ab49a-5a30-4c19-bffe-450c994002c0"),
+                            Id = new Guid("4aa79c6b-0fe5-4851-9d5a-626d711925b2"),
+                            HangSanXuatId = new Guid("047a7dc2-b30e-4d15-949f-f20f0d79d80a"),
+                            LoaiGiayId = new Guid("3ffe5adc-baba-4cb0-89be-35ac7e922958"),
                             TrangThai = 1
                         });
                 });
@@ -192,30 +192,30 @@ namespace ClassicShoe.DATA.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("0b6869f2-68e3-4888-9cb7-c9dcc03f0bc8"),
+                            Id = new Guid("37657f79-5afd-49e5-9f2c-62bbf264b4b0"),
                             BaoHang = "Bảo hành 1 năm",
-                            DeGiayId = new Guid("30b0c30e-2e1c-4e74-abb4-f0a384b10d63"),
+                            DeGiayId = new Guid("62310fc2-7afd-4c71-a138-fcfe152bf0e1"),
                             Gia = 1500000m,
-                            GiayId = new Guid("0fd1ff27-d052-4b00-ba9b-6d8f94765345"),
-                            MauSacId = new Guid("9ec7286c-1a10-4906-9cf6-98535dac9ef9"),
-                            NgayNhanKho = new DateTime(2024, 11, 13, 6, 59, 23, 0, DateTimeKind.Local).AddTicks(9204),
+                            GiayId = new Guid("4aa79c6b-0fe5-4851-9d5a-626d711925b2"),
+                            MauSacId = new Guid("2f50ee69-3310-4880-a4b6-68d0e563c280"),
+                            NgayNhanKho = new DateTime(2024, 11, 22, 3, 16, 48, 236, DateTimeKind.Local).AddTicks(7373),
                             SoLuong = 10,
                             TenHang = "Nike Air Max",
-                            ThanGiayId = new Guid("f3c87f77-51b6-4a64-9601-091a90fabb40"),
+                            ThanGiayId = new Guid("8495904c-61de-4622-a0f0-b158a647cc5d"),
                             TrangThai = 1
                         },
                         new
                         {
-                            Id = new Guid("950c75c9-cd32-4784-9a95-8d5f3d403070"),
+                            Id = new Guid("c3f532d7-a731-4407-ac38-e4a4ab9eb98a"),
                             BaoHang = "Bảo hành 6 tháng",
-                            DeGiayId = new Guid("4bd1144f-9b26-4edb-b1d4-ab56744dd3d6"),
+                            DeGiayId = new Guid("c175ef73-c43a-4955-af0b-7e59b7a10715"),
                             Gia = 1200000m,
-                            GiayId = new Guid("0fd1ff27-d052-4b00-ba9b-6d8f94765345"),
-                            MauSacId = new Guid("bc45a606-79d9-492c-81c8-ec80441bb0a0"),
-                            NgayNhanKho = new DateTime(2024, 11, 13, 6, 59, 23, 0, DateTimeKind.Local).AddTicks(9231),
+                            GiayId = new Guid("4aa79c6b-0fe5-4851-9d5a-626d711925b2"),
+                            MauSacId = new Guid("3a9b4b42-24f6-4964-a19a-49e1e3adb18b"),
+                            NgayNhanKho = new DateTime(2024, 11, 22, 3, 16, 48, 236, DateTimeKind.Local).AddTicks(7392),
                             SoLuong = 15,
                             TenHang = "Nike Revolution",
-                            ThanGiayId = new Guid("02a3f4c4-ea86-482f-a8f9-0f89fa46b9f4"),
+                            ThanGiayId = new Guid("8713b41f-cf41-4f51-bcf4-4455b953a846"),
                             TrangThai = 1
                         });
                 });
@@ -252,7 +252,7 @@ namespace ClassicShoe.DATA.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("b419a7ab-2c29-48a6-b9bb-f2a19791bb6d"),
+                            Id = new Guid("047a7dc2-b30e-4d15-949f-f20f0d79d80a"),
                             DiaChi = "Beaverton, Oregon, USA",
                             DieuKhoan = "https://example.com/terms-nike.pdf",
                             Email = "support@nike.com",
@@ -267,26 +267,28 @@ namespace ClassicShoe.DATA.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("KhachHangId")
+                    b.Property<string>("InvoiceCode")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid?>("KhachHangId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("MaGiamGiaId")
+                    b.Property<Guid?>("MaGiamGiaId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime>("NgayTaoHoaDon")
+                    b.Property<DateTime?>("NgayTaoHoaDon")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid>("NhanVienId")
+                    b.Property<Guid?>("NhanVienId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("PhuongThucThanhToan")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Status")
+                    b.Property<int?>("Status")
                         .HasColumnType("int");
 
-                    b.Property<decimal>("ThanhTien")
+                    b.Property<decimal?>("ThanhTien")
                         .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
@@ -359,6 +361,19 @@ namespace ClassicShoe.DATA.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("KhachHangs");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("41bbfb15-d6b0-4cc3-ac9c-b68ae4e4fdbe"),
+                            DiaChi = "789 XYZ Street",
+                            DiemTichLuy = 200,
+                            Email = "tranthic@example.com",
+                            NgaySinh = new DateTime(1985, 10, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SoDienThoai = "0912345678",
+                            TenKhachHang = "Tran Thi C",
+                            TongChiTieu = 3000000m
+                        });
                 });
 
             modelBuilder.Entity("ClassicShoe.DATA.Models.LoaiGiay", b =>
@@ -384,7 +399,7 @@ namespace ClassicShoe.DATA.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("034ab49a-5a30-4c19-bffe-450c994002c0"),
+                            Id = new Guid("3ffe5adc-baba-4cb0-89be-35ac7e922958"),
                             MoTa = "Giày thể thao, phù hợp với nhiều hoạt động",
                             PhongCach = "Thể thao",
                             TenLoai = "Sneaker"
@@ -441,12 +456,12 @@ namespace ClassicShoe.DATA.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("9ec7286c-1a10-4906-9cf6-98535dac9ef9"),
+                            Id = new Guid("2f50ee69-3310-4880-a4b6-68d0e563c280"),
                             TenMau = "Đỏ"
                         },
                         new
                         {
-                            Id = new Guid("bc45a606-79d9-492c-81c8-ec80441bb0a0"),
+                            Id = new Guid("3a9b4b42-24f6-4964-a19a-49e1e3adb18b"),
                             TenMau = "Xanh"
                         });
                 });
@@ -491,6 +506,32 @@ namespace ClassicShoe.DATA.Migrations
                     b.HasIndex("VaiTroId");
 
                     b.ToTable("NhanViens");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("ac615456-6904-4dda-81cf-54896445eb47"),
+                            DiaChi = "123 ABC Street",
+                            Email = "nguyenvana@example.com",
+                            MatKhau = "123456",
+                            NgaySinh = new DateTime(1990, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SoDienThoai = "0901234567",
+                            TenNhanVien = "Nguyen Van A",
+                            TenTaiKhoan = "nguyenvana",
+                            VaiTroId = new Guid("7d95e027-1380-4027-88fb-6eaa401feef4")
+                        },
+                        new
+                        {
+                            Id = new Guid("2ecaf93f-6f8a-49ab-b612-477be516bb3d"),
+                            DiaChi = "456 XYZ Street",
+                            Email = "lethib@example.com",
+                            MatKhau = "abcdef",
+                            NgaySinh = new DateTime(1992, 2, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SoDienThoai = "0907654321",
+                            TenNhanVien = "Le Thi B",
+                            TenTaiKhoan = "lethib",
+                            VaiTroId = new Guid("7d95e027-1380-4027-88fb-6eaa401feef4")
+                        });
                 });
 
             modelBuilder.Entity("ClassicShoe.DATA.Models.ThanGiay", b =>
@@ -521,7 +562,7 @@ namespace ClassicShoe.DATA.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("f3c87f77-51b6-4a64-9601-091a90fabb40"),
+                            Id = new Guid("8495904c-61de-4622-a0f0-b158a647cc5d"),
                             ChatLieu = "Da thật",
                             MoTa = "Thân giày làm từ da thật, thiết kế thanh lịch, độ bền cao",
                             Ten = "Thân Giày Da",
@@ -529,7 +570,7 @@ namespace ClassicShoe.DATA.Migrations
                         },
                         new
                         {
-                            Id = new Guid("02a3f4c4-ea86-482f-a8f9-0f89fa46b9f4"),
+                            Id = new Guid("8713b41f-cf41-4f51-bcf4-4455b953a846"),
                             ChatLieu = "Vải canvas",
                             MoTa = "Thân giày làm từ vải canvas thoáng khí, phù hợp với phong cách năng động",
                             Ten = "Thân Giày Vải",
@@ -558,13 +599,13 @@ namespace ClassicShoe.DATA.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("c249bbb2-d1d7-4672-ab49-725c54f1a66d"),
+                            Id = new Guid("c59da32a-6288-42be-a828-7897c6428601"),
                             MaVaiTro = "ADMIN",
                             TenVaiTro = "Admin"
                         },
                         new
                         {
-                            Id = new Guid("687be20a-856e-4b34-a10e-2daf03cfb6f9"),
+                            Id = new Guid("7d95e027-1380-4027-88fb-6eaa401feef4"),
                             MaVaiTro = "NV",
                             TenVaiTro = "NhanVien"
                         });
@@ -637,21 +678,15 @@ namespace ClassicShoe.DATA.Migrations
                 {
                     b.HasOne("ClassicShoe.DATA.Models.KhachHang", "KhachHang")
                         .WithMany("HoaDons")
-                        .HasForeignKey("KhachHangId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("KhachHangId");
 
                     b.HasOne("ClassicShoe.DATA.Models.MaGiamGia", "MaGiamGia")
                         .WithMany()
-                        .HasForeignKey("MaGiamGiaId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("MaGiamGiaId");
 
                     b.HasOne("ClassicShoe.DATA.Models.NhanVien", "NhanVien")
                         .WithMany()
-                        .HasForeignKey("NhanVienId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("NhanVienId");
 
                     b.Navigation("KhachHang");
 
