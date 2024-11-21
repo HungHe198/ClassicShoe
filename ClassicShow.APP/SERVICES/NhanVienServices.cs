@@ -12,15 +12,7 @@ namespace ClassicShoe.APP.SERVICES
     {
         AllRepositories<NhanVien> _repo = new AllRepositories<NhanVien>(new ClassicShoeDbContext());  
         
-        public string ThemNV(Guid id)
-        {
-           if (_repo.Delete())
-            {
-                return "TC";
-            }
-           
-            return "them";
-        }
+        
     
     }
 }
