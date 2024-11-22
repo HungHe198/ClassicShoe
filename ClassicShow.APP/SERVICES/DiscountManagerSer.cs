@@ -19,24 +19,12 @@ namespace ClassicShoe.APP.SERVICES
 
         public bool CreateMaGiamGia(MaGiamGia maGiamGia)
         {
-            if (maGiamGia.NgayBatDau >= maGiamGia.NgayKetThuc)
-                throw new ArgumentException("Ngày bắt đầu phải nhỏ hơn ngày kết thúc.");
-            if (maGiamGia.NgayBatDau < DateTime.Now)
-                throw new ArgumentException("Ngày bắt đầu không thể nhỏ hơn ngày hiện tại.");
-            if (maGiamGia.PhanTramGiam < 0 || maGiamGia.PhanTramGiam > 100)
-                throw new ArgumentException("Phần trăm giảm phải nằm trong khoảng 0-100.");
             return _repository.Create(maGiamGia);
         }
 
         public bool UpdateMaGiamGia(Guid id, MaGiamGia maGiamGia)
         {
-            if (maGiamGia.NgayBatDau >= maGiamGia.NgayKetThuc)
-                throw new ArgumentException("Ngày bắt đầu phải nhỏ hơn ngày kết thúc.");
-            if (maGiamGia.NgayBatDau < DateTime.Now)
-                throw new ArgumentException("Ngày bắt đầu không thể nhỏ hơn ngày hiện tại.");
-            if (maGiamGia.PhanTramGiam < 0 || maGiamGia.PhanTramGiam > 100)
-                throw new ArgumentException("Phần trăm giảm phải nằm trong khoảng 0-100.");
-            return _repository.Update(id, maGiamGia);
+            return _repository.UpdateMGG(id, maGiamGia);
         }
 
         public bool DeleteMaGiamGia(Guid id)
