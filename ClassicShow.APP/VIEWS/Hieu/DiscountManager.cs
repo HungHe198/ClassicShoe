@@ -47,7 +47,6 @@ namespace ClassicShow.APP.VIEWS
             DateTime ngayBatDau = dateTimePicker1.Value;
             DateTime ngayKetThuc = dateTimePicker2.Value;
             string moTa = textBox1.Text.Trim();
-
             if (string.IsNullOrEmpty(maVoucher) || string.IsNullOrEmpty(tenMa) || string.IsNullOrEmpty(phanTramGiam))
             {
                 MessageBox.Show("Vui lòng điền đầy đủ thông tin!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -57,6 +56,23 @@ namespace ClassicShow.APP.VIEWS
             if (!int.TryParse(phanTramGiam, out int phanTram))
             {
                 MessageBox.Show("Phần trăm giảm phải là một số hợp lệ!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            if (ngayBatDau >= ngayKetThuc)
+            {
+                MessageBox.Show("Ngày bắt đầu phải nhỏ hơn ngày kết thúc!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            if (ngayBatDau < DateTime.Now)
+            {
+                MessageBox.Show("Ngày bắt đầu không thể nhỏ hơn ngày hiện tại!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            if (phanTram < 0 || phanTram > 100)
+            {
+                MessageBox.Show("Phần trăm giảm phải nằm trong khoảng 0-100!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
             MaGiamGia maGiamGia = new MaGiamGia
@@ -129,12 +145,29 @@ namespace ClassicShow.APP.VIEWS
                 return;
             }
 
+            if (ngayBatDau >= ngayKetThuc)
+            {
+                MessageBox.Show("Ngày bắt đầu phải nhỏ hơn ngày kết thúc!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            if (ngayBatDau < DateTime.Now)
+            {
+                MessageBox.Show("Ngày bắt đầu không thể nhỏ hơn ngày hiện tại!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            if (phanTram < 0 || phanTram > 100)
+            {
+                MessageBox.Show("Phần trăm giảm phải nằm trong khoảng 0-100!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
             Guid maGiamGiaId = Guid.Parse(dataGridView1.CurrentRow.Cells[1].Value.ToString());
 
             MaGiamGia updatedMaGiamGia = new MaGiamGia
             {
                 Id = maGiamGiaId,
-                TenMaGiamGia = maVoucher,
+                TenMaGiamGia = tenMa,
                 PhanTramGiam = phanTram,
                 NgayBatDau = ngayBatDau,
                 NgayKetThuc = ngayKetThuc,
@@ -142,13 +175,14 @@ namespace ClassicShow.APP.VIEWS
                 GT_HoaDonToiThieu = 0,
                 GT_ToiDaGiam = 0
             };
-            bool result = _ser.UpdateMaGiamGia(maGiamGiaId, updatedMaGiamGia);
 
+            bool result = _ser.UpdateMaGiamGia(maGiamGiaId, updatedMaGiamGia);
             if (!result)
             {
                 MessageBox.Show("Không thể cập nhật mã giảm giá. Vui lòng kiểm tra dữ liệu hoặc thử lại.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
+
             MessageBox.Show("Cập nhật thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
             LoadView();
         }

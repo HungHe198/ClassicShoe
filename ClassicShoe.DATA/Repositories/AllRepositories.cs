@@ -73,5 +73,18 @@ namespace ClassicShoe.DATA.Repositories
             }
             catch { return false; }
         }
+        public bool UpdateMGG(Guid id, N entity)
+        {
+           
+                var findEntity = _dbSet.Find(id);
+                if (findEntity != null)
+                {
+                    _db.Entry(findEntity).CurrentValues.SetValues(entity);
+                    _dbSet.Update(findEntity);
+                    _db.SaveChanges();
+                    return true;
+                }
+                return false;
+        }
     }
 }
