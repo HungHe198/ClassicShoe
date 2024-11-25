@@ -60,35 +60,107 @@ namespace ClassicShow.APP.VIEWS
 
         private void btn_them_Click(object sender, EventArgs e)
         {
+            try
             {
-                try
-                {
-                    var khachHang = new KhachHang
-                    {
-                        Id = Guid.NewGuid(),
-                        TenKhachHang = txt_ten.Text,
-                        NgaySinh = dtp_ngsinh.Value,
-                        SoDienThoai = txt_sdt.Text,
-                        Email = txt_email.Text,
-                        DiaChi = txt_dchi.Text,
-                        DiemTichLuy = int.TryParse(txt_diem.Text, out var diemTichLuy) ? diemTichLuy : 0,
-                        TongChiTieu = decimal.TryParse(textBox2.Text, out var tongChiTieu) ? tongChiTieu : 0
-                    };
+                
+                var tenKhachHang = txt_ten.Text.Trim();
+                var soDienThoai = txt_sdt.Text.Trim();
+                var email = txt_email.Text.Trim();
+                var diaChi = txt_dchi.Text.Trim();
+                var diemText = txt_diem.Text.Trim();
+                var tongChiTieuText = textBox2.Text.Trim();
 
-                    if (_repo.Create(khachHang))
-                    {
-                        MessageBox.Show("Thêm khách hàng thành công!");
-                        LoadDGV();
-                    }
-                    else
-                    {
-                        MessageBox.Show("Thêm khách hàng thất bại.");
-                    }
-                }
-                catch (Exception ex)
+                
+                if (string.IsNullOrWhiteSpace(tenKhachHang))
                 {
-                    MessageBox.Show($"Lỗi: {ex.Message}");
+                    MessageBox.Show("Vui lòng nhập tên khách hàng.", "Lỗi nhập liệu", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
                 }
+
+                if (string.IsNullOrWhiteSpace(soDienThoai))
+                {
+                    MessageBox.Show("Vui lòng nhập số điện thoại.", "Lỗi nhập liệu", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                if (string.IsNullOrWhiteSpace(email))
+                {
+                    MessageBox.Show("Vui lòng nhập email.", "Lỗi nhập liệu", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                if (string.IsNullOrWhiteSpace(diaChi))
+                {
+                    MessageBox.Show("Vui lòng nhập địa chỉ.", "Lỗi nhập liệu", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                if (string.IsNullOrWhiteSpace(diemText))
+                {
+                    MessageBox.Show("Vui lòng nhập điểm tích lũy.", "Lỗi nhập liệu", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                if (string.IsNullOrWhiteSpace(tongChiTieuText))
+                {
+                    MessageBox.Show("Vui lòng nhập tổng chi tiêu.", "Lỗi nhập liệu", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                if (soDienThoai.Length != 10 || !soDienThoai.All(char.IsDigit))
+                {
+                    MessageBox.Show("Số điện thoại phải có 10 chữ số và chỉ chứa số.", "Lỗi nhập liệu", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                
+                if (!email.Contains("@"))
+                {
+                    MessageBox.Show("Email không hợp lệ. Email phải chứa ký tự '@'.", "Lỗi nhập liệu", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+               
+                if (!int.TryParse(diemText, out var diemTichLuy) || diemTichLuy < 0)
+                {
+                    MessageBox.Show("Điểm tích lũy không được là số âm và phải là số nguyên.", "Lỗi nhập liệu", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                
+                if (!decimal.TryParse(tongChiTieuText, out var tongChiTieu) || tongChiTieu < 0)
+                {
+                    MessageBox.Show("Tổng chi tiêu không được là số âm và phải là số thập phân hợp lệ.", "Lỗi nhập liệu", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                
+                var khachHang = new KhachHang
+                {
+                    Id = Guid.NewGuid(),
+                    TenKhachHang = tenKhachHang,
+                    NgaySinh = dtp_ngsinh.Value,
+                    SoDienThoai = soDienThoai,
+                    Email = email,
+                    DiaChi = diaChi,
+                    DiemTichLuy = diemTichLuy,
+                    TongChiTieu = tongChiTieu
+                };
+
+                
+                if (_repo.Create(khachHang))
+                {
+                    MessageBox.Show("Thêm khách hàng thành công!");
+                    LoadDGV();
+                }
+                else
+                {
+                    MessageBox.Show("Thêm khách hàng thất bại.");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi: {ex.Message}");
             }
         }
 
@@ -229,7 +301,37 @@ namespace ClassicShow.APP.VIEWS
 
         private void btn_timkiem_Click(object sender, EventArgs e)
         {
-            
+            try
+            {
+                var keyword = txt_tim.Text.Trim().ToLower();
+
+                if (string.IsNullOrWhiteSpace(keyword))
+                {
+                    LoadDGV(); 
+                    return;
+                }
+
+                var customers = _repo.GetAll();
+
+                var filteredCustomers = customers.Where(c =>
+                    (c.TenKhachHang != null && c.TenKhachHang.ToLower().Contains(keyword)) ||
+                    (c.SoDienThoai != null && c.SoDienThoai.Contains(keyword))).ToList();
+
+                if (filteredCustomers.Count > 0)
+                {
+                    dataGridViewkh.DataSource = filteredCustomers;
+                }
+                else
+                {
+                    MessageBox.Show("Không tìm thấy khách hàng nào phù hợp.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    dataGridViewkh.DataSource = null;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Đã xảy ra lỗi khi tìm kiếm: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
         }
     }
 }
