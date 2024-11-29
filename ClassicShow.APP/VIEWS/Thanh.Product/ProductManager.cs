@@ -136,8 +136,8 @@ namespace ClassicShow.APP.VIEWS
 
             var trangThaiItems = new List<KeyValuePair<int, string>>
             {
-            new KeyValuePair<int, string>(1, "1"),
-             new KeyValuePair<int, string>(0, "0")
+            new KeyValuePair<int, string>(1, "Còn Bán"),
+             new KeyValuePair<int, string>(0, "Ngừng Bán")
             };
 
             cboTrangThai.DataSource = trangThaiItems;
@@ -261,7 +261,7 @@ namespace ClassicShow.APP.VIEWS
                 dtpNgayNhapKho.Value = DateTime.Parse(selectedRow.Cells["NgayNhanKho"].Value.ToString());
                 int trangThai = selectedRow.Cells["TrangThai"].Value.ToString() == "Còn bán" ? 1 : 0;
                 cboTrangThai.SelectedValue = trangThai;
-
+                cboTrangThai.Enabled = false;
 
 
                 string tenDe = selectedRow.Cells["DeGiay"].Value.ToString();
@@ -332,7 +332,6 @@ namespace ClassicShow.APP.VIEWS
                 }
 
                 var selectedRow = dgvSanPham.SelectedRows[0];
-
                 var giayChiTietIdValue = selectedRow.Cells["GiayChiTietId"].Value;
 
                 if (giayChiTietIdValue == null || string.IsNullOrEmpty(giayChiTietIdValue.ToString()))
@@ -343,7 +342,6 @@ namespace ClassicShow.APP.VIEWS
 
                 if (Guid.TryParse(giayChiTietIdValue.ToString(), out Guid giayChiTietId))
                 {
-
                     if (string.IsNullOrEmpty(txtTenHang.Text) ||
                         string.IsNullOrEmpty(txtGia.Text) ||
                         string.IsNullOrEmpty(txtSoLuong.Text) ||
@@ -352,7 +350,6 @@ namespace ClassicShow.APP.VIEWS
                         MessageBox.Show("Vui lòng điền đầy đủ thông tin.");
                         return;
                     }
-
 
                     if (!decimal.TryParse(txtGia.Text, out decimal gia))
                     {
@@ -365,21 +362,19 @@ namespace ClassicShow.APP.VIEWS
                         return;
                     }
 
-
                     if (!int.TryParse(txtSoLuong.Text, out int soLuong))
                     {
-                        MessageBox.Show("Số lượng phải là số");
+                        MessageBox.Show("Số lượng phải là số.");
                         return;
                     }
                     if (soLuong <= 0)
                     {
-                        MessageBox.Show("Giá phải lớn hơn 0.");
+                        MessageBox.Show("Số lượng phải lớn hơn 0.");
                         return;
                     }
 
                     if (cboLoaiGiay.SelectedItem == null || cboHangSanXuat.SelectedItem == null ||
-                        cboDeGiay.SelectedItem == null || cboThanGiay.SelectedItem == null || cboMauSac.SelectedItem == null ||
-                        cboTrangThai.SelectedItem == null)
+                        cboDeGiay.SelectedItem == null || cboThanGiay.SelectedItem == null || cboMauSac.SelectedItem == null)
                     {
                         MessageBox.Show("Vui lòng chọn đầy đủ thông tin.");
                         return;
@@ -391,56 +386,39 @@ namespace ClassicShow.APP.VIEWS
                         MessageBox.Show("Sản phẩm chi tiết không tồn tại.");
                         return;
                     }
-
-
+                   
+                    // Cập nhật thông tin, nhưng không cho phép thay đổi trạng thái
                     giayChiTiet.TenHang = txtTenHang.Text;
-                    giayChiTiet.Gia = decimal.Parse(txtGia.Text);
-                    giayChiTiet.SoLuong = int.Parse(txtSoLuong.Text);
+                    giayChiTiet.Gia = gia;
+                    giayChiTiet.SoLuong = soLuong;
                     giayChiTiet.BaoHang = txtBaoHanh.Text;
                     giayChiTiet.NgayNhanKho = dtpNgayNhapKho.Value;
-                    if (cboTrangThai.SelectedItem.ToString() != giayChiTiet.TrangThai.ToString() || cboTrangThai.SelectedIndex != 1)
+                    giayChiTiet.DeGiayId = (Guid)cboDeGiay.SelectedValue;
+                    giayChiTiet.ThanGiayId = (Guid)cboThanGiay.SelectedValue;
+                    giayChiTiet.MauSacId = (Guid)cboMauSac.SelectedValue;
+                   
+                    bool giayChiTietUpdated = _repoGCT.Update(giayChiTietId, giayChiTiet);
+                    if (!giayChiTietUpdated)
                     {
-                        giayChiTiet.TrangThai = cboTrangThai.SelectedItem.ToString() == "Còn bán" ? 1 : 1;
-                        MessageBox.Show("không thể thay đổi trạng thái");
-                        ClearForm();
-
+                        MessageBox.Show("Cập nhật sản phẩm chi tiết không thành công.");
+                        return;
                     }
-                    else
+
+                    var giay = _repoG.GetById(giayChiTiet.GiayId);
+                    if (giay != null)
                     {
-                        giayChiTiet.DeGiayId = (Guid)cboDeGiay.SelectedValue;
-                        giayChiTiet.ThanGiayId = (Guid)cboThanGiay.SelectedValue;
-                        giayChiTiet.MauSacId = (Guid)cboMauSac.SelectedValue;
+                        giay.LoaiGiayId = (Guid)cboLoaiGiay.SelectedValue;
+                        giay.HangSanXuatId = (Guid)cboHangSanXuat.SelectedValue;
 
-
-                        bool giayChiTietUpdated = _repoGCT.Update(giayChiTietId, giayChiTiet);
-                        if (!giayChiTietUpdated)
+                        bool giayUpdated = _repoG.Update(giay.Id, giay);
+                        if (!giayUpdated)
                         {
-                            MessageBox.Show("Cập nhật sản phẩm chi tiết không thành công.");
+                            MessageBox.Show("Cập nhật sản phẩm không thành công.");
                             return;
                         }
+                    }
 
-
-                        var giay = _repoG.GetById(giayChiTiet.GiayId);
-                        if (giay != null)
-                        {
-                            giay.LoaiGiayId = (Guid)cboLoaiGiay.SelectedValue;
-                            giay.HangSanXuatId = (Guid)cboHangSanXuat.SelectedValue;
-                            if (cboTrangThai.SelectedItem.ToString() != giayChiTiet.TrangThai.ToString())
-                            {
-                                giayChiTiet.TrangThai = cboTrangThai.SelectedItem.ToString() == "Còn bán" ? 1 : 1;
-
-                            }
-
-                            bool giayUpdated = _repoG.Update(giay.Id, giay);
-                            if (!giayUpdated)
-                            {
-                                MessageBox.Show("Cập nhật sản phẩm không thành công.");
-                                return;
-                            }
-                        }
-
-                        MessageBox.Show("Sửa sản phẩm thành công.");
-                    }    
+                    MessageBox.Show("Sửa sản phẩm thành công.");
                     LoadDGV();
                 }
                 else
@@ -557,7 +535,7 @@ namespace ClassicShow.APP.VIEWS
             cboLoaiGiay.SelectedIndex = -1;
             cboMauSac.SelectedIndex = -1;
             cboHangSanXuat.SelectedIndex = -1;
-
+            cboTrangThai.Enabled = true;
 
             dtpNgayNhapKho.Value = DateTime.Now;
 
