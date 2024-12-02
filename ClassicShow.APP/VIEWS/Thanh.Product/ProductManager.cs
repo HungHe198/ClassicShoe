@@ -254,7 +254,11 @@ namespace ClassicShow.APP.VIEWS
 
 
                 txtTenHang.Text = selectedRow.Cells["TenHang"].Value.ToString();
-                txtGia.Text = selectedRow.Cells["Gia"].Value.ToString();
+                // Chuyển đổi giá trị về dạng số không có định dạng
+                txtGia.Text = decimal.Parse(selectedRow.Cells["Gia"].Value.ToString(),
+                              System.Globalization.NumberStyles.AllowThousands |
+                              System.Globalization.NumberStyles.AllowDecimalPoint,
+                              new System.Globalization.CultureInfo("vi-VN")).ToString();
 
                 txtSoLuong.Text = selectedRow.Cells["SoLuong"].Value.ToString();
                 txtBaoHanh.Text = selectedRow.Cells["BaoHang"].Value.ToString();
