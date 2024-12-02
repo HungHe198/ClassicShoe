@@ -165,23 +165,45 @@ namespace ClassicShoe.APP.VIEWS.Hung
         }
         private void btn_addOrder_Click(object sender, EventArgs e)
         { // tạo hóa đơn trống và có thể sử dụng
-            var defaultGuid = new Guid("11111111-1111-1111-1111-111111111111");
-            HoaDon hoaDon = new HoaDon()
+            if (GlobalVariable.MaVaiTro != "ADMIN")
             {
-                Id = Guid.NewGuid(),
-                InvoiceCode = $"INV-{DateTime.Now:yyyyMMddHHmmss}",
-                KhachHangId = GlobalVariable.CustomerId,
-                MaGiamGiaId = defaultGuid,
-                NgayTaoHoaDon = DateTime.Now,
-                NhanVienId = GlobalVariable.UserId,
-                PhuongThucThanhToan = "Tại quầy",
-                Status = 1,
-                ThanhTien = 0,
-            };
-            GlobalVariable.IdHD = hoaDon.Id;
-            MessageBox.Show(_sv.CreateOrder(hoaDon));
-            loadCBO_HD(1);
+                var defaultGuid = new Guid("11111111-1111-1111-1111-111111111111");
+                HoaDon hoaDon = new HoaDon()
+                {
+                    Id = Guid.NewGuid(),
+                    InvoiceCode = $"INV-{DateTime.Now:yyyyMMddHHmmss}",
+                    KhachHangId = GlobalVariable.CustomerId,
+                    MaGiamGiaId = defaultGuid,
+                    NgayTaoHoaDon = DateTime.Now,
+                    NhanVienId = GlobalVariable.UserId,
+                    PhuongThucThanhToan = "Tại quầy",
+                    Status = 1,
+                    ThanhTien = 0,
+                };
+                GlobalVariable.IdHD = hoaDon.Id;
+                MessageBox.Show(_sv.CreateOrder(hoaDon));
+                loadCBO_HD(1);
 
+            }
+            else
+            {
+                var defaultGuid = new Guid("11111111-1111-1111-1111-111111111111");
+                HoaDon hoaDon = new HoaDon()
+                {
+                    Id = Guid.NewGuid(),
+                    InvoiceCode = $"INV-{DateTime.Now:yyyyMMddHHmmss}",
+                    KhachHangId = GlobalVariable.CustomerId,
+                    MaGiamGiaId = defaultGuid,
+                    NgayTaoHoaDon = DateTime.Now,
+                    AdminId = GlobalVariable.UserId,
+                    PhuongThucThanhToan = "Tại quầy",
+                    Status = 1,
+                    ThanhTien = 0,
+                };
+                GlobalVariable.IdHD = hoaDon.Id;
+                MessageBox.Show(_sv.CreateOrder(hoaDon));
+                loadCBO_HD(1);
+            }
 
         }
 
@@ -254,18 +276,20 @@ namespace ClassicShoe.APP.VIEWS.Hung
 
 
             var DonGia = dgv_SanPham.Rows[e.RowIndex].Cells["Gia"].Value;
+            var SoLuongConLai = Convert.ToInt32(dgv_SanPham.Rows[e.RowIndex].Cells["SoLuong"].Value);
             // Ép kiểu về kiểu dữ liệu phù hợp
 
             // tạo mới hdct
             // kiểm tra xem hóa đơn chi tiết có chưa
             // kiểm tra xem ô chứa số lượng đã tồn tại dữ liệu chưa và trừ số lượng nếu có
-            if (string.IsNullOrEmpty(txt_SLMua.Text) ||
-                txt_SLMua.Text == "0" ||
-                !int.TryParse(txt_SLMua.Text, out int soLuong) ||
-                soLuong <= 0)
+            if (string.IsNullOrEmpty(txt_SLMua.Text)
+                || txt_SLMua.Text == "0"
+                || !int.TryParse(txt_SLMua.Text, out int soLuong)
+                || soLuong <= 0
+                || SoLuongConLai - soLuong < 0)
             {
                 // Xử lý nếu điều kiện không hợp lệ
-                MessageBox.Show("Số lượng mua không hợp lệ. Vui lòng nhập một số nguyên dương.");
+                MessageBox.Show("Số lượng mua không hợp lệ. \nVui lòng nhập một số nguyên dương nhỏ hơn hoặc bằng số lượng sản phẩm còn lại.");
             }
             else
             {
@@ -406,6 +430,7 @@ namespace ClassicShoe.APP.VIEWS.Hung
                 if (hoaDonFind.KhachHangId != null)
                 {
                     hoaDonFind.Status = 0;
+                    hoaDonFind.ThanhTien = Convert.ToDecimal(lb_ThanhTien.Text);
                     _repoHD.Update(hoaDonFind.Id, hoaDonFind);
                     loadCBO_HD(1);
                     LoadHDCT(GlobalVariable.IdHD);

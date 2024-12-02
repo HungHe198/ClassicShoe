@@ -13,6 +13,8 @@ namespace ClassicShoe.DATA.Models
         public ICollection<HoaDonChiTiet>? HoaDonChiTiets { get; set; }
         public Guid? NhanVienId { get; set; }
         public NhanVien? NhanVien { get; set; }
+        public Guid? AdminId { get; set; }
+        public Admin? Admin { get; set; }
         public Guid? KhachHangId { get; set; }
         public KhachHang? KhachHang { get; set; }
         public Guid? MaGiamGiaId { get; set; }
