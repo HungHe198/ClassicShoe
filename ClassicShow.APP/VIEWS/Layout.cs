@@ -37,16 +37,16 @@ namespace ClassicShoe.APP.VIEWS
             ProductManager newForm = new ProductManager(repoGCT, repoG, repoDG, repoTG, repoLG, repoMS, repoHSX);
             ShowFormInPanel(newForm);
 
-            if (GlobalVariable.MaVaiTro == "ADMIN" )
-            {
-                var guid = GlobalVariable.UserId.ToString();
-                btn_Sales.Visible = false;
-                var user = _repoAD.GetAll().FirstOrDefault(x=>x.Id == GlobalVariable.UserId);
-                lb_ID.Text = user.Id.ToString();
-                lb_TenNhanVien.Text = user.TaiKhoan.ToString();
+            if (GlobalVariable.MaVaiTro != "ADMIN" )
+            //{
+            //    var guid = GlobalVariable.UserId.ToString();
+            //    btn_Sales.Visible = false;
+            //    var user = _repoAD.GetAll().FirstOrDefault(x=>x.Id == GlobalVariable.UserId);
+            //    lb_ID.Text = user.Id.ToString();
+            //    lb_TenNhanVien.Text = user.TaiKhoan.ToString();
 
-            }
-            else
+            //}
+            //else
             {
                 btn_QLNhanVien.Visible = false;
                 var guid = GlobalVariable.UserId.ToString();
