@@ -64,7 +64,6 @@
             lb_PhanTramGiam = new Label();
             txt_TKGiamGia = new TextBox();
             dgv_MaGiamGia = new DataGridView();
-            sqlCommand1 = new Microsoft.Data.SqlClient.SqlCommand();
             groupBox1.SuspendLayout();
             groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgv_HDCT).BeginInit();
@@ -378,6 +377,7 @@
             btn_Huy.TabIndex = 3;
             btn_Huy.Text = "Hủy";
             btn_Huy.UseVisualStyleBackColor = true;
+            btn_Huy.Click += btn_Huy_Click;
             // 
             // btn_ThanhToan
             // 
@@ -422,11 +422,6 @@
             dgv_MaGiamGia.RowHeadersWidth = 51;
             dgv_MaGiamGia.Size = new Size(293, 174);
             dgv_MaGiamGia.TabIndex = 0;
-            // 
-            // sqlCommand1
-            // 
-            sqlCommand1.CommandTimeout = 30;
-            sqlCommand1.EnableOptimizedParameterBinding = false;
             // 
             // SalesForm
             // 
@@ -476,7 +471,6 @@
         private Label label5;
         private Label label10;
         private Label label6;
-        private Microsoft.Data.SqlClient.SqlCommand sqlCommand1;
         private Label label11;
         private Label label12;
         private Label label13;

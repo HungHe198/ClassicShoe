@@ -23,7 +23,7 @@ namespace ClassicShoe.APP.VIEWS.Hung
 
 
         // để tạm thôi đấy
-                                                                           // sau sẽ lưu id vào một file và lấy dữ liệu chung tại đó
+        // sau sẽ lưu id vào một file và lấy dữ liệu chung tại đó
 
         // sau sẽ lưu id vào một file và lấy dữ liệu chung tại đó
         AllRepositories<HoaDon> _repoHD = new AllRepositories<HoaDon>(new ClassicShoeDbContext());
@@ -129,7 +129,7 @@ namespace ClassicShoe.APP.VIEWS.Hung
                          };
             dgv_HDCT.DataSource = result.ToList();
             decimal tongHD = 0;
-          
+
 
             foreach (var h in result)
             {
@@ -144,7 +144,7 @@ namespace ClassicShoe.APP.VIEWS.Hung
                 decimal number;
                 if (decimal.TryParse(txt_tienKhachDua.Text, out number))
                 {
-                   khachDua = Convert.ToDecimal(txt_tienKhachDua.Text);
+                    khachDua = Convert.ToDecimal(txt_tienKhachDua.Text);
                 }
                 else
                 {
@@ -269,23 +269,104 @@ namespace ClassicShoe.APP.VIEWS.Hung
             }
             else
             {
-                HoaDonChiTiet hoaDonChiTiet = new HoaDonChiTiet()
-                {
-                    Id = Guid.NewGuid(),
-                    HoaDonId = GlobalVariable.IdHD,
-                    GiayChiTietId = Guid.Parse(Id_GCT.ToString()),
-                    DonGia = Convert.ToDecimal(DonGia),
-                    SoLuong = Convert.ToInt32(txt_SLMua.Text),
-                };
+                //bool isExist = true;
+                //var lstGCT = _repoHDCT.GetAll().Where(hdct => hdct.GiayChiTietId == Guid.Parse(Id_GCT.ToString()) && hdct.HoaDonId == GlobalVariable.IdHD);
+                //if ( lstGCT.ToList() != null)
+                //{
+                //    isExist = true;
+                //}   
+                //else { isExist = false; }
+                //MessageBox.Show(isExist.ToString());
+                //if (!isExist)
+                //{
 
-                MessageBox.Show(_repoHDCT.Create(hoaDonChiTiet).ToString());
-                // tru so luong
-                giayCT.SoLuong = giayCT.SoLuong - Convert.ToInt32(txt_SLMua.Text);
-                _repoGCT.Update(giayCT.Id, giayCT);
+
+                //    HoaDonChiTiet hoaDonChiTiet = new HoaDonChiTiet()
+                //    {
+                //        Id = Guid.NewGuid(),
+                //        HoaDonId = GlobalVariable.IdHD,
+                //        GiayChiTietId = Guid.Parse(Id_GCT.ToString()),
+                //        DonGia = Convert.ToDecimal(DonGia),
+                //        SoLuong = Convert.ToInt32(txt_SLMua.Text),
+                //    };
+
+                //    MessageBox.Show("Thêm", _repoHDCT.Create(hoaDonChiTiet).ToString());
+                //    // tru so luong
+                //    giayCT.SoLuong = giayCT.SoLuong - Convert.ToInt32(txt_SLMua.Text);
+                //    _repoGCT.Update(giayCT.Id, giayCT);
+
+                //}
+                //else
+                //{
+
+                //    // bị trùng
+                //    var hdctFind = _repoHDCT.GetAll().FirstOrDefault(x => x.HoaDonId == GlobalVariable.IdHD && x.GiayChiTietId == Guid.Parse(Id_GCT.ToString()));
+                //    if (hdctFind != null)
+                //    {
+                //        hdctFind.SoLuong += soLuong;
+
+                //        MessageBox.Show("Thêm", _repoHDCT.Update(hdctFind.Id, hdctFind).ToString());
+                //    }
+                //}
+                bool isExist = true;
+                var lstSP = from hd in _repoHD.GetAll()
+                            join hdct in _repoHDCT.GetAll()
+                            on hd.Id equals hdct.HoaDonId
+                            where hd.Id == GlobalVariable.IdHD
+                            select
+                            new
+                            {
+                                IdHD = hd.Id,
+                                IdHDCT = hdct.Id,
+                                IdGiayCT = hdct.GiayChiTietId,
+                                SoLuong = hdct.SoLuong,
+                            };
+                foreach (var item in lstSP)
+                {
+
+                    if (Guid.Parse(Id_GCT.ToString()) == item.IdGiayCT)
+                    {
+                        isExist = false;
+                        break;
+                    }
+
+                }
+
+
+
+                if (!isExist)
+                {
+                    var hdctFind = _repoHDCT.GetAll().FirstOrDefault(x => x.HoaDonId == GlobalVariable.IdHD && x.GiayChiTietId == Guid.Parse(Id_GCT.ToString()));
+                    if (hdctFind != null)
+                    {
+                        hdctFind.SoLuong += soLuong;
+
+                        MessageBox.Show("Thêm", _repoHDCT.Update(hdctFind.Id, hdctFind).ToString());
+                    }
+                    giayCT.SoLuong = giayCT.SoLuong - Convert.ToInt32(txt_SLMua.Text);
+                    _repoGCT.Update(giayCT.Id, giayCT);
+                }
+                else
+                {
+                    HoaDonChiTiet hoaDonChiTiet = new HoaDonChiTiet()
+                    {
+                        Id = Guid.NewGuid(),
+                        HoaDonId = GlobalVariable.IdHD,
+                        GiayChiTietId = Guid.Parse(Id_GCT.ToString()),
+                        DonGia = Convert.ToDecimal(DonGia),
+                        SoLuong = Convert.ToInt32(txt_SLMua.Text),
+
+                    };
+
+                    MessageBox.Show("Thêm" + _repoHDCT.Create(hoaDonChiTiet).ToString());
+                    // tru so luong
+                    giayCT.SoLuong = giayCT.SoLuong - Convert.ToInt32(txt_SLMua.Text);
+                    _repoGCT.Update(giayCT.Id, giayCT);
+                }
+
             }
 
 
-            loadCBO_HD(1);
             LoadHDCT(GlobalVariable.IdHD);
             LoadSanPham();
         }
@@ -337,6 +418,42 @@ namespace ClassicShoe.APP.VIEWS.Hung
         private void txt_tienKhachDua_TextChanged(object sender, EventArgs e)
         {
             LoadHDCT(GlobalVariable.IdHD);
+        }
+
+        private void btn_Huy_Click(object sender, EventArgs e)
+        {
+            // Cộng thêm số lượng và trạng thái đổi thành 2
+            var hoaDonHuy = _repoHD.GetAll().FirstOrDefault(x => x.Id == GlobalVariable.IdHD);
+            if (hoaDonHuy != null)
+            {
+                hoaDonHuy.Status = 2; // trạng thái đã hủy
+                _repoHD.Update(hoaDonHuy.Id, hoaDonHuy);
+            }
+            var lstSP = from hd in _repoHD.GetAll()
+                        join hdct in _repoHDCT.GetAll()
+                        on hd.Id equals hdct.HoaDonId
+                        where hd.Id == GlobalVariable.IdHD
+                        select
+                        new
+                        {
+                            IdHD = hd.Id,
+                            IdHDCT = hdct.Id,
+                            IdGiayCT = hdct.GiayChiTietId,
+                            SoLuong = hdct.SoLuong,
+                        };
+
+
+            foreach (var item in lstSP.ToList())
+            {
+
+                var FindGiayCT = _repoGCT.GetById(item.IdGiayCT);
+                FindGiayCT.SoLuong = FindGiayCT.SoLuong + item.SoLuong;
+                _repoGCT.Update(FindGiayCT.Id, FindGiayCT);
+
+            }
+            LoadSanPham();
+            loadCBO_HD(1);
+
         }
     }
 }
