@@ -58,11 +58,6 @@
             dgvSanPham = new DataGridView();
             label12 = new Label();
             label13 = new Label();
-            btn_addMau = new Button();
-            btn_addDeGiay = new Button();
-            btn_addThanGiay = new Button();
-            btn_addLoaiGiay = new Button();
-            btn_addHang = new Button();
             cboTrangThai = new ComboBox();
             locSanPham = new Button();
             ((System.ComponentModel.ISupportInitialize)dgvSanPham).BeginInit();
@@ -330,52 +325,6 @@
             label13.TabIndex = 30;
             label13.Text = "Quản lí sản phẩm";
             // 
-            // btn_addMau
-            // 
-            btn_addMau.Location = new Point(1262, 109);
-            btn_addMau.Name = "btn_addMau";
-            btn_addMau.Size = new Size(75, 28);
-            btn_addMau.TabIndex = 31;
-            btn_addMau.Text = "Thêm";
-            btn_addMau.UseVisualStyleBackColor = true;
-            btn_addMau.Click += btn_addMau_Click;
-            // 
-            // btn_addDeGiay
-            // 
-            btn_addDeGiay.Location = new Point(1262, 164);
-            btn_addDeGiay.Name = "btn_addDeGiay";
-            btn_addDeGiay.Size = new Size(75, 28);
-            btn_addDeGiay.TabIndex = 31;
-            btn_addDeGiay.Text = "Thêm";
-            btn_addDeGiay.UseVisualStyleBackColor = true;
-            // 
-            // btn_addThanGiay
-            // 
-            btn_addThanGiay.Location = new Point(1262, 221);
-            btn_addThanGiay.Name = "btn_addThanGiay";
-            btn_addThanGiay.Size = new Size(75, 28);
-            btn_addThanGiay.TabIndex = 31;
-            btn_addThanGiay.Text = "Thêm";
-            btn_addThanGiay.UseVisualStyleBackColor = true;
-            // 
-            // btn_addLoaiGiay
-            // 
-            btn_addLoaiGiay.Location = new Point(1262, 276);
-            btn_addLoaiGiay.Name = "btn_addLoaiGiay";
-            btn_addLoaiGiay.Size = new Size(75, 28);
-            btn_addLoaiGiay.TabIndex = 31;
-            btn_addLoaiGiay.Text = "Thêm";
-            btn_addLoaiGiay.UseVisualStyleBackColor = true;
-            // 
-            // btn_addHang
-            // 
-            btn_addHang.Location = new Point(1262, 332);
-            btn_addHang.Name = "btn_addHang";
-            btn_addHang.Size = new Size(75, 28);
-            btn_addHang.TabIndex = 31;
-            btn_addHang.Text = "Thêm";
-            btn_addHang.UseVisualStyleBackColor = true;
-            // 
             // cboTrangThai
             // 
             cboTrangThai.FormattingEnabled = true;
@@ -403,11 +352,6 @@
             ClientSize = new Size(1382, 853);
             Controls.Add(locSanPham);
             Controls.Add(cboTrangThai);
-            Controls.Add(btn_addHang);
-            Controls.Add(btn_addLoaiGiay);
-            Controls.Add(btn_addThanGiay);
-            Controls.Add(btn_addDeGiay);
-            Controls.Add(btn_addMau);
             Controls.Add(label13);
             Controls.Add(label12);
             Controls.Add(dgvSanPham);
@@ -478,11 +422,6 @@
         private DataGridView dgvSanPham;
         private Label label12;
         private Label label13;
-        private Button btn_addMau;
-        private Button btn_addDeGiay;
-        private Button btn_addThanGiay;
-        private Button btn_addLoaiGiay;
-        private Button btn_addHang;
         private ComboBox cboTrangThai;
         private Button locSanPham;
     }
