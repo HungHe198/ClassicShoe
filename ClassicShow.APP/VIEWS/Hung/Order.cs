@@ -22,6 +22,9 @@ namespace ClassicShow.APP.VIEWS
         }
 
         public AllRepositories<HoaDon> _repoHoaDon;
+        public AllRepositories<KhachHang> _repoKH = new AllRepositories<KhachHang>(new ClassicShoeDbContext());
+        public AllRepositories<Admin> _repoAD = new AllRepositories<Admin>(new ClassicShoeDbContext());
+        public AllRepositories<NhanVien> _repoNV = new AllRepositories<NhanVien>(new ClassicShoeDbContext());
 
 
         private void Order_Load(object sender, EventArgs e)
@@ -34,9 +37,27 @@ namespace ClassicShow.APP.VIEWS
         //}
         public void LoadDGV()
         {
+
             if (_repoHoaDon != null)
             {
-                dgv_HoaDon.DataSource = _repoHoaDon.GetAll();
+                var result = from hd in _repoHoaDon.GetAll()
+                             let admin = _repoAD.GetAll().FirstOrDefault(x => x.Id == hd.AdminId)
+                             let nhanVien = _repoNV.GetAll().FirstOrDefault(x => x.Id == hd.NhanVienId)
+                             select new
+                             {
+                                 TenNguoiPhuTrach = admin != null ? admin.TaiKhoan : nhanVien != null ? nhanVien.TenNhanVien : "Không xác định",
+                                 TenKhachHang = _repoKH.GetAll().FirstOrDefault(x => x.Id == hd.KhachHangId)?.TenKhachHang,
+                                 GiaTriHoaDon = hd.ThanhTien,
+                                 NgayTao = hd.NgayTaoHoaDon,
+                                 TrangThai = hd.Status switch
+                                 {
+                                     0 => "Đã thanh toán",
+                                     1 => "Đang xử lí",
+                                     2 => "Đã hủy",
+                                     _ => "Không xác định"
+                                 }
+                             };
+                dgv_HoaDon.DataSource = result.ToList();
             }
             else
             {

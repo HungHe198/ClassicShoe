@@ -14,7 +14,15 @@ namespace ClassicShoe.APP.SERVICES
         public static string MaVaiTro = "";
         public static Guid IdHD = Guid.Empty;
         public static KhachHang khachHangNow = new KhachHang();
-        
+        public static KhachHang khachLe = new KhachHang()
+        {
+            Id = Guid.NewGuid(),
+            TenKhachHang = "Khách lẻ",
+            SoDienThoai = "0100000000"
+        };
+
+
+
 
     }
 }
