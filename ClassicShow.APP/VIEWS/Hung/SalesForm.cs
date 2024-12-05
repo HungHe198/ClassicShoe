@@ -10,6 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace ClassicShoe.APP.VIEWS.Hung
 {
@@ -43,6 +44,8 @@ namespace ClassicShoe.APP.VIEWS.Hung
             loadCBO_HD(1);
             LoadHDCT(GlobalVariable.IdHD);
             LoadSanPham();
+            
+
 
         }
         public void loadCBO_HD(int status)

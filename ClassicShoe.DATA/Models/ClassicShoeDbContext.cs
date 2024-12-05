@@ -216,6 +216,18 @@ namespace ClassicShoe.DATA.Models
                                NgaySinh = new DateTime(1985, 10, 15),
                                DiaChi = "789 XYZ Street"
                            });
+            modelBuilder.Entity<KhachHang>().HasData(
+                           new KhachHang
+                           {
+                               Id = Guid.NewGuid(),
+                               TenKhachHang = "Khách lẻ",
+                               DiemTichLuy = 200,
+                               TongChiTieu = 3000000m,
+                               SoDienThoai = "0100000000",
+                               Email = "tranthic@example.com",
+                               NgaySinh = new DateTime(1985, 10, 15),
+                               DiaChi = "789 XYZ Street"
+                           });
             var defaultGuid = new Guid("11111111-1111-1111-1111-111111111111");
 
             modelBuilder.Entity<MaGiamGia>().HasData(

@@ -12,6 +12,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace ClassicShow.APP.VIEWS
 {
@@ -27,6 +28,7 @@ namespace ClassicShow.APP.VIEWS
         private void Login_Load(object sender, EventArgs e)
         {
             LoadCBO();
+            txt_MatKhau.UseSystemPasswordChar = true;
         }
 
         private void btnLogin_Click(object sender, EventArgs e)
