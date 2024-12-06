@@ -94,7 +94,7 @@ namespace ClassicShoe.APP.VIEWS.Hung
                                   join loai in loaiGiayList on g.LoaiGiayId equals loai.Id
                                   join mau in mauSacList on gct.MauSacId equals mau.Id
                                   join hang in hangSanXuatList on g.HangSanXuatId equals hang.Id
-                                  where (string.IsNullOrEmpty(searchName) || gct.TenHang.Contains(searchName)) && gct.TrangThai == 1
+                                  where (string.IsNullOrEmpty(searchName) || gct.TenHang.Contains(searchName)) && gct.TrangThai == 1 && gct.SoLuong > 0
                                   orderby gct.NgayNhanKho descending
                                   select new
                                   {
