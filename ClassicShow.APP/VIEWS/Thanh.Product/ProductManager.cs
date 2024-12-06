@@ -71,7 +71,7 @@ namespace ClassicShow.APP.VIEWS
                               {
                                   GiayChiTietId = gct.Id,
                                   TenHang = gct.TenHang,
-                                  Gia = gct.Gia.ToString("N0", new System.Globalization.CultureInfo("vi-VN")),
+                                  Gia = gct.Gia,
                                   SoLuong = gct.SoLuong,
                                   NgayNhanKho = gct.NgayNhanKho,
                                   BaoHang = gct.BaoHang,
@@ -90,6 +90,7 @@ namespace ClassicShow.APP.VIEWS
 
 
                 dgvSanPham.DataSource = result;
+                dgvSanPham.Columns["GiayChiTietId"].Visible = false;
             }
             else
             {

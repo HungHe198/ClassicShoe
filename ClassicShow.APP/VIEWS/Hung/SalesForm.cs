@@ -37,16 +37,27 @@ namespace ClassicShoe.APP.VIEWS.Hung
         AllRepositories<MauSac> _repoMauSac = new AllRepositories<MauSac>(new ClassicShoeDbContext());
         AllRepositories<HangSanXuat> _repoHangSanXuat = new AllRepositories<HangSanXuat>(new ClassicShoeDbContext());
         AllRepositories<KhachHang> _repoKH = new AllRepositories<KhachHang>(new ClassicShoeDbContext());
+        AllRepositories<MaGiamGia> _repoMGG = new AllRepositories<MaGiamGia>(new ClassicShoeDbContext());
 
         private void SalesForm_Load(object sender, EventArgs e)
         {
             txt_tienKhachDua.Text = "";
             loadCBO_HD(1);
             LoadHDCT(GlobalVariable.IdHD);
-            LoadSanPham();
-            
+            LoadSanPham(null);
 
+            loadCBO_MaGiamGia();
 
+        }
+        public void loadCBO_MaGiamGia()
+        {
+            var lstMGG = _repoMGG.GetAll().Where(x => x.NgayBatDau <= DateTime.Now && x.NgayKetThuc >= DateTime.Now);
+            cbo_MaGiamGia.DataSource = lstMGG.ToList();
+            cbo_MaGiamGia.DisplayMember = "TenMaGiamGia";
+            cbo_MaGiamGia.ValueMember = "Id";
+            cbo_MaGiamGia.DropDownStyle = ComboBoxStyle.DropDownList;
+
+            //txt_PhanTramGiam.Text = _repoMGG.GetAll().FirstOrDefault(x => x.Id == Guid.Parse(cbo_MaGiamGia.SelectedValue.ToString())).PhanTramGiam.ToString();
         }
         public void loadCBO_HD(int status)
         {
@@ -61,55 +72,56 @@ namespace ClassicShoe.APP.VIEWS.Hung
 
 
         }
-        public void LoadSanPham(string searchName = "", int? trangThai = null)
+        public void LoadSanPham(string? searchName)
         {
-            if (_repoG != null && _repoGCT != null)
+            try
             {
-                var giayChiTietList = _repoGCT.GetAll();
-                var giayList = _repoG.GetAll();
-                var deGiayList = _repoDeGiay.GetAll();
-                var thanGiayList = _repoThanGiay.GetAll();
-                var loaiGiayList = _repoLoaiGiay.GetAll();
-                var mauSacList = _repoMauSac.GetAll();
-                var hangSanXuatList = _repoHangSanXuat.GetAll();
-
-                var result = (from gct in giayChiTietList
-                              join g in giayList on gct.GiayId equals g.Id
-                              join de in deGiayList on gct.DeGiayId equals de.Id
-                              join than in thanGiayList on gct.ThanGiayId equals than.Id
-                              join loai in loaiGiayList on g.LoaiGiayId equals loai.Id
-                              join mau in mauSacList on gct.MauSacId equals mau.Id
-                              join hang in hangSanXuatList on g.HangSanXuatId equals hang.Id
-                              where (string.IsNullOrEmpty(searchName) || gct.TenHang.Contains(searchName)) &&
-                              (!trangThai.HasValue || gct.TrangThai == trangThai.Value)
-                              orderby gct.NgayNhanKho descending
-                              select new
-                              {
-                                  GiayChiTietId = gct.Id,
-                                  TenHang = gct.TenHang,
-                                  Gia = gct.Gia.ToString(), // "N0", new System.Globalization.CultureInfo("vi-VN")
-                                  SoLuong = gct.SoLuong,
-                                  NgayNhanKho = gct.NgayNhanKho,
-                                  BaoHang = gct.BaoHang,
-                                  TrangThai = gct.TrangThai == 1 ? "Còn bán" : "Ngừng bán",
-                                  MauSac = mau.TenMau,
-                                  DeGiay = de.TenDe,
-                                  ThanGiay = than.Ten,
-                                  LoaiGiay = loai.TenLoai,
-                                  HangSanXuat = hang.TenHang,
-
-                              }).ToList();
-                if (!trangThai.HasValue)
+                if (_repoG != null && _repoGCT != null)
                 {
-                    result = result.Where(r => r.TrangThai == "Còn bán").ToList();
+                    var giayChiTietList = _repoGCT.GetAll();
+                    var giayList = _repoG.GetAll();
+                    var deGiayList = _repoDeGiay.GetAll();
+                    var thanGiayList = _repoThanGiay.GetAll();
+                    var loaiGiayList = _repoLoaiGiay.GetAll();
+                    var mauSacList = _repoMauSac.GetAll();
+                    var hangSanXuatList = _repoHangSanXuat.GetAll();
+
+                    var result = (from gct in giayChiTietList
+                                  join g in giayList on gct.GiayId equals g.Id
+                                  join de in deGiayList on gct.DeGiayId equals de.Id
+                                  join than in thanGiayList on gct.ThanGiayId equals than.Id
+                                  join loai in loaiGiayList on g.LoaiGiayId equals loai.Id
+                                  join mau in mauSacList on gct.MauSacId equals mau.Id
+                                  join hang in hangSanXuatList on g.HangSanXuatId equals hang.Id
+                                  where (string.IsNullOrEmpty(searchName) || gct.TenHang.Contains(searchName)) && gct.TrangThai == 1
+                                  orderby gct.NgayNhanKho descending
+                                  select new
+                                  {
+                                      GiayChiTietId = gct.Id,
+                                      TenHang = gct.TenHang,
+                                      Gia = gct.Gia,
+                                      SoLuong = gct.SoLuong,
+                                      NgayNhanKho = gct.NgayNhanKho,
+                                      BaoHang = gct.BaoHang,
+                                      TrangThai = gct.TrangThai == 1 ? "Còn bán" : "Ngừng bán",
+                                      MauSac = mau.TenMau,
+                                      DeGiay = de.TenDe,
+                                      ThanGiay = than.Ten,
+                                      LoaiGiay = loai.TenLoai,
+                                      HangSanXuat = hang.TenHang
+                                  }).ToList();
+
+                    dgv_SanPham.DataSource = result;
+                    dgv_SanPham.Columns["GiayChiTietId"].Visible = false;
                 }
-
-
-                dgv_SanPham.DataSource = result;
+                else
+                {
+                    MessageBox.Show("Repository chưa được khởi tạo.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
-            else
+            catch (Exception ex)
             {
-                MessageBox.Show("Repository chưa được khởi tạo.");
+                MessageBox.Show($"Có lỗi xảy ra khi tải dữ liệu: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
         }
@@ -131,6 +143,7 @@ namespace ClassicShoe.APP.VIEWS.Hung
                              ThanhTien = hct.DonGia * hct.SoLuong
                          };
             dgv_HDCT.DataSource = result.ToList();
+            dgv_HDCT.Columns["HoaDonId"].Visible = false;
             decimal tongHD = 0;
 
 
@@ -395,7 +408,7 @@ namespace ClassicShoe.APP.VIEWS.Hung
 
 
             LoadHDCT(GlobalVariable.IdHD);
-            LoadSanPham();
+            LoadSanPham(null);
         }
 
         private void cbo_HoaDon_SelectedIndexChanged(object sender, EventArgs e)
@@ -437,7 +450,7 @@ namespace ClassicShoe.APP.VIEWS.Hung
                     _repoHD.Update(hoaDonFind.Id, hoaDonFind);
                     loadCBO_HD(1);
                     LoadHDCT(GlobalVariable.IdHD);
-                    LoadSanPham();
+                    LoadSanPham(null);
                 }
 
             }
@@ -479,9 +492,30 @@ namespace ClassicShoe.APP.VIEWS.Hung
                 _repoGCT.Update(FindGiayCT.Id, FindGiayCT);
 
             }
-            LoadSanPham();
+            LoadSanPham(null);
             loadCBO_HD(1);
 
+        }
+
+        private void cbo_MaGiamGia_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cbo_MaGiamGia.SelectedValue != null && Guid.TryParse(cbo_MaGiamGia.SelectedValue.ToString(), out Guid idMGG))
+            {
+
+                txt_PhanTramGiam.Text = _repoMGG.GetAll().FirstOrDefault(x => x.Id == Guid.Parse(cbo_MaGiamGia.SelectedValue.ToString())).PhanTramGiam.ToString();
+
+
+
+
+            }
+
+
+
+        }
+
+        private void txt_TKSanPham_TextChanged(object sender, EventArgs e)
+        {
+            LoadSanPham(txt_TKSanPham.Text);
         }
     }
 }
