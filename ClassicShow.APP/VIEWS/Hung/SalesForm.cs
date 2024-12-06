@@ -1,6 +1,7 @@
 ﻿using ClassicShoe.APP.SERVICES;
 using ClassicShoe.DATA.Models;
 using ClassicShoe.DATA.Repositories;
+using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -128,6 +129,7 @@ namespace ClassicShoe.APP.VIEWS.Hung
 
         public void LoadHDCT(Guid? idHD)
         {
+            btn_ThanhToan.Enabled = false;
             var result = from h in _repoHD.GetAll()
                          join hct in _repoHDCT.GetAll() on h.Id equals hct.HoaDonId
                          join gct in _repoGCT.GetAll() on hct.GiayChiTietId equals gct.Id
@@ -145,14 +147,16 @@ namespace ClassicShoe.APP.VIEWS.Hung
             dgv_HDCT.DataSource = result.ToList();
             dgv_HDCT.Columns["HoaDonId"].Visible = false;
             decimal tongHD = 0;
-
-
             foreach (var h in result)
             {
                 tongHD += h.SoLuong * h.DonGia;
 
             }
-            decimal giamGia = 0;
+            if (string.IsNullOrEmpty(txt_PhanTramGiam.Text))
+            {
+                txt_PhanTramGiam.Text = "0";
+            }
+            decimal giamGia = (Convert.ToDecimal(txt_PhanTramGiam.Text) / 100) * tongHD ;
             decimal thanhTien = tongHD - giamGia;
             decimal khachDua = 0;
             if (!string.IsNullOrEmpty(txt_tienKhachDua.Text))
@@ -178,6 +182,14 @@ namespace ClassicShoe.APP.VIEWS.Hung
             lb_traKhach.Text = traKhach.ToString();
             txt_tienKhachDua.Text = khachDua.ToString();
 
+            if (traKhach < 0)
+            {
+                btn_ThanhToan.Enabled = false;
+            }
+            else
+            {
+                btn_ThanhToan.Enabled=true;
+            }
         }
         private void btn_addOrder_Click(object sender, EventArgs e)
         { // tạo hóa đơn trống và có thể sử dụng
@@ -504,7 +516,7 @@ namespace ClassicShoe.APP.VIEWS.Hung
 
                 txt_PhanTramGiam.Text = _repoMGG.GetAll().FirstOrDefault(x => x.Id == Guid.Parse(cbo_MaGiamGia.SelectedValue.ToString())).PhanTramGiam.ToString();
 
-
+                LoadHDCT(GlobalVariable.IdHD);
 
 
             }
