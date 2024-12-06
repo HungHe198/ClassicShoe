@@ -51,8 +51,7 @@ namespace ClassicShoe.APP.VIEWS
                 btn_QLNhanVien.Visible = false;
                 var guid = GlobalVariable.UserId.ToString();
                 var user = _repoNV.GetAll().FirstOrDefault(x=>x.Id == GlobalVariable.UserId);
-                lb_ID.Text = user.Id.ToString();
-                lb_TenNhanVien.Text = user.TenNhanVien.ToString();
+               
             } 
                 
             
@@ -123,7 +122,15 @@ namespace ClassicShoe.APP.VIEWS
 
         private void btn_DangXuat_Click(object sender, EventArgs e)
         {
+            // Hiển thị lại Form Login và đóng Form Layout
+            Form loginForm = Application.OpenForms["Login"]; // Tên class của Form đăng nhập (sửa theo tên thực tế)
 
+            if (loginForm != null)
+            {
+                loginForm.Show(); // Hiển thị lại Form Login
+            }
+
+            this.Close(); // Đóng Form Layout
         }
 
         private void btn_Sales_Click(object sender, EventArgs e)
