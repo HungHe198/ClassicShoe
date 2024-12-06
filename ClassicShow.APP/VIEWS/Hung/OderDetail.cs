@@ -1,4 +1,5 @@
-﻿using ClassicShoe.DATA.Models;
+﻿using ClassicShoe.APP.SERVICES;
+using ClassicShoe.DATA.Models;
 using ClassicShoe.DATA.Repositories;
 using System;
 using System.Collections.Generic;
@@ -6,6 +7,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -16,13 +18,13 @@ namespace ClassicShow.APP.VIEWS
     {
        
 
-        public OderDetail(AllRepositories<HoaDonChiTiet> repo)
+        public OderDetail()
         {
             InitializeComponent();
-            _repo = repo;
+            
         }
 
-        public AllRepositories<HoaDonChiTiet> _repo;
+        public AllRepositories<HoaDonChiTiet> _repo = new AllRepositories<HoaDonChiTiet> (new ClassicShoeDbContext());
 
         private void OderDetail_Load(object sender, EventArgs e)
         {
@@ -32,7 +34,7 @@ namespace ClassicShow.APP.VIEWS
         {
             if (_repo != null)
             {
-                dataGridView1.DataSource = _repo.GetAll();
+                dataGridView1.DataSource = _repo.GetAll().Where(x=>x.HoaDonId == GlobalVariable.IdHD).ToList();
             }
             else
             {

@@ -1,4 +1,5 @@
-﻿using ClassicShoe.DATA.Models;
+﻿using ClassicShoe.APP.SERVICES;
+using ClassicShoe.DATA.Models;
 using ClassicShoe.DATA.Repositories;
 using System;
 using System.Collections.Generic;
@@ -30,6 +31,9 @@ namespace ClassicShow.APP.VIEWS
         private void Order_Load(object sender, EventArgs e)
         {
             LoadDGV();
+
+            dgv_HoaDon.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgv_HoaDon.MultiSelect = false;
         }
         //public void LoadDGV(int Status) { 
 
@@ -46,6 +50,7 @@ namespace ClassicShow.APP.VIEWS
                              orderby hd.NgayTaoHoaDon descending
                              select new
                              {
+                                 hd.Id,
                                  TenNguoiPhuTrach = admin != null ? admin.TaiKhoan : nhanVien != null ? nhanVien.TenNhanVien : "Không xác định",
                                  TenKhachHang = _repoKH.GetAll().FirstOrDefault(x => x.Id == hd.KhachHangId)?.TenKhachHang,
                                  GiaTriHoaDon = hd.ThanhTien,
@@ -59,6 +64,7 @@ namespace ClassicShow.APP.VIEWS
                                  }
                              };
                 dgv_HoaDon.DataSource = result.ToList();
+                dgv_HoaDon.Columns["Id"].Visible = false;
             }
             else
             {
@@ -69,7 +75,28 @@ namespace ClassicShow.APP.VIEWS
 
         private void dgv_HoaDon_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
+            try
+            {
 
+                var selectedRow = dgv_HoaDon.SelectedRows[0];
+                var nhanVienSelectedId = selectedRow.Cells["Id"].Value;
+                if (nhanVienSelectedId != null)
+                {
+                    GlobalVariable.IdHD = Guid.Parse(nhanVienSelectedId.ToString());
+
+                    OderDetail oderDetail = new OderDetail();
+                    oderDetail.ShowDialog();
+                }
+                else
+                {
+                    MessageBox.Show("Chưa chọn data");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        
         }
     }
 }
