@@ -44,7 +44,7 @@ namespace ClassicShow.APP.VIEWS
                     dataGridViewkh.Columns["DiaChi"].HeaderText = "Địa Chỉ";
                     dataGridViewkh.Columns["DiemTichLuy"].HeaderText = "Điểm Tích Lũy";
                     dataGridViewkh.Columns["TongChiTieu"].HeaderText = "Tổng Chi Tiêu";
-
+                    dataGridViewkh.Columns["Id"].Visible = false;
                 }
                 else
                 {
@@ -62,7 +62,7 @@ namespace ClassicShow.APP.VIEWS
         {
             try
             {
-                
+
                 var tenKhachHang = txt_ten.Text.Trim();
                 var soDienThoai = txt_sdt.Text.Trim();
                 var email = txt_email.Text.Trim();
@@ -70,7 +70,7 @@ namespace ClassicShow.APP.VIEWS
                 var diemText = txt_diem.Text.Trim();
                 var tongChiTieuText = textBox2.Text.Trim();
 
-                
+
                 if (string.IsNullOrWhiteSpace(tenKhachHang))
                 {
                     MessageBox.Show("Vui lòng nhập tên khách hàng.", "Lỗi nhập liệu", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -113,28 +113,32 @@ namespace ClassicShow.APP.VIEWS
                     return;
                 }
 
-                
+
                 if (!email.Contains("@"))
                 {
                     MessageBox.Show("Email không hợp lệ. Email phải chứa ký tự '@'.", "Lỗi nhập liệu", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
 
-               
-                if (!int.TryParse(diemText, out var diemTichLuy) || diemTichLuy < 0)
+
+                //if (!int.TryParse(diemText, out var diemTichLuy) || diemTichLuy < 0)
+                //{
+                //    MessageBox.Show("Điểm tích lũy không được là số âm và phải là số nguyên.", "Lỗi nhập liệu", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                //    return;
+                //}
+
+
+                //if (!decimal.TryParse(tongChiTieuText, out var tongChiTieu) || tongChiTieu < 0)
+                //{
+                //    MessageBox.Show("Tổng chi tiêu không được là số âm và phải là số thập phân hợp lệ.", "Lỗi nhập liệu", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                //    return;
+                //}
+
+                if (_repo.GetAll().FirstOrDefault(x=>x.SoDienThoai == soDienThoai) != null)
                 {
-                    MessageBox.Show("Điểm tích lũy không được là số âm và phải là số nguyên.", "Lỗi nhập liệu", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("Số điện thoại đã bị trùng");
                     return;
                 }
-
-                
-                if (!decimal.TryParse(tongChiTieuText, out var tongChiTieu) || tongChiTieu < 0)
-                {
-                    MessageBox.Show("Tổng chi tiêu không được là số âm và phải là số thập phân hợp lệ.", "Lỗi nhập liệu", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;
-                }
-
-                
                 var khachHang = new KhachHang
                 {
                     Id = Guid.NewGuid(),
@@ -143,11 +147,11 @@ namespace ClassicShow.APP.VIEWS
                     SoDienThoai = soDienThoai,
                     Email = email,
                     DiaChi = diaChi,
-                    DiemTichLuy = diemTichLuy,
-                    TongChiTieu = tongChiTieu
+                    DiemTichLuy = 0,
+                    TongChiTieu = 0
                 };
 
-                
+
                 if (_repo.Create(khachHang))
                 {
                     MessageBox.Show("Thêm khách hàng thành công!");
@@ -224,7 +228,7 @@ namespace ClassicShow.APP.VIEWS
                     if (selectedKhachHang != null)
                     {
 
-                        txt_mkh.Text = selectedKhachHang.Id.ToString();
+                        
                         txt_ten.Text = selectedKhachHang.TenKhachHang;
                         dtp_ngsinh.Value = selectedKhachHang.NgaySinh ?? DateTime.Now;
                         txt_sdt.Text = selectedKhachHang.SoDienThoai;
@@ -249,12 +253,12 @@ namespace ClassicShow.APP.VIEWS
         {
             txt_ten.Text = "";
             txt_sdt.Text = "";
-            txt_mkh.Text = "";
+            
             txt_email.Text = "";
             txt_diem.Text = "";
             txt_dchi.Text = "";
             dtp_ngsinh.Text = "";
-            textBox1.Text = "";
+           
             textBox2.Text = "";
         }
 
@@ -307,7 +311,7 @@ namespace ClassicShow.APP.VIEWS
 
                 if (string.IsNullOrWhiteSpace(keyword))
                 {
-                    LoadDGV(); 
+                    LoadDGV();
                     return;
                 }
 
@@ -331,6 +335,11 @@ namespace ClassicShow.APP.VIEWS
             {
                 MessageBox.Show($"Đã xảy ra lỗi khi tìm kiếm: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+
+        }
+
+        private void dataGridViewkh_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
 
         }
     }

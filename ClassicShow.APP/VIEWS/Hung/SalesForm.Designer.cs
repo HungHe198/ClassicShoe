@@ -47,6 +47,7 @@
             textBox5 = new TextBox();
             label7 = new Label();
             groupBox4 = new GroupBox();
+            cbo_MaGiamGia = new ComboBox();
             lb_traKhach = new Label();
             lb_TienDuocGiam = new Label();
             lb_ThanhTien = new Label();
@@ -62,15 +63,12 @@
             btn_ThanhToan = new Button();
             label5 = new Label();
             lb_PhanTramGiam = new Label();
-            txt_TKGiamGia = new TextBox();
-            dgv_MaGiamGia = new DataGridView();
             groupBox1.SuspendLayout();
             groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgv_HDCT).BeginInit();
             groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgv_SanPham).BeginInit();
             groupBox4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)dgv_MaGiamGia).BeginInit();
             SuspendLayout();
             // 
             // groupBox1
@@ -206,6 +204,7 @@
             txt_TKSanPham.Name = "txt_TKSanPham";
             txt_TKSanPham.Size = new Size(359, 27);
             txt_TKSanPham.TabIndex = 11;
+            txt_TKSanPham.TextChanged += txt_TKSanPham_TextChanged;
             // 
             // dgv_SanPham
             // 
@@ -245,6 +244,7 @@
             // 
             // groupBox4
             // 
+            groupBox4.Controls.Add(cbo_MaGiamGia);
             groupBox4.Controls.Add(lb_traKhach);
             groupBox4.Controls.Add(lb_TienDuocGiam);
             groupBox4.Controls.Add(lb_ThanhTien);
@@ -260,8 +260,6 @@
             groupBox4.Controls.Add(btn_ThanhToan);
             groupBox4.Controls.Add(label5);
             groupBox4.Controls.Add(lb_PhanTramGiam);
-            groupBox4.Controls.Add(txt_TKGiamGia);
-            groupBox4.Controls.Add(dgv_MaGiamGia);
             groupBox4.Location = new Point(12, 269);
             groupBox4.Name = "groupBox4";
             groupBox4.Size = new Size(310, 572);
@@ -269,11 +267,20 @@
             groupBox4.TabStop = false;
             groupBox4.Text = "Thanh toán hóa đơn";
             // 
+            // cbo_MaGiamGia
+            // 
+            cbo_MaGiamGia.FormattingEnabled = true;
+            cbo_MaGiamGia.Location = new Point(148, 36);
+            cbo_MaGiamGia.Name = "cbo_MaGiamGia";
+            cbo_MaGiamGia.Size = new Size(155, 28);
+            cbo_MaGiamGia.TabIndex = 10;
+            cbo_MaGiamGia.SelectedIndexChanged += cbo_MaGiamGia_SelectedIndexChanged;
+            // 
             // lb_traKhach
             // 
             lb_traKhach.AutoSize = true;
             lb_traKhach.Font = new Font("Segoe UI Semibold", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lb_traKhach.Location = new Point(112, 433);
+            lb_traKhach.Location = new Point(115, 262);
             lb_traKhach.Name = "lb_traKhach";
             lb_traKhach.Size = new Size(50, 38);
             lb_traKhach.TabIndex = 9;
@@ -283,7 +290,7 @@
             // 
             lb_TienDuocGiam.AutoSize = true;
             lb_TienDuocGiam.Font = new Font("Segoe UI Semibold", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lb_TienDuocGiam.Location = new Point(113, 317);
+            lb_TienDuocGiam.Location = new Point(116, 146);
             lb_TienDuocGiam.Name = "lb_TienDuocGiam";
             lb_TienDuocGiam.Size = new Size(50, 38);
             lb_TienDuocGiam.TabIndex = 9;
@@ -293,7 +300,7 @@
             // 
             lb_ThanhTien.AutoSize = true;
             lb_ThanhTien.Font = new Font("Segoe UI Semibold", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lb_ThanhTien.Location = new Point(113, 358);
+            lb_ThanhTien.Location = new Point(116, 187);
             lb_ThanhTien.Name = "lb_ThanhTien";
             lb_ThanhTien.Size = new Size(50, 38);
             lb_ThanhTien.TabIndex = 9;
@@ -302,7 +309,7 @@
             // label11
             // 
             label11.AutoSize = true;
-            label11.Location = new Point(4, 330);
+            label11.Location = new Point(7, 159);
             label11.Name = "label11";
             label11.Size = new Size(69, 20);
             label11.TabIndex = 8;
@@ -310,7 +317,7 @@
             // 
             // txt_tienKhachDua
             // 
-            txt_tienKhachDua.Location = new Point(120, 403);
+            txt_tienKhachDua.Location = new Point(123, 232);
             txt_tienKhachDua.Name = "txt_tienKhachDua";
             txt_tienKhachDua.Size = new Size(184, 27);
             txt_tienKhachDua.TabIndex = 1;
@@ -318,7 +325,7 @@
             // 
             // txt_PhanTramGiam
             // 
-            txt_PhanTramGiam.Location = new Point(116, 246);
+            txt_PhanTramGiam.Location = new Point(119, 75);
             txt_PhanTramGiam.Name = "txt_PhanTramGiam";
             txt_PhanTramGiam.Size = new Size(184, 27);
             txt_PhanTramGiam.TabIndex = 1;
@@ -326,7 +333,7 @@
             // label12
             // 
             label12.AutoSize = true;
-            label12.Location = new Point(4, 371);
+            label12.Location = new Point(7, 200);
             label12.Name = "label12";
             label12.Size = new Size(78, 20);
             label12.TabIndex = 8;
@@ -336,7 +343,7 @@
             // 
             lb_TongHoaDon.AutoSize = true;
             lb_TongHoaDon.Font = new Font("Segoe UI Semibold", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lb_TongHoaDon.Location = new Point(112, 276);
+            lb_TongHoaDon.Location = new Point(115, 105);
             lb_TongHoaDon.Name = "lb_TongHoaDon";
             lb_TongHoaDon.Size = new Size(50, 38);
             lb_TongHoaDon.TabIndex = 5;
@@ -345,7 +352,7 @@
             // label13
             // 
             label13.AutoSize = true;
-            label13.Location = new Point(4, 445);
+            label13.Location = new Point(7, 274);
             label13.Name = "label13";
             label13.Size = new Size(71, 20);
             label13.TabIndex = 8;
@@ -354,7 +361,7 @@
             // label10
             // 
             label10.AutoSize = true;
-            label10.Location = new Point(4, 408);
+            label10.Location = new Point(7, 237);
             label10.Name = "label10";
             label10.Size = new Size(109, 20);
             label10.TabIndex = 8;
@@ -363,7 +370,7 @@
             // label6
             // 
             label6.AutoSize = true;
-            label6.Location = new Point(4, 291);
+            label6.Location = new Point(7, 120);
             label6.Name = "label6";
             label6.Size = new Size(102, 20);
             label6.TabIndex = 4;
@@ -394,34 +401,18 @@
             label5.AutoSize = true;
             label5.Location = new Point(11, 39);
             label5.Name = "label5";
-            label5.Size = new Size(70, 20);
+            label5.Size = new Size(131, 20);
             label5.TabIndex = 2;
-            label5.Text = "Tìm kiếm";
+            label5.Text = "Chọn mã giảm giá";
             // 
             // lb_PhanTramGiam
             // 
             lb_PhanTramGiam.AutoSize = true;
-            lb_PhanTramGiam.Location = new Point(3, 250);
+            lb_PhanTramGiam.Location = new Point(6, 79);
             lb_PhanTramGiam.Name = "lb_PhanTramGiam";
             lb_PhanTramGiam.Size = new Size(114, 20);
             lb_PhanTramGiam.TabIndex = 2;
             lb_PhanTramGiam.Text = "Phần trăm giảm";
-            // 
-            // txt_TKGiamGia
-            // 
-            txt_TKGiamGia.Location = new Point(87, 36);
-            txt_TKGiamGia.Name = "txt_TKGiamGia";
-            txt_TKGiamGia.Size = new Size(217, 27);
-            txt_TKGiamGia.TabIndex = 1;
-            // 
-            // dgv_MaGiamGia
-            // 
-            dgv_MaGiamGia.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgv_MaGiamGia.Location = new Point(11, 69);
-            dgv_MaGiamGia.Name = "dgv_MaGiamGia";
-            dgv_MaGiamGia.RowHeadersWidth = 51;
-            dgv_MaGiamGia.Size = new Size(293, 174);
-            dgv_MaGiamGia.TabIndex = 0;
             // 
             // SalesForm
             // 
@@ -445,7 +436,6 @@
             ((System.ComponentModel.ISupportInitialize)dgv_SanPham).EndInit();
             groupBox4.ResumeLayout(false);
             groupBox4.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)dgv_MaGiamGia).EndInit();
             ResumeLayout(false);
         }
 
@@ -464,8 +454,6 @@
         private DataGridView dgv_HDCT;
         private GroupBox groupBox4;
         private Label lb_PhanTramGiam;
-        private TextBox txt_TKGiamGia;
-        private DataGridView dgv_MaGiamGia;
         private Button btn_Huy;
         private Button btn_ThanhToan;
         private Label label5;
@@ -487,5 +475,6 @@
         private Label lb_ID;
         private TextBox txt_SLMua;
         private Label label4;
+        private ComboBox cbo_MaGiamGia;
     }
 }

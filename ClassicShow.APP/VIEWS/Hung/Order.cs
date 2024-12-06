@@ -43,6 +43,7 @@ namespace ClassicShow.APP.VIEWS
                 var result = from hd in _repoHoaDon.GetAll()
                              let admin = _repoAD.GetAll().FirstOrDefault(x => x.Id == hd.AdminId)
                              let nhanVien = _repoNV.GetAll().FirstOrDefault(x => x.Id == hd.NhanVienId)
+                             orderby hd.NgayTaoHoaDon descending
                              select new
                              {
                                  TenNguoiPhuTrach = admin != null ? admin.TaiKhoan : nhanVien != null ? nhanVien.TenNhanVien : "Không xác định",
@@ -63,6 +64,11 @@ namespace ClassicShow.APP.VIEWS
             {
                 MessageBox.Show("Repository chưa được khởi tạo.");
             }
+
+        }
+
+        private void dgv_HoaDon_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
 
         }
     }

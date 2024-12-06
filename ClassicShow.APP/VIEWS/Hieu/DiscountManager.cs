@@ -42,7 +42,7 @@ namespace ClassicShow.APP.VIEWS
         private void btn_them_Click(object sender, EventArgs e)
         {
             string maVoucher = txt_ma.Text.Trim();
-            string tenMa = txt_ten.Text.Trim();
+            string tenMa = txt_ten.Text.Trim().ToUpper();
             string phanTramGiam = txt_phantram.Text.Trim();
             DateTime ngayBatDau = dateTimePicker1.Value;
             DateTime ngayKetThuc = dateTimePicker2.Value;
@@ -64,15 +64,19 @@ namespace ClassicShow.APP.VIEWS
                 return;
             }
 
-            if (ngayBatDau < DateTime.Now)
-            {
-                MessageBox.Show("Ngày bắt đầu không thể nhỏ hơn ngày hiện tại!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
+            //if (ngayBatDau < DateTime.Now)
+            //{
+            //    MessageBox.Show("Ngày bắt đầu không thể nhỏ hơn ngày hiện tại!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            //    return;
+            //}
 
             if (phanTram < 0 || phanTram > 100)
             {
                 MessageBox.Show("Phần trăm giảm phải nằm trong khoảng 0-100!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            } if (_ser.GetAllMaGiamGia().FirstOrDefault(x=>x.TenMaGiamGia == tenMa) != null)
+            {
+                MessageBox.Show("Tên mã giảm giá bị trùng", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
             MaGiamGia maGiamGia = new MaGiamGia
@@ -127,7 +131,7 @@ namespace ClassicShow.APP.VIEWS
             }
 
             string maVoucher = txt_ma.Text.Trim();
-            string tenMa = txt_ten.Text.Trim();
+            string tenMa = txt_ten.Text.Trim().ToUpper();
             string phanTramGiam = txt_phantram.Text.Trim();
             DateTime ngayBatDau = dateTimePicker1.Value;
             DateTime ngayKetThuc = dateTimePicker2.Value;
@@ -151,15 +155,20 @@ namespace ClassicShow.APP.VIEWS
                 return;
             }
 
-            if (ngayBatDau < DateTime.Now)
-            {
-                MessageBox.Show("Ngày bắt đầu không thể nhỏ hơn ngày hiện tại!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
+            //if (ngayBatDau < DateTime.Now)
+            //{
+            //    MessageBox.Show("Ngày bắt đầu không thể nhỏ hơn ngày hiện tại!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            //    return;
+            //}
 
             if (phanTram < 0 || phanTram > 100)
             {
                 MessageBox.Show("Phần trăm giảm phải nằm trong khoảng 0-100!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            if (_ser.GetAllMaGiamGia().FirstOrDefault(x => x.TenMaGiamGia == tenMa) != null)
+            {
+                MessageBox.Show("Tên mã giảm giá bị trùng", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
             Guid maGiamGiaId = Guid.Parse(dataGridView1.CurrentRow.Cells[1].Value.ToString());
